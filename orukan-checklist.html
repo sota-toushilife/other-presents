@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>オルカンで失敗しない！20項目チェックシート｜そうたの損しないNISAの始め方</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, 'Hiragino Sans', sans-serif;
+      background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .hero {
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .hero-eyebrow { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .hero h1 { color: #fff; font-size: 19px; font-weight: 900; line-height: 1.5; }
+    .hero-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 10px; line-height: 1.7; }
+
+    .progress-wrap {
+      background: #fff;
+      margin: 16px 16px 0;
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      background: #e0f2fe;
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .complete-msg {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 900;
+      color: #0284c7;
+    }
+
+    .section {
+      margin: 16px 16px 0;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      border-radius: 8px;
+      padding: 6px 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    .check-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .check-item.checked {
+      background: #f0fdf4;
+      opacity: 0.75;
+    }
+    .check-box {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border-radius: 50%;
+      border: 2.5px solid #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s;
+      margin-top: 1px;
+    }
+    .check-item.checked .check-box {
+      background: #22c55e;
+      border-color: #22c55e;
+    }
+    .check-num {
+      font-size: 10px;
+      font-weight: 900;
+      color: #38bdf8;
+    }
+    .check-item.checked .check-num {
+      display: none;
+    }
+    .check-mark {
+      display: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .check-item.checked .check-mark {
+      display: block;
+    }
+    .check-text {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #1e293b;
+      font-weight: 500;
+    }
+    .check-item.checked .check-text {
+      color: #64748b;
+      text-decoration: line-through;
+      text-decoration-color: #94a3b8;
+    }
+
+    .line-btn {
+      display: block;
+      margin: 24px 16px 0;
+      background: #06c755;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      text-align: center;
+      padding: 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(6,199,85,0.3);
+    }
+    .reset-btn {
+      display: block;
+      margin: 12px 16px 0;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">そうたの損しないNISAの始め方</p>
+  <h1>オルカンで失敗しない！<br>20項目チェックシート</h1>
+  <p class="hero-sub">タップしながら確認しよう✅<br>全部チェックできれば完璧な出発点！</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>進捗</span>
+    <span id="progress-text">0 / 20 完了</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+  <div class="complete-msg" id="complete-msg">🎉 完璧！この調子で長期投資を続けよう！</div>
+</div>
+
+<!-- セクション1 -->
+<div class="section">
+  <div class="section-title">📊 今回の7選（1〜7）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">1</span><span class="check-mark">✓</span></div>
+    <div class="check-text">「eMAXIS Slim 全世界株式〈オール・カントリー〉」を、「Slim」がついているか確認して選んだか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">2</span><span class="check-mark">✓</span></div>
+    <div class="check-text">分配金目当てで高配当型を選んでいないか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">3</span><span class="check-mark">✓</span></div>
+    <div class="check-text">S&amp;P500など他の商品を足さず、オルカン1本で管理できているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">4</span><span class="check-mark">✓</span></div>
+    <div class="check-text">株価が下がっても積立額を変えず、一定金額を積み立てているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">5</span><span class="check-mark">✓</span></div>
+    <div class="check-text">短期の値動きで売買せず、長期で持つ前提か</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">6</span><span class="check-mark">✓</span></div>
+    <div class="check-text">SNSで流行の銘柄に浮気していないか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">7</span><span class="check-mark">✓</span></div>
+    <div class="check-text">暴落時の行動を決めているか</div>
+  </div>
+</div>
+
+<!-- セクション2 -->
+<div class="section">
+  <div class="section-title">🔍 オルカンの確認・準備（8〜16）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">8</span><span class="check-mark">✓</span></div>
+    <div class="check-text">自動積立に設定したか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">9</span><span class="check-mark">✓</span></div>
+    <div class="check-text">生活費とは別の、なくなっても困らないお金で投資しているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">10</span><span class="check-mark">✓</span></div>
+    <div class="check-text">円高になると、オルカンの円での金額が下がることがあると知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">11</span><span class="check-mark">✓</span></div>
+    <div class="check-text">米国が約63%を占めると知っているか（2026年6月末時点）</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">12</span><span class="check-mark">✓</span></div>
+    <div class="check-text">約47カ国・地域、約2,400社に分散していると知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">13</span><span class="check-mark">✓</span></div>
+    <div class="check-text">世界の株が100%で、元本は保証されていないと理解したか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">14</span><span class="check-mark">✓</span></div>
+    <div class="check-text">無理のない積立額か</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">15</span><span class="check-mark">✓</span></div>
+    <div class="check-text">他の商品の成績に焦っていないか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">16</span><span class="check-mark">✓</span></div>
+    <div class="check-text">自分の投資方針（目的・期間・金額）を把握しているか</div>
+  </div>
+</div>
+
+<!-- セクション3 -->
+<div class="section">
+  <div class="section-title">🏦 NISA（17〜20）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">17</span><span class="check-mark">✓</span></div>
+    <div class="check-text">オルカンを買った口座が、課税口座ではなくNISA口座になっているか確認したか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">18</span><span class="check-mark">✓</span></div>
+    <div class="check-text">投資枠（つみたて投資枠か成長投資枠）を確認し、年間枠と生涯1,800万円の上限を把握しているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">19</span><span class="check-mark">✓</span></div>
+    <div class="check-text">損が出ても、他の利益と相殺して税金を減らす仕組みは使えないと知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">20</span><span class="check-mark">✓</span></div>
+    <div class="check-text">売却しても枠が戻るのは翌年からだと知っているか</div>
+  </div>
+</div>
+
+<a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 ここをタップでそうたに聞いてみる！</a>
+<button class="reset-btn" onclick="resetAll()">チェックをリセットする</button>
+
+<script>
+  const TOTAL = 20;
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const checked = document.querySelectorAll('.check-item.checked').length;
+    const pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = checked + ' / ' + TOTAL + ' 完了';
+    const msg = document.getElementById('complete-msg');
+    msg.style.display = checked === TOTAL ? 'block' : 'none';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.check-item').forEach(el => el.classList.remove('checked'));
+    updateProgress();
+  }
+</script>
+
+</body>
+</html>
