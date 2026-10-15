@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>楽天証券セキュリティ設定 完全ガイド｜そうたの損しないNISAの始め方</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, 'Hiragino Sans', sans-serif;
+      background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
+      min-height: 100vh;
+      padding-bottom: 48px;
+    }
+
+    /* ヒーロー */
+    .hero {
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .hero-eyebrow { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .hero h1 { color: #fff; font-size: 18px; font-weight: 900; line-height: 1.55; }
+    .hero-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 10px; line-height: 1.7; }
+
+    /* 進捗 */
+    .progress-wrap {
+      background: #fff;
+      margin: 16px 16px 0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 12px; font-weight: 700; color: #0369a1;
+      margin-bottom: 7px;
+    }
+    .progress-bar-bg { background: #e0f2fe; border-radius: 99px; height: 8px; overflow: hidden; }
+    .progress-bar {
+      height: 8px;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      border-radius: 99px; width: 0%; transition: width 0.4s ease;
+    }
+    .complete-msg {
+      display: none; text-align: center;
+      margin-top: 8px; font-size: 14px; font-weight: 900; color: #0284c7;
+    }
+
+    /* セクション */
+    .section { margin: 16px 16px 0; }
+    .section-title {
+      font-size: 11px; font-weight: 700; color: #0369a1;
+      background: #e0f2fe; border-radius: 8px;
+      padding: 6px 12px; margin-bottom: 8px; letter-spacing: 0.05em;
+    }
+
+    /* チェックアイテム */
+    .item {
+      background: #fff;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .item-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .check-box {
+      width: 26px; height: 26px; min-width: 26px;
+      border-radius: 50%; border: 2.5px solid #38bdf8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; transition: all 0.2s;
+    }
+    .item.checked .check-box {
+      background: #22c55e; border-color: #22c55e; color: #fff;
+    }
+    .check-num { color: #38bdf8; font-size: 11px; font-weight: 900; }
+    .item.checked .check-num { display: none; }
+    .check-mark { display: none; color: #fff; }
+    .item.checked .check-mark { display: block; }
+
+    .item-title-wrap { flex: 1; }
+    .item-title {
+      font-size: 13.5px; font-weight: 700; color: #1e293b; line-height: 1.5;
+      transition: color 0.2s;
+    }
+    .item.checked .item-title { color: #94a3b8; text-decoration: line-through; text-decoration-color: #cbd5e1; }
+
+    .toggle-icon {
+      font-size: 12px; color: #94a3b8; transition: transform 0.25s;
+      min-width: 16px; text-align: center;
+    }
+    .item.open .toggle-icon { transform: rotate(180deg); }
+
+    /* 詳細パネル */
+    .item-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0 16px;
+    }
+    .item.open .item-detail {
+      max-height: 600px;
+      padding: 0 16px 16px;
+    }
+    .detail-inner {
+      border-top: 1px solid #f1f5f9;
+      padding-top: 12px;
+      font-size: 13px; line-height: 1.8; color: #334155;
+    }
+    .step-row {
+      display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start;
+    }
+    .step-arrow { color: #38bdf8; font-weight: 900; min-width: 14px; margin-top: 1px; }
+    .step-text { flex: 1; }
+    .step-text b { color: #0369a1; }
+
+    .warn-box {
+      background: #fef3c7; border-left: 3px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 10px; margin-top: 10px;
+      font-size: 12px; color: #92400e; line-height: 1.7;
+    }
+    .info-box {
+      background: #eff6ff; border-left: 3px solid #38bdf8;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 10px; margin-top: 10px;
+      font-size: 12px; color: #1e40af; line-height: 1.7;
+    }
+
+    /* 完了ボタン */
+    .done-btn {
+      margin-top: 12px;
+      width: 100%;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      color: #fff; font-size: 13px; font-weight: 700;
+      border: none; border-radius: 10px; padding: 10px;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .item.checked .done-btn {
+      background: #e2e8f0; color: #94a3b8;
+    }
+
+    /* LINE */
+    .line-btn {
+      display: block; margin: 24px 16px 0;
+      background: #06c755; color: #fff;
+      font-size: 15px; font-weight: 900;
+      text-align: center; padding: 16px;
+      border-radius: 14px; text-decoration: none;
+      box-shadow: 0 4px 14px rgba(6,199,85,0.3);
+    }
+    .reset-btn {
+      display: block; margin: 10px auto 0;
+      background: transparent; color: #94a3b8;
+      font-size: 12px; font-weight: 600;
+      border: none; padding: 10px; cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">そうたの損しないNISAの始め方</p>
+  <h1>楽天証券<br>セキュリティ設定 完全ガイド</h1>
+  <p class="hero-sub">▼ 項目をタップすると手順が開くよ<br>設定したらチェックを入れよう✅</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>進捗</span>
+    <span id="progress-text">0 / 12 完了</span>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progress-bar"></div></div>
+  <div class="complete-msg" id="complete-msg">🎉 全設定完了！これで安心して運用できるよ！</div>
+</div>
+
+<!-- ① 侵入させない -->
+<div class="section">
+  <div class="section-title">🔒 侵入させない（1〜4）</div>
+
+  <div class="item" id="i1">
+    <div class="item-header" onclick="toggleItem('i1')">
+      <div class="check-box"><span class="check-num">1</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">パスキー認証に変更する</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">ログイン後、右上のメニュー → <b>「セキュリティ設定」</b></span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text"><b>「パスキー認証に変更」</b>をタップして作成</span></div>
+        <div class="warn-box">
+          ⚠️ 作成するとパスワードでのログインはできなくなる（パスキーのみになる）<br>
+          ・iPhoneはSafariで作業する<br>
+          ・Windowsは「Windows Hello」で作る<br>
+          ・VPNはオフにしてから作業する
+        </div>
+        <button class="done-btn" onclick="markDone('i1')">✅ 設定完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i2">
+    <div class="item-header" onclick="toggleItem('i2')">
+      <div class="check-box"><span class="check-num">2</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">GoogleとAppleのアカウントを2段階認証にする</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text"><b>Android：</b>Googleアカウント → 「セキュリティとログイン」 → <b>「2段階認証プロセスを有効にする」</b></span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text"><b>iPhone：</b>設定 → 自分の名前 → 「サインインとセキュリティ」 → <b>2ファクタ認証をオン</b>（多くの人はすでにオン）</span></div>
+        <div class="info-box">💡 あわせて、見覚えのない端末が登録されていないかも確認しよう</div>
+        <button class="done-btn" onclick="markDone('i2')">✅ 設定完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i3">
+    <div class="item-header" onclick="toggleItem('i3')">
+      <div class="check-box"><span class="check-num">3</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">メールやSMSのリンクから入らない（ログインページをブックマーク登録）</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">楽天証券のログインページを<b>ブラウザのブックマーク</b>に登録する</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">次回からは必ずそこからアクセスする</span></div>
+        <div class="warn-box">
+          ⚠️ 「パスキーを再登録してください」というSMSやメールは詐欺の可能性が高い<br>
+          ・楽天証券はセキュリティ関連のメールにURLをつけていない<br>
+          ・身に覚えのない認証の承認要求にも反応しない
+        </div>
+        <button class="done-btn" onclick="markDone('i3')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i4">
+    <div class="item-header" onclick="toggleItem('i4')">
+      <div class="check-box"><span class="check-num">4</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">ログインパスワードと取引暗証番号を見直す</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">他のサービスと<b>同じものを使い回さない</b></span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">パスワードは<b>8文字以上</b>で、個人情報や単純な数字は避ける</span></div>
+        <button class="done-btn" onclick="markDone('i4')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 被害を止める -->
+<div class="section">
+  <div class="section-title">🛡 被害を止める（5〜7）</div>
+
+  <div class="item" id="i5">
+    <div class="item-header" onclick="toggleItem('i5')">
+      <div class="check-box"><span class="check-num">5</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">取引ロックを設定する（使い方で種類を選ぶ）</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">ログイン後 → <b>「セキュリティ設定」</b> → 再認証</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text"><b>「取引やサービスの一時的な利用停止」</b>で種類を選ぶ</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">登録電話番号に6桁のワンタイムキー（音声）が届く</span></div>
+        <div class="info-box">
+          💡 おすすめの選び方<br>
+          ・積立だけの人 → <b>「投資信託の買付以外を停止」</b><br>
+          ・米国株などを使わない人 → <b>「外国株式のみ停止」</b>
+        </div>
+        <button class="done-btn" onclick="markDone('i5')">✅ 設定完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i6">
+    <div class="item-header" onclick="toggleItem('i6')">
+      <div class="check-box"><span class="check-num">6</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">ロックをかける前に逆指値の注文を確認する</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">注文画面で<b>「逆指値注文が残っていないか」</b>確認してからロックをかける</span></div>
+        <div class="warn-box">
+          ⚠️ 注文中のままロックすると、条件に達しても執行されない<br>
+          解除したときの価格によっては、想定外の価格ですぐ約定する可能性がある
+        </div>
+        <button class="done-btn" onclick="markDone('i6')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i7">
+    <div class="item-header" onclick="toggleItem('i7')">
+      <div class="check-box"><span class="check-num">7</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">出金先口座を確認する</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">出金先は<b>本人名義で登録した口座だけ</b>に限定されている</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">変更を止めたい場合は、<b>カスタマーサービスセンターに連絡</b>して変更ロックをかけられる</span></div>
+        <button class="done-btn" onclick="markDone('i7')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ 気づく -->
+<div class="section">
+  <div class="section-title">👁 気づく（8〜10）</div>
+
+  <div class="item" id="i8">
+    <div class="item-header" onclick="toggleItem('i8')">
+      <div class="check-box"><span class="check-num">8</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">注文通知をオンにする</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">商品ごとに設定する</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">注文の<b>受付・訂正・取消のときにメールが届く</b>ようになる</span></div>
+        <button class="done-btn" onclick="markDone('i8')">✅ 設定完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i9">
+    <div class="item-header" onclick="toggleItem('i9')">
+      <div class="check-box"><span class="check-num">9</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">登録の電話番号とメールアドレスを最新にする</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">「お客様情報の設定・変更」から電話番号・メールアドレスを確認</span></div>
+        <div class="info-box">
+          💡 電話番号は以下に使われる<br>
+          ・出金時のワンタイムキー<br>
+          ・取引ロックの認証<br>
+          ・不審なアクセスの追加認証<br><br>
+          💡 メールアドレスには以下が届く<br>
+          ・ログイン通知（2025年6月1日以降は自動）<br>
+          ・出金依頼の通知
+        </div>
+        <button class="done-btn" onclick="markDone('i9')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i10">
+    <div class="item-header" onclick="toggleItem('i10')">
+      <div class="check-box"><span class="check-num">10</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">ログイン履歴（過去3か月）と口座明細を確認する</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">セキュリティ設定 → <b>「ログイン履歴」</b>を確認</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">口座明細で取引・出金に身に覚えのないものがないか確認</span></div>
+        <button class="done-btn" onclick="markDone('i10')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 万が一 -->
+<div class="section">
+  <div class="section-title">🚨 万が一（11〜12）</div>
+
+  <div class="item" id="i11">
+    <div class="item-header" onclick="toggleItem('i11')">
+      <div class="check-box"><span class="check-num">11</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">見つけたときの動き方を決めておく</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">身に覚えのない取引や出金を発見したら → <b>すぐにパスワードと暗証番号を変更</b> → カスタマーサービスセンターに連絡</span></div>
+        <div class="info-box">
+          📞 緊急連絡先メモ<br>
+          ・取引ロック（24時間自動音声）：<b>0120-852-638</b><br>
+          ・金融庁金融サービス利用者相談室：<b>0570-016811</b>（平日10時〜17時）
+        </div>
+        <button class="done-btn" onclick="markDone('i11')">✅ 確認完了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" id="i12">
+    <div class="item-header" onclick="toggleItem('i12')">
+      <div class="check-box"><span class="check-num">12</span><span class="check-mark">✓</span></div>
+      <div class="item-title-wrap">
+        <div class="item-title">パスキーを2台目の端末にも追加する</div>
+      </div>
+      <div class="toggle-icon">▼</div>
+    </div>
+    <div class="item-detail">
+      <div class="detail-inner">
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">セキュリティ設定 → <b>「パスキーを追加」</b>から2台目に登録</span></div>
+        <div class="step-row"><span class="step-arrow">›</span><span class="step-text">1口座で<b>10個まで</b>作れる</span></div>
+        <div class="info-box">
+          💡 パスキーでログインできなくなったら<br>
+          自動音声ダイヤルで、<b>30分間だけID・パスワードのログインに戻せる</b>
+        </div>
+        <button class="done-btn" onclick="markDone('i12')">✅ 設定完了！</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 ここをタップでそうたに聞いてみる！</a>
+<button class="reset-btn" onclick="resetAll()">チェックをリセットする</button>
+
+<script>
+  const TOTAL = 12;
+
+  function toggleItem(id) {
+    const el = document.getElementById(id);
+    const isOpen = el.classList.contains('open');
+    // 他を閉じない（複数開けるように）
+    el.classList.toggle('open');
+  }
+
+  function markDone(id) {
+    const el = document.getElementById(id);
+    el.classList.add('checked');
+    el.classList.remove('open');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const checked = document.querySelectorAll('.item.checked').length;
+    const pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = checked + ' / ' + TOTAL + ' 完了';
+    const msg = document.getElementById('complete-msg');
+    msg.style.display = checked === TOTAL ? 'block' : 'none';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => {
+      el.classList.remove('checked', 'open');
+    });
+    updateProgress();
+  }
+</script>
+
+</body>
+</html>
