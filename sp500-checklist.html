@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>S&P500で失敗しない！17項目チェックシート｜そうたの損しないNISAの始め方</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, 'Hiragino Sans', sans-serif;
+      background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .hero {
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .hero-eyebrow { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .hero h1 { color: #fff; font-size: 19px; font-weight: 900; line-height: 1.5; }
+    .hero-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 10px; line-height: 1.7; }
+    .progress-wrap { background: #fff; margin: 16px 16px 0; border-radius: 16px; padding: 16px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .progress-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #0369a1; margin-bottom: 8px; }
+    .progress-bar-bg { background: #e0f2fe; border-radius: 99px; height: 10px; overflow: hidden; }
+    .progress-bar { height: 10px; background: linear-gradient(90deg, #38bdf8, #0284c7); border-radius: 99px; width: 0%; transition: width 0.4s ease; }
+    .complete-msg { display: none; text-align: center; margin-top: 10px; font-size: 15px; font-weight: 900; color: #0284c7; }
+    .section { margin: 16px 16px 0; }
+    .section-title { font-size: 12px; font-weight: 700; color: #0369a1; background: #e0f2fe; border-radius: 8px; padding: 6px 12px; margin-bottom: 8px; letter-spacing: 0.05em; }
+    .check-item { background: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); cursor: pointer; transition: background 0.2s, opacity 0.2s; -webkit-tap-highlight-color: transparent; user-select: none; }
+    .check-item.checked { background: #f0fdf4; opacity: 0.75; }
+    .check-box { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; border: 2.5px solid #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; margin-top: 1px; }
+    .check-item.checked .check-box { background: #22c55e; border-color: #22c55e; }
+    .check-num { font-size: 10px; font-weight: 900; color: #38bdf8; }
+    .check-item.checked .check-num { display: none; }
+    .check-mark { display: none; color: #fff; font-size: 13px; font-weight: 900; }
+    .check-item.checked .check-mark { display: block; }
+    .check-text { font-size: 13.5px; line-height: 1.65; color: #1e293b; font-weight: 500; }
+    .check-item.checked .check-text { color: #64748b; text-decoration: line-through; text-decoration-color: #94a3b8; }
+    .line-btn { display: block; margin: 24px 16px 0; background: #06c755; color: #fff; font-size: 15px; font-weight: 900; text-align: center; padding: 16px; border-radius: 14px; text-decoration: none; box-shadow: 0 4px 14px rgba(6,199,85,0.3); }
+    .reset-btn { display: block; margin: 12px 16px 0; background: transparent; color: #94a3b8; font-size: 12px; font-weight: 600; text-align: center; padding: 10px; border: none; cursor: pointer; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">そうたの損しないNISAの始め方</p>
+  <h1>S&amp;P500で失敗しない！<br>17項目チェックシート</h1>
+  <p class="hero-sub">タップしながら確認しよう✅<br>全部チェックできれば完璧な出発点！</p>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>進捗</span>
+    <span id="progress-text">0 / 17 完了</span>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progress-bar"></div></div>
+  <div class="complete-msg" id="complete-msg">🎉 完璧！この調子で長期投資を続けよう！</div>
+</div>
+
+<div class="section">
+  <div class="section-title">📊 今回の7選（1〜7）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">1</span><span class="check-mark">✓</span></div>
+    <div class="check-text">NISA口座でS&amp;P500を買っているか確認した</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">2</span><span class="check-mark">✓</span></div>
+    <div class="check-text">「S&amp;P500高配当」ではなく、普通のS&amp;P500を選んでいるか確認した</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">3</span><span class="check-mark">✓</span></div>
+    <div class="check-text">S&amp;P500以外の投資信託を足さず、1本で管理している</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">4</span><span class="check-mark">✓</span></div>
+    <div class="check-text">株価が下がっても積立額を変えず、一定金額を積み立てているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">5</span><span class="check-mark">✓</span></div>
+    <div class="check-text">短期で売り買いして利益を狙わず、10年・20年と持つつもりでいるか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">6</span><span class="check-mark">✓</span></div>
+    <div class="check-text">SNSで流行の銘柄に乗り換えていないか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">7</span><span class="check-mark">✓</span></div>
+    <div class="check-text">暴落したときにどうするか、先に決めているか</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🇺🇸 S&amp;P500の確認（8〜14）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">8</span><span class="check-mark">✓</span></div>
+    <div class="check-text">投資先は米国の約500社だけ（オルカンのような全世界分散ではない）と知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">9</span><span class="check-mark">✓</span></div>
+    <div class="check-text">上位10銘柄で指数の約4割を占めるため、大型テック株の動きに影響されやすいと知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">10</span><span class="check-mark">✓</span></div>
+    <div class="check-text">為替ヘッジがないので、円高になると円建ての評価額が下がることがあると知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">11</span><span class="check-mark">✓</span></div>
+    <div class="check-text">元本は保証されていないと理解したか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">12</span><span class="check-mark">✓</span></div>
+    <div class="check-text">2020年（約1か月で約34%下落）と2022年（約9か月で約25%下落）のような暴落があったと知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">13</span><span class="check-mark">✓</span></div>
+    <div class="check-text">毎月の自動積立を設定したか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">14</span><span class="check-mark">✓</span></div>
+    <div class="check-text">生活費とは別の、無理のない金額で積み立てているか</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🏦 NISAの確認（15〜17）</div>
+
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">15</span><span class="check-mark">✓</span></div>
+    <div class="check-text">年間投資枠（つみたて120万円・成長240万円、併用で360万円）と生涯1,800万円の上限を把握しているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">16</span><span class="check-mark">✓</span></div>
+    <div class="check-text">NISA口座の損失は他の口座の利益と通算できず、繰り越しもできないと知っているか</div>
+  </div>
+  <div class="check-item" onclick="toggle(this)">
+    <div class="check-box"><span class="check-num">17</span><span class="check-mark">✓</span></div>
+    <div class="check-text">売却すると、取得額分の枠が翌年に復活すると知っているか</div>
+  </div>
+</div>
+
+<a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 ここをタップでそうたに聞いてみる！</a>
+<button class="reset-btn" onclick="resetAll()">チェックをリセットする</button>
+
+<script>
+  const TOTAL = 17;
+  function toggle(el) { el.classList.toggle('checked'); updateProgress(); }
+  function updateProgress() {
+    const checked = document.querySelectorAll('.check-item.checked').length;
+    document.getElementById('progress-bar').style.width = Math.round(checked/TOTAL*100) + '%';
+    document.getElementById('progress-text').textContent = checked + ' / ' + TOTAL + ' 完了';
+    document.getElementById('complete-msg').style.display = checked === TOTAL ? 'block' : 'none';
+  }
+  function resetAll() { document.querySelectorAll('.check-item').forEach(el => el.classList.remove('checked')); updateProgress(); }
+</script>
+
+</body>
+</html>
