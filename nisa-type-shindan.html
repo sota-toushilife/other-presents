@@ -514,6 +514,12 @@
     width: 0;
     transition: width 1s ease;
   }
+  .r-scoreFill[data-typeid="kotsu"]      { background: #22c55e; }
+  .r-scoreFill[data-typeid="mokuhyo"]    { background: #3b82f6; }
+  .r-scoreFill[data-typeid="ippo"]       { background: #f59e0b; }
+  .r-scoreFill[data-typeid="hottaraka"]  { background: #ec4899; }
+  .r-scoreFill[data-typeid="kenkyuu"]    { background: #8b5cf6; }
+  .r-scoreFill[data-typeid="balance"]    { background: #14b8a6; }
 
   /* sectionカード（強み・悩み・明日から） */
   .r-section {
@@ -521,6 +527,14 @@
     padding: 19px;
     border-radius: 16px;
     background: #fff;
+  }
+  .r-section--tsuyomi {
+    background: #fce4ec;
+    border-color: #f48fb1;
+  }
+  .r-section--imasugu {
+    background: #e3f2fd;
+    border-color: #90caf9;
   }
   .r-section h3 {
     font-size: 15px;
@@ -724,7 +738,7 @@
           <div id="r-params"></div>
         </div>
 
-        <div class="r-section">
+        <div class="r-section r-section--tsuyomi">
           <h3>🌱 あなたの強み</h3>
           <p id="r-strengths"></p>
         </div>
@@ -734,7 +748,7 @@
           <p id="r-cautions"></p>
         </div>
 
-        <div class="r-section">
+        <div class="r-section r-section--imasugu">
           <h3>📌 今すぐできること</h3>
           <h4 id="r-action-head"></h4>
           <p id="r-action"></p>
@@ -1115,7 +1129,7 @@ function showResult() {
           <span>${t.name}</span>
           <span>${score} / 100</span>
         </div>
-        <div class="r-scoreTrack"><div class="r-scoreFill" data-val="${score}"></div></div>
+        <div class="r-scoreTrack"><div class="r-scoreFill" data-val="${score}" data-typeid="${t.id}"></div></div>
       </div>`;
   });
 
