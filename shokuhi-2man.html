@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>食費を月2万にするキモすぎる方法｜節約ガチ勢そうた</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'Hiragino Sans', sans-serif;
+  background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
+  min-height: 100vh;
+  padding: 0 0 40px;
+  font-size: 15px;
+  color: #1e293b;
+}
+.container { max-width: 480px; margin: 0 auto; }
+
+/* ヒーロー */
+.hero {
+  background: linear-gradient(90deg, #38bdf8, #0284c7);
+  padding: 32px 20px 28px;
+  text-align: center;
+}
+.hero-eyebrow { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 10px; }
+.hero h1 { color: #fff; font-size: 20px; font-weight: 900; line-height: 1.55; }
+.hero-sub { color: rgba(255,255,255,0.9); font-size: 13px; margin-top: 10px; line-height: 1.6; }
+
+/* コンテンツエリア */
+.content { padding: 20px 16px 0; display: flex; flex-direction: column; gap: 14px; }
+
+/* カード */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.card-title {
+  font-size: 15px; font-weight: 900; color: #0369a1;
+  margin-bottom: 12px; line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.card-body { font-size: 14px; color: #334155; line-height: 1.8; }
+.card-body p + p { margin-top: 8px; }
+
+/* 警告ボックス */
+.warn-box {
+  background: #fff7ed;
+  border: 1.5px solid #fbbf24;
+  border-radius: 12px;
+  padding: 14px 14px;
+}
+.warn-title { font-weight: 900; font-size: 14px; color: #b45309; margin-bottom: 8px; }
+.warn-body { font-size: 13px; color: #78350f; line-height: 1.75; }
+
+/* 情報ボックス */
+.info-box {
+  background: #f0f9ff;
+  border-left: 3px solid #38bdf8;
+  padding: 12px 14px;
+  border-radius: 0 10px 10px 0;
+  font-size: 13px; color: #0369a1; line-height: 1.75;
+}
+
+/* 強調バッジ */
+.badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #38bdf8, #0284c7);
+  color: #fff; font-size: 12px; font-weight: 900;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+/* レシピリスト */
+.recipe-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.recipe-item {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px; color: #334155; line-height: 1.7;
+}
+.recipe-num {
+  display: inline-block;
+  background: #0284c7; color: #fff;
+  font-size: 12px; font-weight: 900;
+  width: 22px; height: 22px; border-radius: 50%;
+  text-align: center; line-height: 22px;
+  margin-right: 6px; flex-shrink: 0;
+}
+.recipe-item-inner { display: flex; align-items: flex-start; gap: 0; }
+
+/* ハイライト */
+.highlight { color: #0284c7; font-weight: 900; }
+.highlight-green { color: #16a34a; font-weight: 900; }
+
+/* 総額バナー */
+.total-banner {
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.total-label { color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.total-amount { color: #fff; font-size: 26px; font-weight: 900; }
+.total-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 4px; }
+
+/* LINEボタン */
+.line-btn {
+  display: block; text-align: center;
+  background: #06c755; color: #fff;
+  font-size: 15px; font-weight: 900;
+  padding: 16px; border-radius: 12px;
+  text-decoration: none; margin-top: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <p class="hero-eyebrow">節約ガチ勢そうたが実際にやってきた</p>
+  <h1>食費を月2万にする<br>キモすぎる方法🍙</h1>
+  <p class="hero-sub">寮生活の1人暮らしから始めた節約術を<br>全部公開します</p>
+</div>
+
+<div class="content">
+
+  <!-- 注意書き -->
+  <div class="warn-box">
+    <div class="warn-title">⚠️ まず最初に読んで</div>
+    <div class="warn-body">
+      <p>正直に言うと、この食費に抑えていた時期、<strong>体調を崩すことが多かったです。</strong>「若いからいける」と自分に言い聞かせてやっていましたが、全員に当てはまる方法ではありません。</p>
+      <p style="margin-top:8px;">また、<strong>毎日の食事が生活の楽しみ・幸福度に直結している方には全くおすすめしません。</strong>（私の彼女はまさにこのタイプで、食へのこだわりが強い人には向かない方法です）</p>
+      <p style="margin-top:8px;">私は「栄養が取れればなんでもいい」くらい食への関心が薄いタイプです。同じタイプの方なら、<span class="highlight">一人での食事を最低限に抑えて、外食をご褒美にすることで幸福度を爆上げできます。</span>この方法は、そのタイプの人向けです。</p>
+    </div>
+  </div>
+
+  <!-- きっかけ -->
+  <div class="card">
+    <div class="card-title">📖 自炊を始めたきっかけ</div>
+    <div class="card-body">
+      <p>元々は会社の寮暮らし。毎日こんな感じでした。</p>
+      <div style="margin:12px 0; background:#f8fafc; border-radius:10px; padding:12px 14px; font-size:13px; line-height:1.8; color:#475569;">
+        朝：前日コンビニおにぎり2個 <span class="highlight">300円</span><br>
+        昼：会社のお弁当 <span class="highlight">500円</span><br>
+        夜：寮のご飯 <span class="highlight">550円</span><br>
+        休日：イオンのワンプレート冷凍食品450円＋レンチンご飯100円 <span class="highlight">550円</span>
+      </div>
+      <p>「これが最安値では？」と思っていたのですが、ある時「自炊の方が安くない？」と気づいて炊飯器を購入。<strong>まずは朝のおにぎりを自分で作るところから始めました。</strong></p>
+    </div>
+  </div>
+
+  <!-- スーパー調査 -->
+  <div class="card">
+    <div class="card-title">🏪 スーパー7店舗を全部回った話</div>
+    <div class="card-body">
+      <p>まず近所のスーパーを<strong>7店舗</strong>まわって、野菜・肉・調味料の値段を全部メモにまとめました。</p>
+      <p style="margin-top:8px;">（皆さんはやらなくていいです笑。私が代わりにやって出した結論がこれ↓）</p>
+      <div style="margin-top:12px; background:linear-gradient(90deg,#e0f2fe,#f0f9ff); border-radius:10px; padding:14px 16px; text-align:center;">
+        <div style="font-size:13px; color:#0369a1; font-weight:700; margin-bottom:6px;">食費節約スーパー最強2選</div>
+        <div style="font-size:18px; font-weight:900; color:#0284c7;">ラムー ＆ 業務スーパー</div>
+        <div style="font-size:12px; color:#64748b; margin-top:4px;">この2択で回すだけで食費は劇的に下がります</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 食の固定化 -->
+  <div class="card">
+    <div class="card-title">🍱 食の固定化＋冷凍ストック術</div>
+    <div class="card-body">
+      <p>毎日のメニューを<strong>固定化することが最大のポイント。</strong>考えるコストも時間も節約できます。</p>
+      
+      <div style="margin-top:14px;">
+        <div class="badge">朝ごはん</div>
+        <div class="info-box">おにぎり150g ＋ ふりかけ<br>コスト激安・準備5分以下</div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="badge">お昼（タッパー弁当）</div>
+        <div class="info-box">
+          <strong>3食タッパー弁当の構成：</strong><br>
+          ① 鶏そぼろ<br>
+          ② 卵そぼろ<br>
+          ③ 冷凍野菜（ブロッコリー・ほうれん草・オクラ）<br>
+          ④ ご飯<br>
+          <span style="font-size:12px; margin-top:4px; display:block;">野菜部分は飽きたら変えてOK。業務スーパーの冷凍野菜が激安でおすすめ。</span>
+        </div>
+      </div>
+
+      <p style="margin-top:12px; font-size:13px; color:#475569;">このレシピは「<strong>管理栄養士おすぎさん</strong>」のYouTubeチャンネルを参考にしています。そぼろ弁当のレシピは2年くらいお世話になりました。ぜひ検索してみてください。</p>
+    </div>
+  </div>
+
+  <!-- タッパーの話 -->
+  <div class="card">
+    <div class="card-title">📦 ジップロックコンテナーを14個揃えた</div>
+    <div class="card-body">
+      <p>週1回の自炊で<strong>1週間分の昼と夜を作り置き</strong>していたので、タッパーは14個あれば足ります。</p>
+      <p style="margin-top:8px;"><span class="highlight">おすすめはジップロックコンテナー。</span>冷凍→レンチンがそのままできて、密閉性も高い。</p>
+      <p style="margin-top:8px; font-size:13px; color:#475569;">（同棲を始めてからは100Lのサブ冷凍庫を買って2週間分を一気に作るようになったので30個くらい使ってます笑）</p>
+
+      <div style="margin-top:12px; background:#f0fdf4; border-radius:10px; padding:12px 14px; font-size:13px; color:#166534; border-left:3px solid #22c55e;">
+        <strong>週1自炊のメリット：</strong><br>
+        帰ってきたらレンチンするだけ！残業で21時帰宅でも即ご飯が食べられる最強システム。平日の自分を楽にする節約最強戦術です。
+      </div>
+
+      <div style="margin-top:10px; background:#fff7ed; border-radius:10px; padding:12px 14px; font-size:13px; color:#92400e;">
+        <strong>ご褒美ルール：</strong>食材を買いに行く土日だけは、スーパーのお弁当を食べる。<strong>ただし1食300円以下</strong>になるようにうまく組む。
+      </div>
+    </div>
+  </div>
+
+  <!-- 疲れた時 -->
+  <div class="card">
+    <div class="card-title">😩 自炊に疲れたとき・しんどい時期</div>
+    <div class="card-body">
+      <p>自炊に飽きたり、体調が悪くて何もできない時期もあります。そういう時は無理しないでOK。</p>
+      <div style="margin-top:12px; background:#f8fafc; border-radius:10px; padding:12px 14px; font-size:14px; line-height:1.75; color:#334155;">
+        <strong>ラムーの200円弁当を活用。</strong><br>
+        割引される<span class="highlight">19時に行って10個くらいまとめ買い。</span><br>
+        割引後1個約150円 → 全部冷凍してチンして食べる。<br>
+        <span style="font-size:12px; color:#64748b; margin-top:4px; display:block;">栄養バランスは完璧ではないけど、ジャンクフードよりはマシ。お腹にも溜まるのでありだと思う。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 夜ご飯レシピ -->
+  <div class="card">
+    <div class="card-title">🍳 私がローテーションしてた夜ご飯レシピ</div>
+    <div class="card-body">
+      <p style="font-size:13px; color:#64748b; margin-bottom:12px;">1レシピで数ヶ月は飽きないので、数個のレシピを回すだけでOK。</p>
+      <ul class="recipe-list">
+        <li class="recipe-item">
+          <span class="recipe-num">1</span>豚こま＋業務スーパー冷凍玉ねぎで<strong>豚の生姜焼き</strong>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">2</span>鶏胸肉＋炊飯器でお湯→タレ作って<strong>棒棒鶏</strong>（デンボさんレシピ・めっちゃ美味しい）
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">3</span>豚こま＋冷凍玉ねぎ＋焼肉のたれで水分飛ばす<strong>焼肉のたれ炒め</strong>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">4</span>鶏胸肉＋冷凍ブロッコリーの<strong>筋肉おかず</strong>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">5</span>豚こま＋冷凍ミックスベジタブル＋焼肉のたれ炒め（③のバリエ）
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">6</span>鶏もも＋白菜＋きのこの<strong>ホイル焼き（ホイルなし）ポン酢</strong>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">7</span>キャベツ・にんじん・玉ねぎ・じゃがいもの<strong>ポトフ</strong><br>
+          <span style="font-size:12px; color:#e57373; display:block; margin-top:4px;">⚠️ 注意：にんじん・じゃがいもは冷凍するとブヨブヨになるので、<strong>作ったらすぐ食べる方式</strong>で。</span>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">8</span>玉ねぎ＋ブロッコリー＋鶏胸肉の<strong>カレー</strong><br>
+          <span style="font-size:12px; color:#e57373; display:block; margin-top:4px;">⚠️ 注意：カレーを毎日2ヶ月続けたら体からスパイスの匂いがしてきたのでやめました笑</span>
+        </li>
+        <li class="recipe-item">
+          <span class="recipe-num">9</span>鶏胸肉＋ネギ＋醤油で漬け込む<strong>悪魔のとりむね漬け</strong><br>
+          <span style="font-size:12px; color:#64748b; display:block; margin-top:4px;">本来は味玉もセットのレシピだが節約のため省略</span>
+        </li>
+      </ul>
+      <div style="margin-top:14px;" class="info-box">
+        <strong>ご飯も忘れずに：</strong>夜は冷凍したご飯150gもチンして一緒に食べます。
+      </div>
+    </div>
+  </div>
+
+  <!-- 電子レンジ活用 -->
+  <div class="card">
+    <div class="card-title">📱 電子レンジ特化レシピのすすめ</div>
+    <div class="card-body">
+      <p>私は寮の部屋に炊事場がなく（共用キッチンは他の人に会いたくない）、水は洗面台で確保して<strong>卓上IHを部屋で使って自炊していました。</strong>そのため電子レンジで作れるレシピを重点的に探していました。</p>
+      <p style="margin-top:8px;">電子レンジレシピは<strong>「デンボさん」</strong>というYouTubeチャンネルがおすすめ。棒棒鶏が特にめっちゃ美味しいので試してみてください。</p>
+    </div>
+  </div>
+
+  <!-- 栄養バランス -->
+  <div class="card">
+    <div class="card-title">💊 栄養バランスはサプリで補う</div>
+    <div class="card-body">
+      <p>食べているものをChatGPTに送ったら足りていない栄養素を教えてくれたので、<strong>マルチビタミンのサプリ</strong>で補っていました。</p>
+      <p style="margin-top:8px;">美容のために<strong>ビタミンCのサプリ</strong>も飲んでいました。筋トレしていた時期は<strong>プロテイン</strong>も。</p>
+      <div style="margin-top:10px;" class="info-box">
+        ChatGPTに「今日食べたもの」を送るだけで不足栄養素を教えてくれます。栄養管理が心配な方はぜひ試してみてください。
+      </div>
+    </div>
+  </div>
+
+  <!-- ふるさと納税 -->
+  <div class="card">
+    <div class="card-title">🎁 ふるさと納税が実は超重要</div>
+    <div class="card-body">
+      <p>「年に数回しか使えないふるさと納税なんて大した節約にならない」と思ってましたが、考え方が変わりました。</p>
+      <div style="margin:12px 0; background:#f0fdf4; border-radius:10px; padding:14px; font-size:13px; color:#166534; line-height:1.8;">
+        <strong>活用していた返礼品：</strong><br>
+        🥩 冷凍豚こま肉<br>
+        🐟 冷凍鯖<br>
+        🍚 お米
+      </div>
+      <p>例えば1万円分の返礼品を1年かけて使うと、<strong>12で割れば毎月800円以上の食費が浮いている</strong>ことになります。</p>
+      <p style="margin-top:8px;">小さく見えますが、これが毎年積み重なると結構バカにできないです。<span class="highlight">ふるさと納税は食費削減においても超重要です。</span></p>
+    </div>
+  </div>
+
+  <!-- まとめ -->
+  <div class="card">
+    <div class="card-title">📋 まとめ：食費2万円以下を達成した方法</div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.7;color:#334155;">
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span>スーパーは<strong>ラムー</strong>と<strong>業務スーパー</strong>を活用</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span>メニューを<strong>固定化</strong>して考えるコストをゼロに</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span><strong>週1の作り置き冷凍</strong>で平日はレンチンするだけ</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span>管理栄養士<strong>おすぎさん・デンボさん</strong>のレシピを参考に</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span>不足栄養素は<strong>マルチビタミンサプリ</strong>で補う</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span><strong>ふるさと納税</strong>で食材を確保して実質食費を削減</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;font-weight:900;flex-shrink:0;">✓</span><span>しんどい時は<strong>ラムーの200円弁当を19時に買いまとめ</strong>して冷凍</span></div>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 質問はここをタップ！そうたに聞いてみる</a>
+
+</div>
+</div>
+</body>
+</html>
