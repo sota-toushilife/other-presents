@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NISAをやらない人間はもれなく人生が詰む理由｜そうた</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'Hiragino Sans', sans-serif;
+  background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
+  min-height: 100vh;
+  padding: 0 0 40px;
+  color: #1e293b;
+}
+.container { max-width: 480px; margin: 0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #0f172a, #1e3a5f);
+  padding: 36px 20px 30px;
+  text-align: center;
+}
+.hero-eyebrow { color: #38bdf8; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 10px; }
+.hero h1 { color: #fff; font-size: 20px; font-weight: 900; line-height: 1.55; }
+.hero-sub { color: rgba(255,255,255,0.75); font-size: 13px; margin-top: 10px; line-height: 1.6; }
+
+.content { padding: 20px 16px 0; display: flex; flex-direction: column; gap: 14px; }
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.card-title {
+  font-size: 15px; font-weight: 900; color: #0369a1;
+  margin-bottom: 12px; line-height: 1.5;
+}
+.card-body { font-size: 14px; color: #334155; line-height: 1.85; }
+.card-body p + p { margin-top: 10px; }
+
+/* 目次 */
+.toc-link { display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid #f1f5f9; text-decoration:none; color:#334155; font-size:14px; }
+.toc-link:last-child { border-bottom:none; }
+.toc-arrow { color:#0284c7; font-size:12px; flex-shrink:0; }
+
+/* 数字ボックス */
+.num-box {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-radius: 12px; padding: 18px 16px; text-align: center;
+  margin: 14px 0;
+}
+.num-big { color: #fff; font-size: 32px; font-weight: 900; line-height: 1.2; }
+.num-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 4px; line-height: 1.6; }
+
+/* 警告ボックス */
+.warn-box {
+  background: #fff7ed; border: 1.5px solid #fbbf24;
+  border-radius: 12px; padding: 14px;
+  font-size: 13px; color: #78350f; line-height: 1.8;
+}
+.warn-title { font-weight: 900; font-size: 14px; color: #b45309; margin-bottom: 6px; }
+
+/* 赤ボックス */
+.danger-box {
+  background: #fef2f2; border: 1.5px solid #fca5a5;
+  border-radius: 12px; padding: 14px;
+  font-size: 13px; color: #7f1d1d; line-height: 1.8;
+}
+.danger-title { font-weight: 900; font-size: 14px; color: #dc2626; margin-bottom: 6px; }
+
+/* 緑ボックス */
+.green-box {
+  background: #f0fdf4; border-left: 3px solid #22c55e;
+  padding: 12px 14px; border-radius: 0 10px 10px 0;
+  font-size: 13px; color: #166534; line-height: 1.8;
+}
+
+/* 情報ボックス */
+.info-box {
+  background: #f0f9ff; border-left: 3px solid #38bdf8;
+  padding: 12px 14px; border-radius: 0 10px 10px 0;
+  font-size: 13px; color: #0369a1; line-height: 1.8;
+}
+
+/* 比較テーブル */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.compare-table th { background: #0369a1; color: #fff; padding: 8px 10px; font-weight: 700; }
+.compare-table td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; line-height: 1.6; }
+.compare-table tr:last-child td { border-bottom: none; }
+.td-bad { background: #fef2f2; color: #dc2626; font-weight: 700; }
+.td-good { background: #f0fdf4; color: #16a34a; font-weight: 700; }
+
+/* 物語カード */
+.story-card {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 12px; padding: 16px;
+  border: 1px solid #e2e8f0; margin: 10px 0;
+}
+.story-title { font-size: 14px; font-weight: 900; color: #0369a1; margin-bottom: 10px; }
+.story-person { display:flex; gap:10px; align-items:flex-start; margin-bottom:8px; }
+.story-icon { font-size:22px; flex-shrink:0; }
+.story-name { font-size:12px; font-weight:900; color:#475569; margin-bottom:2px; }
+.story-result-bad { font-size:14px; font-weight:900; color:#dc2626; }
+.story-result-good { font-size:14px; font-weight:900; color:#16a34a; }
+.story-detail { font-size:12px; color:#64748b; line-height:1.6; }
+
+/* セクション見出し */
+.section-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #38bdf8, #0284c7);
+  color: #fff; font-size: 11px; font-weight: 900;
+  padding: 3px 12px; border-radius: 20px; margin-bottom: 10px;
+}
+
+/* highlight */
+.hl { color: #0284c7; font-weight: 900; }
+.hl-red { color: #dc2626; font-weight: 900; }
+.hl-green { color: #16a34a; font-weight: 900; }
+
+/* ソース */
+.source { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+/* CTA */
+.cta-btn {
+  display: block; text-align: center;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #fff; font-size: 15px; font-weight: 900;
+  padding: 16px; border-radius: 12px;
+  text-decoration: none; margin-top: 14px;
+  box-shadow: 0 4px 14px rgba(2,132,199,0.35);
+}
+.line-btn {
+  display: block; text-align: center;
+  background: #06c755; color: #fff;
+  font-size: 15px; font-weight: 900;
+  padding: 16px; border-radius: 12px;
+  text-decoration: none; margin-top: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <p class="hero-eyebrow">そうたの投資発信</p>
+  <h1>NISAをやらない人間は<br>もれなく人生が詰む理由</h1>
+  <p class="hero-sub">貯金と節約だけでは乗り越えられない<br>現実の数字を全部見せます</p>
+</div>
+
+<div class="content">
+
+  <!-- 目次 -->
+  <div class="card" id="toc">
+    <div class="card-title">📋 もくじ</div>
+    <div>
+      <a href="#intro" class="toc-link"><span class="toc-arrow">▶</span>貯金節約だけじゃ詰む理由</a>
+      <a href="#inflation" class="toc-link"><span class="toc-arrow">▶</span>①インフレという穴の空いたバケツ</a>
+      <a href="#yen" class="toc-link"><span class="toc-arrow">▶</span>②円フルベットはハイリスク</a>
+      <a href="#roogo" class="toc-link"><span class="toc-arrow">▶</span>③老後2000万→実は4000万問題</a>
+      <a href="#genba" class="toc-link"><span class="toc-arrow">▶</span>④現実の数字（給料・年金・退職金）</a>
+      <a href="#kodomo" class="toc-link"><span class="toc-arrow">▶</span>⑤子供への皺寄せ</a>
+      <a href="#keisan" class="toc-link"><span class="toc-arrow">▶</span>⑥節約貯金だけ vs NISA積立 計算</a>
+      <a href="#story" class="toc-link"><span class="toc-arrow">▶</span>⑦AさんBさんの物語</a>
+      <a href="#mirai" class="toc-link"><span class="toc-arrow">▶</span>⑧二つの未来</a>
+      <a href="#next" class="toc-link"><span class="toc-arrow">▶</span>次のステップ</a>
+    </div>
+  </div>
+
+  <!-- イントロ -->
+  <div class="card" id="intro">
+    <div class="card-title">💬 まずは正直に言います</div>
+    <div class="card-body">
+      <p>貯金・節約、素晴らしいです。僕も昔は「貯金と節約できてるからいいでしょ」って本気で思っていました。</p>
+      <p>でもある出来事をきっかけに、<span class="hl-red">投資をしないと人生が詰むことが判明しました。</span>理由は一つじゃありません。順番に話します。</p>
+    </div>
+  </div>
+
+  <!-- ①インフレ -->
+  <div class="card" id="inflation">
+    <div class="card-title">🪣 ① インフレという穴の空いたバケツ</div>
+    <div class="card-body">
+      <p>銀行に置いているだけだと、物価が上がるたびにお金の価値は下がります。</p>
+      <div class="warn-box" style="margin:12px 0;">
+        <div class="warn-title">わかりやすい例</div>
+        去年100万円で買えてたものが、今年は120万円払わないと買えなくなった。<br>
+        お金そのものは変わっていないのに、<strong>実質的な価値が下がっている。</strong>
+      </div>
+      <p>銀行にただ貯金しているだけでは、<span class="hl-red">穴の空いたバケツに水を入れて安心している</span>のと同じです。</p>
+      <div class="num-box">
+        <div class="num-big">年2〜3%</div>
+        <div class="num-sub">日本の直近の消費者物価上昇率<br>（2022年：2.5%、2023年：3.2%、2024年：2.7%）<br>※総務省 消費者物価指数</div>
+      </div>
+      <p>メガバンクの普通預金金利は<span class="hl-red">0.02〜0.1%程度</span>。インフレ率には全く追いついていません。</p>
+    </div>
+  </div>
+
+  <!-- ②円フルベット -->
+  <div class="card" id="yen">
+    <div class="card-title">💴 ② 円フルベットはハイリスクな状態</div>
+    <div class="card-body">
+      <p>日本円だけを持ち続けるということは、<strong>「日本円の価値が下がらない」に全財産を賭けている</strong>ことと同じです。</p>
+      <div class="danger-box" style="margin:12px 0;">
+        <div class="danger-title">実際に起きたこと</div>
+        2021年→2024年で円は約30〜40%も価値が下落。
+        1ドル110円 → 155円。つまり<strong>貯金が目減りしている</strong>のと同じ状態です。
+      </div>
+      <p>オルカンやS&P500などの全世界・全米インデックスに投資することは、通貨の分散にもなります。円安になっても資産が守られる理由の一つです。</p>
+    </div>
+  </div>
+
+  <!-- ③老後2000万→4000万 -->
+  <div class="card" id="roogo">
+    <div class="card-title">👴 ③ 老後2000万問題は、僕らの世代で4000万になる</div>
+    <div class="card-body">
+      <p>2019年に金融庁の報告書が発表した「老後2000万円問題」を覚えていますか？これは現在の物価水準での試算です。</p>
+      <div class="info-box" style="margin:12px 0;">
+        インフレが年平均2%続いた場合、40年後に今と同じ2000万円分の購買力を持つには…
+      </div>
+      <div class="num-box">
+        <div class="num-big">約4,416万円</div>
+        <div class="num-sub">2000万円 × (1.02)^40 の計算結果<br>40年後に必要な金額（現在の4000万円相当）</div>
+      </div>
+      <p>さらに、現時点で<span class="hl-red">定年を65歳から70歳に引き上げる議論が進んでいます。</span>40年後には何歳まで働かされているかわかりません。</p>
+      <p class="source">※厚生労働省「高年齢者雇用安定法改正（2021年施行）」参照</p>
+    </div>
+  </div>
+
+  <!-- ④現実の数字 -->
+  <div class="card" id="genba">
+    <div class="card-title">📊 ④ 現実の数字（給料・年金・退職金）</div>
+    <div class="card-body">
+      <div class="section-badge">現実</div>
+      <table class="compare-table">
+        <tr><th>項目</th><th>現実</th></tr>
+        <tr><td>実質賃金</td><td class="td-bad">2022〜2024年 2年連続マイナス<br><span style="font-size:11px;color:#94a3b8;">※厚生労働省 毎月勤労統計</span></td></tr>
+        <tr><td>消費者物価</td><td class="td-bad">年2〜3%上昇中<br><span style="font-size:11px;color:#94a3b8;">※総務省 CPI</span></td></tr>
+        <tr><td>社会保険料</td><td class="td-bad">年々増加傾向<br>手取りが年々減っていく</td></tr>
+        <tr><td>年金受給額</td><td class="td-bad">国民年金：月約6.6万円<br><span style="font-size:11px;color:#94a3b8;">※2024年度 厚労省データ</span></td></tr>
+        <tr><td>退職金</td><td class="td-bad">大企業でも年々低下傾向<br>中小企業では1000万以下も多い</td></tr>
+        <tr><td>人生100年時代</td><td class="td-bad">医療発達で長生きに<br>→お金がかかる期間が増える</td></tr>
+      </table>
+      <div class="danger-box" style="margin-top:12px;">
+        <div class="danger-title">まとめると</div>
+        給料は上がらない。物価は上がる。税・保険料の負担は増える。年金は心もとない。退職金も減っている。<strong>退職金と年金だけを当てにして自分で資産形成しなかった人は、老後のお金が完全に足りなくなります。</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤子供への皺寄せ -->
+  <div class="card" id="kodomo">
+    <div class="card-title">👨‍👩‍👧 ⑤ 自分の子供に大迷惑をかけることになる</div>
+    <div class="card-body">
+      <p>資産形成をしないということは、<span class="hl-red">自分の子供の人生に多大な迷惑をかける</span>ことと同義です。</p>
+      <div class="warn-box" style="margin:12px 0;">
+        <div class="warn-title">老後に起きること</div>
+        体が動かなくなる → 入院費は？老人ホームは？介護費用は？<br>
+        <strong>支払い能力がなければ、全部子供に皺寄せが行きます。</strong>
+      </div>
+      <p>自分の生活で精一杯なのに、親のお金の問題まで背負わされる。これは決して珍しい話ではありません。</p>
+      <p>NISAをめんどくさい、難しそう、後でいいやと後回しにし続けた結果、<span class="hl-red">自分の怠惰が全部子供に突き刺さります。</span></p>
+    </div>
+  </div>
+
+  <!-- ⑥計算 -->
+  <div class="card" id="keisan">
+    <div class="card-title">🧮 ⑥ 節約貯金だけで4000万は無理な話</div>
+    <div class="card-body">
+      <p>じゃあその4000万円を貯金だけで賄おうとしたら、毎月いくら貯金すればいい？</p>
+
+      <div class="num-box">
+        <div class="num-big">毎月 約83,000円</div>
+        <div class="num-sub">40年間・貯金だけで4000万円を貯めるのに必要な月額</div>
+      </div>
+
+      <p>車の購入、結婚式、マイホーム、子育て…そんな中で毎月8万円以上を40年間貯め続けるのは、現実的ではないですよね。</p>
+      <p style="margin-top:12px;">でも、<span class="hl">年利4%で運用できたとしたら？</span></p>
+
+      <div class="num-box">
+        <div class="num-big">毎月 約34,000円</div>
+        <div class="num-sub">年利4%・40年積立で4000万円に到達する月額<br>貯金だけの場合の 約4割 で済む</div>
+      </div>
+
+      <div class="green-box" style="margin-top:12px;">
+        <strong>これが投資（複利）の力です。</strong><br>
+        毎月3万円の積立でも、年利4%・40年で約<strong>3,546万円</strong>になります。
+      </div>
+
+      <p style="margin-top:12px; font-size:13px; color:#475569;">それでも毎月3〜4万円が難しいという方も多いと思います。ただ、仮に目標に届かなかったとしても、積み上げてきた投資資産を「運用しながら少しずつ切り崩す」ことで、現金を切り崩すより長く持たせることができます。投資した方が圧倒的に生活が楽になるのは変わりありません。</p>
+    </div>
+  </div>
+
+  <!-- ⑦物語 -->
+  <div class="card" id="story">
+    <div class="card-title">📖 ⑦ AさんBさんの物語（40年後）</div>
+    <div class="card-body">
+      <p>会社の同期、AさんとBさん。二人とも毎月5万円を40年間コツコツ続けました。</p>
+      <p style="margin-top:8px;"><strong>違うのは、置き場所だけ。</strong></p>
+
+      <div class="story-card" style="margin-top:12px;">
+        <div class="story-title">65歳を迎えた二人の結末</div>
+        <div class="story-person">
+          <div class="story-icon">😰</div>
+          <div>
+            <div class="story-name">Aさん（銀行貯金のみ）</div>
+            <div class="story-result-bad">2,400万円</div>
+            <div class="story-detail">月20万円の生活費で使うと、<span style="color:#dc2626;font-weight:700;">75歳で底を突く</span><br>残り25年以上を無収入・無資産で生きることに</div>
+          </div>
+        </div>
+        <div class="story-person" style="margin-bottom:0;">
+          <div class="story-icon">😊</div>
+          <div>
+            <div class="story-name">Bさん（年利4%でNISA積立）</div>
+            <div class="story-result-good">約5,910万円</div>
+            <div class="story-detail">Aさんとの差額は<span style="color:#16a34a;font-weight:700;">約3,510万円</span><br>運用しながら切り崩せば、老後の心配がない</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="danger-box" style="margin-top:12px;">
+        これから悠々自適な生活を送るんだとBさんは夢を語りました。しかし何もしなかったAさんは、75歳でお金が底を尽きるため<strong>死ぬまで労働が確定。</strong><br>
+        「あの時なんで始めなかったんだろう」と後悔しても、もう時間は戻りません。
+      </div>
+
+      <p style="margin-top:10px; font-size:13px; color:#475569;">※上記は年利4%・月5万円積立の試算です。将来の運用成果を保証するものではありません。</p>
+    </div>
+  </div>
+
+  <!-- ⑧二つの未来 -->
+  <div class="card" id="mirai">
+    <div class="card-title">🌅 ⑧ あなたはどちらの老後を選びますか？</div>
+    <div class="card-body">
+      <table class="compare-table">
+        <tr><th>資産形成しなかった場合</th><th>NISAを続けた場合</th></tr>
+        <tr>
+          <td class="td-bad">体が動かなくなるまで生活費のために労働</td>
+          <td class="td-good">働かなくても資産が収入を生む</td>
+        </tr>
+        <tr>
+          <td class="td-bad">誰も雇いたくない老人。最低賃金で週5バイト</td>
+          <td class="td-good">好きな仕事を週3で楽しむ選択肢がある</td>
+        </tr>
+        <tr>
+          <td class="td-bad">子供に経済的負担をかける</td>
+          <td class="td-good">子供の人生に迷惑をかけない</td>
+        </tr>
+        <tr>
+          <td class="td-bad">将来の不安とストレス</td>
+          <td class="td-good">心の余裕が天と地ほど違う</td>
+        </tr>
+      </table>
+      <div class="green-box" style="margin-top:14px;">
+        早起きして散歩に行って、家庭菜園を楽しんで、自炊で健康的な食事をして、本や音楽など文化的な娯楽を楽しんで、太陽と一緒に眠りにつく。<br><br>
+        <strong>こんな悠々自適な老後を送りたくないですか？</strong><br>
+        資産形成を後回しにした人には、この老後が一生来ません。
+      </div>
+    </div>
+  </div>
+
+  <!-- 次のステップ -->
+  <div class="card" id="next">
+    <div class="card-title">🚀 次のステップ</div>
+    <div class="card-body">
+      <p>次は、自動でお金にお金を増やしてもらうフェーズです。「何から始めたらいいの？」という方へ。NISAの始め方は全部ここに載っています。</p>
+      <a href="https://sota-toushilife.github.io/nisa-guide/" target="_blank" class="cta-btn" style="margin-top:14px;">📗 NISA完全攻略ガイドを見る</a>
+    </div>
+  </div>
+
+  <a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 質問はここをタップ！そうたに聞いてみる</a>
+
+  <p style="font-size:11px; color:#94a3b8; text-align:center; margin-top:8px; padding:0 8px; line-height:1.7;">※本記事は情報提供を目的としています。将来の運用成果を保証するものではありません。投資判断はご自身でお願いします。</p>
+
+</div>
+</div>
+</body>
+</html>
