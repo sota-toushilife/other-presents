@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会社員でも夢じゃない！知られざるFIREの世界｜そうた｜損しないNISAの始め方</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic Pro', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.7; }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
+      padding: 48px 20px 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before { content: '🔥'; position: absolute; font-size: 200px; opacity: 0.04; top: -20px; right: -30px; }
+    .eyebrow { display: inline-block; background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.4); color: #fbbf24; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(22px, 5.5vw, 32px); font-weight: 900; line-height: 1.35; margin-bottom: 14px; color: #fff; }
+    .hero h1 span { color: #fbbf24; }
+    .hero-sub { font-size: 14px; color: #94a3b8; max-width: 340px; margin: 0 auto; }
+    .toc-wrap { background: #1e293b; border: 1px solid #334155; border-radius: 12px; margin: 24px 16px; padding: 20px; }
+    .toc-title { font-size: 13px; font-weight: 700; color: #fbbf24; margin-bottom: 12px; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 8px; }
+    .toc-list a { color: #93c5fd; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .section { padding: 32px 16px; border-bottom: 1px solid #1e293b; }
+    .section-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); color: #fbbf24; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 3px 12px; border-radius: 20px; margin-bottom: 10px; }
+    h2 { font-size: clamp(18px, 4.5vw, 24px); font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.4; }
+    h3 { font-size: 16px; font-weight: 700; color: #e2e8f0; margin: 20px 0 8px; }
+    p { font-size: 14px; color: #cbd5e1; margin-bottom: 12px; line-height: 1.8; }
+    .hl-gold { color: #fbbf24; font-weight: 700; }
+    .hl-red { color: #f87171; font-weight: 700; }
+    .hl-green { color: #4ade80; font-weight: 700; }
+    .fire-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+    .fire-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 18px; position: relative; overflow: hidden; }
+    .fire-card.highlight { border-color: #fbbf24; background: linear-gradient(135deg, #1e293b, #1a1f0e); }
+    .fire-card.highlight::before { content: '⭐ そうたのメインターゲット'; position: absolute; top: 0; right: 0; background: #fbbf24; color: #0f172a; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 0 12px 0 8px; }
+    .fire-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .fire-icon { font-size: 24px; }
+    .fire-name { font-size: 17px; font-weight: 800; color: #fff; }
+    .fire-asset { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+    .fire-desc { font-size: 13px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.7; }
+    .fire-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+    .tag-green { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+    .tag-red { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+    .tag-gold { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-blue { background: rgba(96,165,250,0.1); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+    .num-box { background: linear-gradient(135deg, #1e3a5f, #0f172a); border: 1px solid #1e40af; border-radius: 12px; padding: 20px; text-align: center; margin: 20px 0; }
+    .num-big { font-size: clamp(28px, 7vw, 42px); font-weight: 900; color: #fbbf24; line-height: 1.2; }
+    .num-sub { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 6px; line-height: 1.6; }
+    .roadmap { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+    .road-step { display: flex; gap: 14px; position: relative; }
+    .road-step::before { content: ''; position: absolute; left: 19px; top: 40px; bottom: -20px; width: 2px; background: #334155; }
+    .road-step:last-child::before { display: none; }
+    .road-num { width: 40px; height: 40px; border-radius: 50%; background: #1e293b; border: 2px solid #fbbf24; color: #fbbf24; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-bottom: 20px; }
+    .road-num.done { background: #fbbf24; color: #0f172a; }
+    .road-content { flex: 1; padding-top: 8px; }
+    .road-label { font-size: 11px; color: #94a3b8; }
+    .road-title { font-size: 15px; font-weight: 700; color: #fff; margin: 2px 0 4px; }
+    .road-desc { font-size: 13px; color: #94a3b8; }
+    .calc-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+    .calc-table th { background: #1e293b; color: #94a3b8; padding: 10px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #334155; }
+    .calc-table td { padding: 12px 8px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+    .calc-table tr:last-child td { border-bottom: none; }
+    .td-gold { color: #fbbf24; font-weight: 700; }
+    .w-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+    .w-table th { background: #1e293b; color: #94a3b8; padding: 10px 8px; font-weight: 600; text-align: center; border-bottom: 1px solid #334155; }
+    .w-table td { padding: 12px 8px; border-bottom: 1px solid #1e293b; color: #cbd5e1; text-align: center; }
+    .w-table tr:last-child td { border-bottom: none; }
+    .sota-box { background: #1e293b; border-left: 4px solid #fbbf24; border-radius: 0 12px 12px 0; padding: 16px; margin: 16px 0; }
+    .sota-name { font-size: 11px; color: #fbbf24; font-weight: 700; margin-bottom: 6px; }
+    .sota-box p { font-size: 13px; color: #cbd5e1; margin-bottom: 0; }
+    .myth-box { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 18px; margin: 16px 0; }
+    .myth-q { color: #f87171; font-weight: 700; font-size: 14px; margin-bottom: 10px; display: flex; gap: 6px; }
+    .myth-a { font-size: 13px; color: #cbd5e1; line-height: 1.8; }
+    .cta-section { background: linear-gradient(135deg, #0f172a, #0f3460); padding: 40px 16px; text-align: center; }
+    .cta-section h2 { color: #fff; margin-bottom: 8px; }
+    .cta-section p { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+    .btn-line { display: block; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; font-size: 15px; font-weight: 700; text-decoration: none; padding: 16px 24px; border-radius: 12px; max-width: 320px; margin: 0 auto 12px; box-shadow: 0 4px 20px rgba(14,165,233,0.35); }
+    .note { font-size: 11px; color: #64748b; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">そうた｜損しないNISAの始め方</div>
+  <h1>会社員でも夢じゃない！<br><span>知られざるFIREの世界</span>🔥</h1>
+  <p class="hero-sub">「全額積み上げるFIRE」だけじゃない。自分に合った型を選べば、普通の会社員でも十分到達できる。</p>
+</div>
+
+<div class="toc-wrap">
+  <div class="toc-title">📋 もくじ</div>
+  <ul class="toc-list">
+    <li><a href="#what">① FIREって何？</a></li>
+    <li><a href="#types">② FIREの種類を全部紹介</a></li>
+    <li><a href="#sota-road">③ そうたのFIREロードマップ</a></li>
+    <li><a href="#tsukai-fire">④ 使い切るFIREとは？（今日のメイン）</a></li>
+    <li><a href="#rule4">⑤ 4%ルールの計算</a></li>
+    <li><a href="#kaishain">⑥ 会社員でも十分届く理由</a></li>
+    <li><a href="#myth">⑦「子供に残せない」問題について</a></li>
+    <li><a href="#cta">🚀 次のステップ</a></li>
+  </ul>
+</div>
+
+<div class="section" id="what">
+  <div class="section-label">① FIREとは</div>
+  <h2>🔥 FIREって何？</h2>
+  <p><span class="hl-gold">FIRE（Financial Independence, Retire Early）</span>とは、資産運用で経済的自立を達成し、早期リタイアを目指す考え方です。</p>
+  <p>「リタイア」と言っても仕事を一切しないわけじゃなくて、<span class="hl-green">「働かなくても生活できる状態を作る」</span>のがゴールです。そこから先は自分で選べる。</p>
+  <p>65歳まで会社に縛られなくていい。好きな時に、好きなことを、好きな量だけやれる人生。これがFIREの本質です。</p>
+</div>
+
+<div class="section" id="types">
+  <div class="section-label">② FIREの種類</div>
+  <h2>🗂️ FIREには種類がある</h2>
+  <p>FIREは「全員が同じゴール」じゃないです。自分の生活水準・価値観によっていくつかの型があります。全部紹介します。</p>
+
+  <div class="fire-cards">
+    <div class="fire-card">
+      <div class="fire-card-header">
+        <div class="fire-icon">👑</div>
+        <div>
+          <div class="fire-name">完全FIRE（フルFIRE）</div>
+          <div class="fire-asset">目安資産：1億円以上</div>
+        </div>
+      </div>
+      <div class="fire-desc">不労所得だけで一切働かずに生活できる状態。配当・分配金・賃料など資産が生み出す収益だけで全生活費をカバーする最上位のFIRE。<br><span style="font-size:12px; color:#64748b;">例：1億円を年4%で運用 → 年400万円の不労所得</span></div>
+      <div class="fire-tags">
+        <span class="tag tag-green">✅ 完全自由</span>
+        <span class="tag tag-green">✅ 働く必要ゼロ</span>
+        <span class="tag tag-red">⚠️ 必要資産が大きい</span>
+        <span class="tag tag-red">⚠️ ハードルは高め</span>
+      </div>
+    </div>
+
+    <div class="fire-card">
+      <div class="fire-card-header">
+        <div class="fire-icon">💰</div>
+        <div>
+          <div class="fire-name">Fat FIRE（ファットFIRE）</div>
+          <div class="fire-asset">目安資産：1億5000万円以上</div>
+        </div>
+      </div>
+      <div class="fire-desc">完全FIREの「豪華版」。旅行・グルメ・趣味に惜しみなく使える余裕のFIRE。生活水準を落とすどころか、むしろ上がるイメージ。</div>
+      <div class="fire-tags">
+        <span class="tag tag-green">✅ 生活水準が高い</span>
+        <span class="tag tag-green">✅ お金の心配がほぼない</span>
+        <span class="tag tag-red">⚠️ 現実的には超富裕層向け</span>
+      </div>
+    </div>
+
+    <div class="fire-card">
+      <div class="fire-card-header">
+        <div class="fire-icon">🌿</div>
+        <div>
+          <div class="fire-name">Lean FIRE（リーンFIRE）</div>
+          <div class="fire-asset">目安資産：3000〜5000万円</div>
+        </div>
+      </div>
+      <div class="fire-desc">生活費を極限まで削って、少ない資産でFIREする型。「本当に必要なものだけで生きる」ミニマリスト的FIRE。月15万以下の生活が前提になることが多い。</div>
+      <div class="fire-tags">
+        <span class="tag tag-green">✅ 必要資産が少ない</span>
+        <span class="tag tag-green">✅ 早くFIREできる</span>
+        <span class="tag tag-red">⚠️ 生活が制限される</span>
+        <span class="tag tag-red">⚠️ 急な出費に弱い</span>
+      </div>
+    </div>
+
+    <div class="fire-card">
+      <div class="fire-card-header">
+        <div class="fire-icon">☕</div>
+        <div>
+          <div class="fire-name">セミFIRE（バリスタFIRE）</div>
+          <div class="fire-asset">目安資産：3000〜6000万円</div>
+        </div>
+      </div>
+      <div class="fire-desc">完全には仕事を辞めず、好きな仕事を少しだけ続けながら資産運用と両立するFIRE。嫌な仕事はやらない、でも好きなことで少し稼ぐ状態。「セミリタイア」とも呼ばれる。</div>
+      <div class="fire-tags">
+        <span class="tag tag-green">✅ 現実的に達成しやすい</span>
+        <span class="tag tag-green">✅ 社会とのつながりが残る</span>
+        <span class="tag tag-blue">🔄 仕事量を自分でコントロール</span>
+        <span class="tag tag-red">⚠️ 完全自由ではない</span>
+      </div>
+    </div>
+
+    <div class="fire-card highlight">
+      <div class="fire-card-header">
+        <div class="fire-icon">🎯</div>
+        <div>
+          <div class="fire-name">使い切るFIRE（取り崩しFIRE）</div>
+          <div class="fire-asset">目安資産：4500〜6000万円</div>
+        </div>
+      </div>
+      <div class="fire-desc"><span class="hl-gold">今日のメインテーマ。</span>資産を誰かに残すことを前提にせず、<strong>「平均寿命まで使い切る」</strong>計算で取り崩していく型のFIRE。資産を増やし続ける必要がないので、完全FIREより必要資産額が少なく済む。4%ルールをベースに計算する。</div>
+      <div class="fire-tags">
+        <span class="tag tag-green">✅ 会社員でも到達可能</span>
+        <span class="tag tag-green">✅ 完全FIREより少ない資産でOK</span>
+        <span class="tag tag-gold">🔥 ハードルが低い</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="sota-road">
+  <div class="section-label">③ そうたのロードマップ</div>
+  <h2>🗺️ そうたが目指すFIREの道筋</h2>
+  <p>参考までに、僕が実際に描いているロードマップはこんな感じです。</p>
+
+  <div class="roadmap">
+    <div class="road-step">
+      <div class="road-num done">1</div>
+      <div class="road-content">
+        <div class="road-label">現在進行中</div>
+        <div class="road-title">📈 資産形成フェーズ</div>
+        <div class="road-desc">NISA・節約・投資で資産を積み上げている段階。ここが全ての土台。</div>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-num">2</div>
+      <div class="road-content">
+        <div class="road-label">次のステップ</div>
+        <div class="road-title">☕ セミFIRE（セミリタイア）</div>
+        <div class="road-desc">会社員をやめて、好きな仕事だけを少量やりながら資産と両立する状態。</div>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-num">3</div>
+      <div class="road-content">
+        <div class="road-label">その次</div>
+        <div class="road-title">🎯 使い切るFIRE</div>
+        <div class="road-desc">資産を平均寿命まで計画的に取り崩しながら、完全に好きなことだけで生きる状態。</div>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-num">4</div>
+      <div class="road-content">
+        <div class="road-label">最終ゴール</div>
+        <div class="road-title">👑 完全FIRE</div>
+        <div class="road-desc">不労所得だけで生活が完結する状態。資産が資産を生み出すフェーズ。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sota-box">
+    <div class="sota-name">💬 そうたのコメント</div>
+    <p>いきなり完全FIREを目指すのはハードルが高すぎて現実的じゃない。でも使い切るFIREなら、普通の会社員でも十分届く射程圏内にある。だからまずここを目指す。</p>
+  </div>
+</div>
+
+<div class="section" id="tsukai-fire">
+  <div class="section-label">④ 使い切るFIREとは</div>
+  <h2>🎯 使い切るFIREって何？</h2>
+  <p>一般的なFIREの話では「資産の4%を毎年取り崩しても元本が減らない」という考え方（4%ルール）が使われます。</p>
+  <p>でも、<span class="hl-gold">「元本を全部未来の誰かに引き継ぐ」前提を外したら？</span></p>
+  <p>自分の資産は<span class="hl-green">自分の人生を豊かにするために使い切る</span>。この考え方が「使い切るFIRE」です。</p>
+  <p>結果として、完全FIREより<span class="hl-gold">少ない資産でも毎月より多く取り崩せる</span>ので、ハードルがグッと下がります。</p>
+</div>
+
+<div class="section" id="rule4">
+  <div class="section-label">⑤ 4%ルールの計算</div>
+  <h2>📊 4%ルールで必要資産を計算する</h2>
+
+  <h3>まず「必要資産額」を出す</h3>
+  <p>生活に必要な年間費用 ÷ 4% ＝ 必要資産額。この計算式だけ覚えておけばOKです。</p>
+
+  <table class="calc-table">
+    <thead>
+      <tr><th>月の生活費</th><th>年間費用</th><th>必要資産額（4%ルール）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>月15万円</td><td>年180万円</td><td class="td-gold">4,500万円</td></tr>
+      <tr><td>月20万円</td><td>年240万円</td><td class="td-gold">6,000万円</td></tr>
+      <tr><td>月25万円</td><td>年300万円</td><td class="td-gold">7,500万円</td></tr>
+      <tr><td>月30万円</td><td>年360万円</td><td class="td-gold">9,000万円</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note">※ 4%ルール：毎年4%ずつ取り崩しながら年利4%で運用すると、理論上資産が永続するという試算（Trinityスタディ）。使い切る場合はもう少し多く取り崩せる。</p>
+
+  <h3>「使い切る」なら毎月いくら取り崩せる？</h3>
+  <p>6,000万円を年4%で運用しながら取り崩した場合のシミュレーション。</p>
+
+  <table class="w-table">
+    <thead>
+      <tr><th>想定期間</th><th>月の取り崩し額</th><th>イメージ</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>20年で使い切る</td>
+        <td class="td-gold">月約37万円</td>
+        <td style="font-size:12px; color:#94a3b8;">60歳FIREなら80歳まで</td>
+      </tr>
+      <tr>
+        <td>25年で使い切る</td>
+        <td class="td-gold">月約32万円</td>
+        <td style="font-size:12px; color:#94a3b8;">60歳FIREなら85歳まで</td>
+      </tr>
+      <tr>
+        <td>30年で使い切る</td>
+        <td class="td-gold">月約29万円</td>
+        <td style="font-size:12px; color:#94a3b8;">60歳FIREなら90歳まで</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="num-box">
+    <div class="num-big">月20万円で生活するなら</div>
+    <div class="num-sub">6,000万円の資産で30年以上・余裕を持って使い切れる計算<br>（年利4%運用・取り崩し併用）</div>
+  </div>
+</div>
+
+<div class="section" id="kaishain">
+  <div class="section-label">⑥ 会社員でも届く理由</div>
+  <h2>👔 普通の会社員でも十分届く</h2>
+  <p>「6,000万円なんて無理でしょ」と思うかもしれません。でもNISAで積み立て続けたら？</p>
+
+  <table class="calc-table">
+    <thead>
+      <tr><th>毎月の積立額</th><th>積立年数</th><th>年利4%複利での資産</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>月5万円</td><td>35年</td><td>約4,569万円</td></tr>
+      <tr><td>月5万円</td><td>40年</td><td class="td-gold">約5,910万円</td></tr>
+      <tr><td>月7万円</td><td>35年</td><td class="td-gold">約6,396万円 ✅</td></tr>
+      <tr><td>月7万円</td><td>40年</td><td class="td-gold">約8,274万円</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sota-box">
+    <div class="sota-name">💬 そうたのコメント</div>
+    <p>月5万円を40年積み立てれば約6,000万円に届く。月7万円なら35年で到達できる。普通の会社員が継続できる金額の範囲です。これが「会社員でも夢じゃない」と言える根拠です。<br><br>早くFIREしたいなら生活費を下げるか積立額を増やすか。でも方向性としては十分見える射程圏内にある話です。</p>
+  </div>
+
+  <div class="num-box">
+    <div class="num-big">月5〜7万円の積立</div>
+    <div class="num-sub">これを30〜40年続ければ<br>使い切るFIREに必要な資産に届く<br>（NISA・年利4%複利想定）</div>
+  </div>
+</div>
+
+<div class="section" id="myth">
+  <div class="section-label">⑦ よくある疑問</div>
+  <h2>💬 「子供に残せない」問題について</h2>
+
+  <div class="myth-box">
+    <div class="myth-q">❓ 使い切るFIREって、子供に資産を残せないのでは？</div>
+    <div class="myth-a">
+      はい、その通りです。使い切る前提なので、遺産という概念は外れます。<br><br>
+      でも僕はこう思っています。<span class="hl-gold">親の遺産を当てにするような子供に育てることの方が問題ではないか</span>と。<br><br>
+      「お金は親からもらうもの」という感覚で育つより、自分でしっかり金融知識をつけて、自分の力で資産を作れる子供に育てる方が、長い目で見てその子のためになると考えています。<br><br>
+      残すべきは資産ではなく、<span class="hl-green">お金の教育と考え方</span>だと思っています。
+    </div>
+  </div>
+
+  <div class="sota-box">
+    <div class="sota-name">💬 そうたの思想（強かったらごめんなさい）</div>
+    <p>僕自身、ライフプランに子供を入れていないというのもあります。でもそれ以上に、「自分の人生を自分の資産で完結させる」という考え方が好きなんですよね。自分が幸せに生ききることが、周りへの一番の貢献だとも思っているので。</p>
+  </div>
+</div>
+
+<div class="cta-section" id="cta">
+  <h2>🚀 次のステップ</h2>
+  <p>FIREを目指すなら、まず資産形成の土台が必要です。<br>NISAの始め方は全部ここに載っています。</p>
+  <a href="https://lin.ee/tXRnQHW" class="btn-line">📲 NISAの完全攻略ガイドを受け取る</a>
+  <p class="note" style="text-align:center; margin-top:8px;">公式LINEに追加後、メニューからお受け取りください。</p>
+</div>
+
+</body>
+</html>
