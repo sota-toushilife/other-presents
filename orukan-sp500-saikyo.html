@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なぜオルカンとS&P500が最強なのか｜そうた｜損しないNISAの始め方</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%); min-height: 100vh; padding: 0 0 40px; color: #1e293b; }
+.container { max-width: 480px; margin: 0 auto; }
+.hero { background: linear-gradient(90deg, #38bdf8, #0284c7); padding: 36px 20px 30px; text-align: center; }
+.hero-eyebrow { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 10px; }
+.hero h1 { color: #fff; font-size: 20px; font-weight: 900; line-height: 1.55; }
+.hero-sub { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 10px; line-height: 1.6; }
+.content { padding: 20px 16px 0; display: flex; flex-direction: column; gap: 14px; }
+.card { background: #fff; border-radius: 14px; padding: 18px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card-title { font-size: 15px; font-weight: 900; color: #0369a1; margin-bottom: 12px; line-height: 1.5; }
+.card-body { font-size: 14px; color: #334155; line-height: 1.85; }
+.card-body p + p { margin-top: 10px; }
+.toc-link { display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid #f1f5f9; text-decoration:none; color:#334155; font-size:14px; }
+.toc-link:last-child { border-bottom:none; }
+.toc-arrow { color:#0284c7; font-size:12px; flex-shrink:0; }
+.num-box { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 12px; padding: 18px 16px; text-align: center; margin: 14px 0; }
+.num-big { color: #fff; font-size: 26px; font-weight: 900; line-height: 1.3; }
+.num-sub { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 4px; line-height: 1.6; }
+.warn-box { background: #fff7ed; border: 1.5px solid #fbbf24; border-radius: 12px; padding: 14px; font-size: 13px; color: #78350f; line-height: 1.8; }
+.warn-title { font-weight: 900; font-size: 14px; color: #b45309; margin-bottom: 6px; }
+.green-box { background: #f0fdf4; border-left: 3px solid #22c55e; padding: 12px 14px; border-radius: 0 10px 10px 0; font-size: 13px; color: #166534; line-height: 1.8; }
+.info-box { background: #f0f9ff; border-left: 3px solid #38bdf8; padding: 12px 14px; border-radius: 0 10px 10px 0; font-size: 13px; color: #0369a1; line-height: 1.8; }
+.sota-box { background: #f8fafc; border-left: 4px solid #0ea5e9; padding: 12px 14px; border-radius: 0 10px 10px 0; font-size: 13px; color: #334155; line-height: 1.8; }
+.sota-name { font-size: 11px; color: #0284c7; font-weight: 700; margin-bottom: 4px; }
+
+/* アコーディオン */
+.acc-item { border: 1.5px solid #e2e8f0; border-radius: 12px; margin: 8px 0; overflow: hidden; }
+.acc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; cursor: pointer; background: #f8fafc;
+  font-size: 14px; font-weight: 900; color: #0369a1; line-height: 1.4;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.acc-header:active { background: #f0f9ff; }
+.acc-arrow { font-size: 18px; color: #0284c7; transition: transform 0.3s; flex-shrink: 0; margin-left: 8px; }
+.acc-item.open .acc-arrow { transform: rotate(180deg); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.acc-item.open .acc-body { max-height: 1200px; }
+.acc-content { padding: 14px 16px 16px; font-size: 13px; color: #334155; line-height: 1.85; border-top: 1px solid #e2e8f0; }
+.acc-content p + p { margin-top: 10px; }
+
+/* 比較テーブル */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.data-table th { background: #0369a1; color: #fff; padding: 8px 10px; font-weight: 700; text-align: left; }
+.data-table td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; color: #334155; }
+.data-table tr:last-child td { border-bottom: none; }
+.td-blue { color: #0284c7; font-weight: 700; }
+.td-good { background: #f0fdf4; color: #16a34a; font-weight: 700; }
+
+/* ファンドカード */
+.fund-card { border: 2px solid #e2e8f0; border-radius: 14px; overflow: hidden; margin: 8px 0; }
+.fund-card.orukan { border-color: #0ea5e9; }
+.fund-card.sp500 { border-color: #7c3aed; }
+.fund-header { padding: 12px 16px; font-size: 15px; font-weight: 900; }
+.fund-card.orukan .fund-header { background: linear-gradient(90deg, #0ea5e9, #38bdf8); color: #fff; }
+.fund-card.sp500 .fund-header { background: linear-gradient(90deg, #7c3aed, #a855f7); color: #fff; }
+.fund-sub { font-size: 11px; font-weight: 400; opacity: 0.85; margin-top: 2px; }
+.fund-body { padding: 14px 16px; }
+
+.cta-btn { display:block; text-align:center; background:linear-gradient(135deg,#0ea5e9,#0284c7); color:#fff; font-size:15px; font-weight:900; padding:16px; border-radius:12px; text-decoration:none; margin-top:14px; box-shadow:0 4px 14px rgba(2,132,199,0.35); }
+.hl { color: #0284c7; font-weight: 900; }
+.hl-red { color: #dc2626; font-weight: 900; }
+.hl-green { color: #16a34a; font-weight: 900; }
+.hl-purple { color: #7c3aed; font-weight: 900; }
+.note { font-size: 11px; color: #94a3b8; margin-top: 6px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <p class="hero-eyebrow">そうた｜損しないNISAの始め方</p>
+  <h1>なぜオルカンとS&P500が<br>最強なのか📊</h1>
+  <p class="hero-sub">「この2つだけ選べばいい」と言われる理由を<br>数字と仕組みで徹底解説。</p>
+</div>
+
+<div class="content">
+
+  <div class="card">
+    <div class="card-body">
+      <p>「NISAを始めよう」と思ったとき、最初の壁が<span class="hl">「何を買えばいいか」</span>です。</p>
+      <p>結論は<strong>オルカン（eMAXIS Slim 全世界株式）</strong>か<strong>S&P500</strong>の2択。でも「なんでこの2つなの？」という疑問に、ちゃんと答えられる人は少ない。今回は数字と仕組みで徹底的に解説します。</p>
+    </div>
+  </div>
+
+  <!-- 目次 -->
+  <div class="card">
+    <div class="card-title">📋 もくじ</div>
+    <div>
+      <a href="#naze2" class="toc-link"><span class="toc-arrow">▶</span>① なぜこの2つが最強なのか（結論）</a>
+      <a href="#orukan" class="toc-link"><span class="toc-arrow">▶</span>② オルカンを深掘り</a>
+      <a href="#sp500" class="toc-link"><span class="toc-arrow">▶</span>③ S&P500を深掘り</a>
+      <a href="#hikaku" class="toc-link"><span class="toc-arrow">▶</span>④ どっちを選ぶべき？</a>
+      <a href="#kojin" class="toc-link"><span class="toc-arrow">▶</span>⑤ 個別株・他の投資との比較</a>
+      <a href="#next" class="toc-link"><span class="toc-arrow">▶</span>🚀 次のステップ</a>
+    </div>
+  </div>
+
+  <!-- ① 結論 -->
+  <div class="card" id="naze2">
+    <div class="card-title">✅ ① なぜこの2つが最強なのか（結論）</div>
+    <div class="card-body">
+      <p>最強である理由は大きく3つ。</p>
+    </div>
+
+    <div class="green-box" style="margin-top:12px;">
+      <strong>最強である3つの理由</strong><br><br>
+      ✅ <strong>分散が完璧</strong>——1本で何千銘柄に投資できる<br>
+      ✅ <strong>コストが最安水準</strong>——信託報酬が年0.05〜0.2%以下<br>
+      ✅ <strong>長期実績が証明済み</strong>——数十年単位で右肩上がり
+    </div>
+
+    <div class="card-body" style="margin-top:12px;">
+      <p>株式投資の世界には「卵を一つのカゴに盛るな」という格言があります。一つの会社の株だけ持つと、その会社が倒れたとき全損する。でもオルカンやS&P500は<span class="hl">1本で数百〜数千社に自動分散</span>される。リスクが圧倒的に低い。</p>
+      <p>そしてコストが最安水準。年0.05〜0.2%という信託報酬は、20〜30年の長期運用で<span class="hl-green">数十万〜数百万円の差</span>を生みます。</p>
+    </div>
+
+    <div class="num-box">
+      <div class="num-big">分散×低コスト×実績</div>
+      <div class="num-sub">この3つが揃う投資商品は、世界中見てもほぼない</div>
+    </div>
+  </div>
+
+  <!-- ② オルカン -->
+  <div class="card" id="orukan">
+    <div class="card-title">🌍 ② オルカンを深掘り</div>
+
+    <div class="fund-card orukan">
+      <div class="fund-header">
+        🌍 eMAXIS Slim 全世界株式（オルカン）
+        <div class="fund-sub">信託報酬：年0.05775%（業界最安水準）</div>
+      </div>
+      <div class="fund-body">
+        <p style="font-size:13px; color:#334155; line-height:1.8;">世界中の株式市場に1本で投資できるファンド。先進国・新興国あわせて約50カ国・3,000銘柄以上に自動分散。</p>
+      </div>
+    </div>
+
+    <!-- アコーディオン群 -->
+    <div class="acc-item" id="acc1">
+      <div class="acc-header" onclick="toggle('acc1')">
+        なんで「全世界」に投資するの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>「どの国が今後成長するか」は誰にも予測できません。過去を見ると、2000年代は新興国（中国・インドなど）が急成長し、2010年代は米国が圧倒的に強かった。</p>
+          <p>全世界に投資しておけば、<span class="hl">どの国が成長しても自動的にそこへの投資比率が増える</span>仕組みになっています。「予測できないなら全部買う」という合理的な判断です。</p>
+          <p>ちなみに現在のオルカンは<strong>米国が約60%</strong>を占めています。実は「全世界」でも米国の影響が大きい点は知っておくといいです。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc2">
+      <div class="acc-header" onclick="toggle('acc2')">
+        3,000銘柄以上に分散ってどういう意味？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>1万円でオルカンを買うと、その1万円が自動的に世界中の3,000社以上に分配されます。Apple、Microsoft、トヨタ、サムスン、TSMC…全部入ってる。</p>
+          <p>仮に1社が倒産しても、あなたの資産への影響は<span class="hl">全体の0.1%以下</span>。個別株で1社に全額投資するリスクとは比べ物にならない安定感です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc3">
+      <div class="acc-header" onclick="toggle('acc3')">
+        信託報酬0.05775%って安いの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>めちゃくちゃ安いです。銀行窓口で売られているアクティブファンドは年1〜2%が多い。100万円を30年運用した場合の差は：</p>
+          <p>・信託報酬0.05775%（オルカン）→ コスト：約18万円<br>・信託報酬1.5%（アクティブ型）→ コスト：約450万円</p>
+          <p><span class="hl-red">その差、約432万円。</span>パフォーマンスが同じでも、コストだけでこれだけ変わる。</p>
+          <p>さらにアクティブファンドの多くはオルカンのリターンに勝てていないため、コストが高い上に成績も劣る、という最悪の組み合わせになることが多いです。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc4">
+      <div class="acc-header" onclick="toggle('acc4')">
+        過去の実績は？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>全世界株式のベンチマーク（MSCI ACWI指数）は、過去30年で<span class="hl">年平均約8%前後のリターン</span>を出してきました。</p>
+          <p>リーマンショック（2008年）やコロナショック（2020年）など、大きな暴落も経験しましたが、いずれも数年以内に回復・過去最高値を更新しています。</p>
+          <p>「長期で持てば報われる」という実績が数十年単位で積み上がっているのが最大の根拠です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ S&P500 -->
+  <div class="card" id="sp500">
+    <div class="card-title">🇺🇸 ③ S&P500を深掘り</div>
+
+    <div class="fund-card sp500">
+      <div class="fund-header">
+        🇺🇸 eMAXIS Slim 米国株式（S&P500）
+        <div class="fund-sub">信託報酬：年0.09372%（業界最安水準）</div>
+      </div>
+      <div class="fund-body">
+        <p style="font-size:13px; color:#334155; line-height:1.8;">米国の優良企業500社に1本で投資できるファンド。Apple・Microsoft・Amazon・Googleなどテック大手から金融・ヘルスケアまで幅広い。</p>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc5">
+      <div class="acc-header" onclick="toggle('acc5')">
+        なんでアメリカの株だけでいいの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>アメリカは世界最大の経済大国で、世界のGDPの約25%を占めます。そしてApple・Microsoft・Amazon・Google・NVIDIAなど、世界を席巻するテック企業のほぼ全てがアメリカ発。</p>
+          <p>これらの企業は<span class="hl">全世界でビジネスをしているグローバル企業</span>です。S&P500に投資することは、「アメリカ国内に投資する」だけでなく、「アメリカ企業を通じて世界経済に投資する」とも言えます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc6">
+      <div class="acc-header" onclick="toggle('acc6')">
+        S&P500の過去リターンは？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>S&P500は過去約100年のデータがあり、年平均リターンは<span class="hl">約10%（インフレ調整後で約7%）</span>。</p>
+          <p>直近10年（2014〜2023年）はAI・テック株の急成長もあり、年平均で<strong>約13%前後</strong>という驚異的なリターンを出しています。</p>
+          <p>「米国株だけで大丈夫？」と思うかもしれませんが、この実績を見ると「むしろS&P500だけで十分」という判断も理にかなっています。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc7">
+      <div class="acc-header" onclick="toggle('acc7')">
+        S&P500の500社ってどんな会社？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>ニューヨーク証券取引所やNASDAQに上場する大型優良企業から、厳格な基準で選ばれた500社です。</p>
+          <p>上位10社（時価総額）でファンド全体の約35%を占め、その顔ぶれは：Apple・Microsoft・NVIDIA・Amazon・Alphabet（Google）・Meta・Tesla…と、誰もが知るブランドばかり。</p>
+          <p>「業績が悪くなった会社は外されて、成長した会社が新たに入る」という<span class="hl">自動的な入れ替え</span>が行われるため、常に優良企業だけのポートフォリオが維持されます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc8">
+      <div class="acc-header" onclick="toggle('acc8')">
+        米国だけだとリスクが高くない？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>確かに「1国集中」は分散の観点では劣ります。でもS&P500内でも業種分散（IT・金融・ヘルスケア・消費財・エネルギーなど）はされています。</p>
+          <p>また前述の通り、S&P500の企業は全世界でビジネスをしているため、「アメリカだけのリスク」は思ったより高くないという見方もあります。</p>
+          <p>「リスクをより抑えたい→オルカン」「過去実績重視・リターンを追いたい→S&P500」というのが一般的な使い分けです。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ どっちを選ぶべき？ -->
+  <div class="card" id="hikaku">
+    <div class="card-title">🤔 ④ どっちを選ぶべき？</div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th></th><th>オルカン</th><th>S&P500</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>投資対象</td><td>全世界50カ国</td><td>米国500社</td></tr>
+        <tr><td>銘柄数</td><td>約3,000銘柄</td><td>500銘柄</td></tr>
+        <tr><td>分散度</td><td class="td-good">◎ 最大</td><td class="td-blue">○ 十分</td></tr>
+        <tr><td>過去リターン</td><td class="td-blue">年8%前後</td><td class="td-good">年10%前後</td></tr>
+        <tr><td>信託報酬</td><td>0.05775%</td><td>0.09372%</td></tr>
+        <tr><td>向いてる人</td><td>リスクを抑えたい</td><td>リターン重視</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sota-box" style="margin-top:12px;">
+      <div class="sota-name">💬 そうたのコメント</div>
+      どっちを選んでも正解です。迷ったらオルカン一択で全然OK。重要なのは「どっちにするか」より「始めること」と「続けること」。
+    </div>
+  </div>
+
+  <!-- ⑤ 個別株・他の投資との比較 -->
+  <div class="card" id="kojin">
+    <div class="card-title">⚡ ⑤ 個別株・他の投資との比較</div>
+
+    <div class="acc-item" id="acc9">
+      <div class="acc-header" onclick="toggle('acc9')">
+        個別株の方が稼げるんじゃないの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>「うまく銘柄を選べば10倍・100倍も夢じゃない」——これは本当です。でも現実は、<span class="hl-red">プロのファンドマネージャーでも長期では約8〜9割がインデックスに負ける</span>というデータがあります。</p>
+          <p>毎日決算書を読み込み、IR情報を追い、チャート分析をしているプロが負けているのに、素人が勝ち続けるのは再現性がない。</p>
+          <p>例外的に勝てる人はいますが、それはギャンブルで大当たりした人と同じ構造です。再現できるかどうかが問題。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc10">
+      <div class="acc-header" onclick="toggle('acc10')">
+        高配当株はどうなの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>高配当株は「毎月・毎年お金が振り込まれる」感覚が魅力で人気があります。でも数字で見ると：</p>
+          <p>・配当金は受け取り時に課税（約20%）される<br>・インデックスへの長期リターンに負けるケースが多い<br>・銘柄を自分で選ぶ手間・維持コストがかかる</p>
+          <p>「配当金が振り込まれる体験」は投資のモチベーションになりますが、<span class="hl">純粋に資産を増やす効率ではオルカン・S&P500の方が優れている</span>というのが現実です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc11">
+      <div class="acc-header" onclick="toggle('acc11')">
+        FX・仮想通貨はどうなの？
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>FXと仮想通貨は「ゼロサムゲーム」に近く、誰かが儲けた分、誰かが損をする構造です。市場全体が成長するインデックス投資とは根本的に違う。</p>
+          <p>また価格変動が激しく、長期で安定したリターンを出す実績がありません。<span class="hl-red">資産形成には向かない</span>と考えています。</p>
+          <p>「投機（短期で大きく稼ごうとすること）」と「投資（長期で資産を増やすこと）」は別物です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box" style="margin-top:12px;">
+      <div class="warn-title">⚠️ 「オルカン・S&P500より良い投資」を勧めてくる人には注意</div>
+      「もっと稼げる方法がある」「このファンドの方がいい」——そう言ってくる人の多くは、販売手数料や紹介報酬で稼いでいます。シンプルな結論を複雑に見せることで、手数料の高い商品を買わせようとするのが常套手段。
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" id="next">
+    <div class="card-title">🚀 次のステップ</div>
+    <div class="card-body">
+      <p>「オルカンかS&P500を始めよう」と思ったら、まずNISA口座の開設から。全手順をまとめています。</p>
+    </div>
+    <a href="https://lin.ee/tXRnQHW" class="cta-btn">📲 NISAの完全攻略ガイドを受け取る</a>
+    <p class="note" style="text-align:center; margin-top:8px;">公式LINEに追加後、メニューからお受け取りください。</p>
+  </div>
+
+</div>
+</div>
+
+<script>
+function toggle(id) {
+  const item = document.getElementById(id);
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
