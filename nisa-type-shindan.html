@@ -630,6 +630,114 @@
     color: #bbb;
     padding: 20px 0 10px;
   }
+
+  /* ===== 銘柄詳細アコーディオン ===== */
+  .detail-section {
+    margin: 0 0 12px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(2,132,199,0.10);
+  }
+  .detail-section-header {
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    user-select: none;
+  }
+  .detail-section-header.orukan {
+    background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    color: white;
+  }
+  .detail-section-header.sp500 {
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+    color: white;
+  }
+  .detail-section-title {
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .detail-arrow {
+    font-size: 14px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .detail-section.open .detail-arrow { transform: rotate(180deg); }
+  .detail-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: white;
+  }
+  .detail-section.open .detail-body { max-height: 2000px; }
+  .detail-inner {
+    padding: 14px 16px;
+  }
+  .detail-fund-info {
+    background: #f0f9ff;
+    border-left: 3px solid #38bdf8;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: #0284c7;
+    font-weight: 700;
+  }
+  .detail-fund-info.sp500 {
+    border-color: #7c3aed;
+    background: #faf5ff;
+    color: #7c3aed;
+  }
+  .detail-acc-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .detail-acc-header {
+    background: #f8fafc;
+    padding: 11px 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    user-select: none;
+  }
+  .detail-acc-arrow {
+    font-size: 11px;
+    color: #94a3b8;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .detail-acc-item.open .detail-acc-arrow { transform: rotate(180deg); }
+  .detail-acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .detail-acc-item.open .detail-acc-body { max-height: 600px; }
+  .detail-acc-content {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.8;
+    border-top: 1px solid #e2e8f0;
+  }
+  .detail-acc-content p { margin-bottom: 8px; }
+  .detail-acc-content p:last-child { margin-bottom: 0; }
+  .hl-d { background: linear-gradient(transparent 60%, #bae6fd 60%); font-weight: 700; }
+  .hl-d-v { background: linear-gradient(transparent 60%, #e9d5ff 60%); font-weight: 700; }
+  .hl-red-d { color: #ef4444; font-weight: 800; }
+  .detail-wrap {
+    padding: 12px 0 0;
+  }
 </style>
 </head>
 <body>
@@ -760,6 +868,148 @@
         </div>
 
       </div><!-- /resultGrid -->
+
+
+        <!-- 銘柄詳細アコーディオン -->
+        <div class="detail-wrap">
+
+          <!-- オルカン -->
+          <div class="detail-section" id="ds-orukan">
+            <div class="detail-section-header orukan" onclick="toggleDetail('ds-orukan')">
+              <div class="detail-section-title">🌍 もっとオルカンを詳しく知りたい！</div>
+              <span class="detail-arrow">▼</span>
+            </div>
+            <div class="detail-body">
+              <div class="detail-inner">
+                <div class="detail-fund-info">eMAXIS Slim 全世界株式（オルカン）｜信託報酬：年0.05775%</div>
+
+                <div class="detail-acc-item" id="da1">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da1')">
+                    なんで「全世界」に投資するの？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>「どの国が今後成長するか」は誰にも予測できません。過去を見ると、2000年代は新興国（中国・インドなど）が急成長し、2010年代は米国が圧倒的に強かった。</p>
+                      <p>全世界に投資しておけば、<span class="hl-d">どの国が成長しても自動的にそこへの投資比率が増える</span>仕組みになっています。「予測できないなら全部買う」という合理的な判断です。</p>
+                      <p>ちなみに現在のオルカンは<strong>米国が約60%</strong>を占めています。「全世界」でも米国の影響が大きい点は知っておくといいです。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da2">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da2')">
+                    3,000銘柄以上に分散ってどういう意味？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>1万円でオルカンを買うと、その1万円が自動的に世界中の3,000社以上に分配されます。Apple、Microsoft、トヨタ、サムスン、TSMC…全部入ってる。</p>
+                      <p>仮に1社が倒産しても、あなたの資産への影響は<span class="hl-d">全体の0.1%以下</span>。個別株で1社に全額投資するリスクとは比べ物にならない安定感です。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da3">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da3')">
+                    信託報酬0.05775%って安いの？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>めちゃくちゃ安いです。銀行窓口で売られているアクティブファンドは年1〜2%が多い。100万円を30年運用した場合の差は：</p>
+                      <p>・信託報酬0.05775%（オルカン）→ コスト：約18万円<br>・信託報酬1.5%（アクティブ型）→ コスト：約450万円</p>
+                      <p><span class="hl-red-d">その差、約432万円。</span>パフォーマンスが同じでも、コストだけでこれだけ変わります。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da4">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da4')">
+                    過去の実績は？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>全世界株式のベンチマーク（MSCI ACWI指数）は、過去30年で<span class="hl-d">年平均約8%前後のリターン</span>を出してきました。</p>
+                      <p>リーマンショック（2008年）やコロナショック（2020年）など大きな暴落も経験しましたが、いずれも数年以内に回復・過去最高値を更新しています。「長期で持てば報われる」という実績が積み上がっているのが最大の根拠です。</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- S&P500 -->
+          <div class="detail-section" id="ds-sp500">
+            <div class="detail-section-header sp500" onclick="toggleDetail('ds-sp500')">
+              <div class="detail-section-title">🇺🇸 もっとS&P500を詳しく知りたい！</div>
+              <span class="detail-arrow">▼</span>
+            </div>
+            <div class="detail-body">
+              <div class="detail-inner">
+                <div class="detail-fund-info sp500">eMAXIS Slim 米国株式（S&P500）｜信託報酬：年0.09372%</div>
+
+                <div class="detail-acc-item" id="da5">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da5')">
+                    なんでアメリカの株だけでいいの？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>アメリカは世界最大の経済大国で、世界のGDPの約25%を占めます。Apple・Microsoft・Amazon・Google・NVIDIAなど、世界を席巻するテック企業のほぼ全てがアメリカ発。</p>
+                      <p>これらの企業は<span class="hl-d-v">全世界でビジネスをしているグローバル企業</span>です。S&P500への投資は「アメリカ国内への投資」だけでなく、「アメリカ企業を通じて世界経済に投資する」とも言えます。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da6">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da6')">
+                    S&P500の過去リターンは？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>S&P500は過去約100年のデータがあり、年平均リターンは<span class="hl-d-v">約10%（インフレ調整後で約7%）</span>。</p>
+                      <p>直近10年（2014〜2023年）はAI・テック株の急成長もあり、年平均で<strong>約13%前後</strong>という驚異的なリターンを出しています。</p>
+                      <p>「米国株だけで大丈夫？」と思うかもしれませんが、この実績を見ると「むしろS&P500だけで十分」という判断も理にかなっています。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da7">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da7')">
+                    S&P500の500社ってどんな会社？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>上場する大型優良企業から厳格な基準で選ばれた500社です。上位10社でファンド全体の約35%を占め、その顔ぶれはApple・Microsoft・NVIDIA・Amazon・Alphabet（Google）・Meta・Tesla…誰もが知るブランドばかり。</p>
+                      <p>「業績が悪くなった会社は外されて、成長した会社が入る」という<span class="hl-d-v">自動的な入れ替え</span>が行われるため、常に優良企業だけのポートフォリオが維持されます。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-acc-item" id="da8">
+                  <div class="detail-acc-header" onclick="toggleDetailAcc('da8')">
+                    米国だけだとリスクが高くない？
+                    <span class="detail-acc-arrow">▼</span>
+                  </div>
+                  <div class="detail-acc-body">
+                    <div class="detail-acc-content">
+                      <p>確かに「1国集中」は分散の観点では劣ります。でもS&P500内でも業種分散（IT・金融・ヘルスケア・消費財・エネルギーなど）はされています。</p>
+                      <p>また、S&P500の企業は全世界でビジネスをしているため「アメリカだけのリスク」は思ったより高くないという見方もあります。</p>
+                      <p>「リスクをより抑えたい→オルカン」「過去実績重視・リターンを追いたい→S&P500」というのが一般的な使い分けです。</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /detail-wrap -->
 
       <!-- 注記 -->
       <p class="r-note">※この診断は自己理解を目的としたものです。投資の成果を科学的に保証するものではありません。</p>
@@ -1166,6 +1416,13 @@ function copyResult() {
   }).catch(() => {
     document.getElementById('r-toast').textContent = 'コピーに失敗しました';
   });
+}
+
+function toggleDetail(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleDetailAcc(id) {
+  document.getElementById(id).classList.toggle('open');
 }
 </script>
 </body>
