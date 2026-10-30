@@ -267,6 +267,16 @@
 </style>
 </head>
 <body>
+<div id="pw-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:320px;width:90%;text-align:center;">
+    <h3 style="font-size:16px;font-weight:900;color:#1e293b;margin-bottom:8px;">🔒 管理者パスワード</h3>
+    <p style="font-size:13px;color:#64748b;margin-bottom:16px;">公開するにはパスワードを入力してください</p>
+    <input type="password" id="pw-input" placeholder="パスワード" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:15px;margin-bottom:12px;outline:none;">
+    <div id="pw-err" style="color:#ef4444;font-size:13px;margin-top:8px;display:none;">❌ パスワードが違います</div>
+    <button onclick="checkPw()" style="width:100%;background:#f59e0b;color:#1e293b;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:900;cursor:pointer;margin-top:12px;margin-bottom:8px;">公開する</button>
+    <button onclick="closePwModal()" style="background:none;border:none;color:#94a3b8;font-size:13px;cursor:pointer;">キャンセル</button>
+  </div>
+</div>
 
 <div id="admin-topbar">
   <span class="admin-badge">管理用</span>
@@ -303,7 +313,7 @@
     <div class="section-label">🎁 全11特典</div>
     <div class="tokuten-list" id="tokuten-list"></div>
     <div id="admin-section">
-      <button class="publish-btn" id="publish-btn" onclick="publish()">
+      <button class="publish-btn" id="publish-btn" onclick="askPassword()">
         🚀 公開する（全員に反映）
       </button>
       <div class="status-msg" id="status-msg"></div>
@@ -419,6 +429,21 @@ function setupAdmin() {
   if (saved) document.getElementById('pat-input').value = saved;
 }
 
+
+const ADMIN_PW = 'Toushi100man';
+function askPassword(){
+  const m=document.getElementById('pw-modal');
+  m.style.display='flex';
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-err').style.display='none';
+  setTimeout(()=>document.getElementById('pw-input').focus(),100);
+}
+function closePwModal(){ document.getElementById('pw-modal').style.display='none'; }
+function checkPw(){
+  if(document.getElementById('pw-input').value===ADMIN_PW){closePwModal();publish();}
+  else{document.getElementById('pw-err').style.display='block';}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('pw-modal').style.display==='flex')checkPw();});
 async function publish() {
   syncFromDOM();
   const pat = document.getElementById('pat-input').value.trim() || localStorage.getItem('gh_pat_portal');
