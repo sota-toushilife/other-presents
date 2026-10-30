@@ -441,7 +441,7 @@ function renderOthers() {
     const off = item.visible === false;
     return `<div class="item-row${off ? ' tokuten-item off' : ''}" data-id="${item.id}">
       <span class="item-drag" onclick="event.stopPropagation()">⠿⠿</span>
-      <span class="item-title" style="${off ? 'opacity:0.5' : ''}">${item.title}</span>
+      <a class="item-title" href="${item.url}" target="_blank" style="${off ? 'opacity:0.5;text-decoration:none;color:#1e293b' : 'text-decoration:none;color:#1e293b'}">${item.title}</a>
       <span class="toggle-wrap" onclick="event.stopPropagation()">
         <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''} onchange="toggleOther('${item.id}')"><span class="slider"></span></label>
       </span>
