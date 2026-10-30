@@ -442,8 +442,8 @@ function renderOthers() {
     return `<div class="item-row${off ? ' tokuten-item off' : ''}" data-id="${item.id}">
       <span class="item-drag" onclick="event.stopPropagation()">⠿⠿</span>
       <span class="item-title" style="${off ? 'opacity:0.5' : ''}">${item.title}</span>
-      <span class="toggle-wrap" onclick="toggleOther('${item.id}')">
-        <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''}><span class="slider"></span></label>
+      <span class="toggle-wrap" onclick="event.stopPropagation()">
+        <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''} onchange="toggleOther('${item.id}')"><span class="slider"></span></label>
       </span>
     </div>`;
   }).join('');
@@ -457,8 +457,15 @@ function renderOthers() {
 
 function toggleOther(id) {
   const item = othersItems.find(i => i.id === id);
-  if (item) item.visible = !item.visible;
-  renderOthers();
+  if (!item) return;
+  item.visible = !item.visible;
+  const off = !item.visible;
+  const row = document.querySelector('#others-list [data-id="' + id + '"]');
+  if (row) {
+    row.className = 'item-row' + (off ? ' tokuten-item off' : '');
+    row.querySelector('.item-title').style.opacity = off ? '0.5' : '';
+    row.querySelector('input[type="checkbox"]').checked = !off;
+  }
 }
 
 function syncOthersFromDOM() {
