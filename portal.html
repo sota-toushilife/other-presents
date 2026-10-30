@@ -10,9 +10,34 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
     background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 60%, #f0f9ff 100%);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-  .view { display: none; }
-  .view.active { display: block; }
+  .view { display: none; flex: 1; flex-direction: column; }
+  .view.active { display: flex; }
+
+  #admin-topbar {
+    background: #1e293b;
+    color: #f59e0b;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 800;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    letter-spacing: 0.04em;
+  }
+  .admin-badge {
+    background: #f59e0b;
+    color: #1e293b;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+  #admin-topbar .hint { opacity: 0.7; font-weight: 600; font-size: 11px; }
 
   .hero {
     background: linear-gradient(90deg, #38bdf8, #0284c7);
@@ -28,19 +53,16 @@
     margin-bottom: 6px;
     text-transform: uppercase;
   }
-  .hero h1 {
-    font-size: 19px;
-    font-weight: 800;
-    line-height: 1.4;
-  }
+  .hero h1 { font-size: 19px; font-weight: 800; line-height: 1.4; }
 
   .container {
     max-width: 480px;
+    width: 100%;
     margin: 0 auto;
     padding: 24px 16px 48px;
+    flex: 1;
   }
 
-  /* ホームカード */
   .menu-card {
     background: white;
     border-radius: 16px;
@@ -54,30 +76,9 @@
     transition: transform 0.13s;
   }
   .menu-card:active { transform: scale(0.98); }
-
-  .card-body {
-    padding: 20px 20px 16px;
-  }
-  .card-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #0284c7;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .card-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.3;
-    margin-bottom: 0;
-  }
-  .card-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-  }
-
+  .card-body { padding: 20px 20px 16px; }
+  .card-title { font-size: 22px; font-weight: 800; color: #1e293b; line-height: 1.3; }
+  .card-icon { font-size: 32px; margin-bottom: 8px; }
   .card-footer {
     background: linear-gradient(90deg, #38bdf8, #0284c7);
     color: white;
@@ -85,13 +86,9 @@
     padding: 13px;
     font-size: 15px;
     font-weight: 800;
-    letter-spacing: 0.03em;
   }
-  .card-footer.green {
-    background: linear-gradient(90deg, #22c55e, #16a34a);
-  }
+  .card-footer.green { background: linear-gradient(90deg, #22c55e, #16a34a); }
 
-  /* 戻るボタン */
   .back-btn {
     display: flex;
     align-items: center;
@@ -110,35 +107,6 @@
   }
   .back-btn:active { background: #f0f9ff; }
 
-  /* view2ヘッダー */
-  .info-bar {
-    background: linear-gradient(90deg, #0284c7, #0369a1);
-    color: white;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .info-bar-icon { font-size: 28px; }
-  .info-bar-text { flex: 1; }
-  .info-bar-title { font-size: 15px; font-weight: 800; }
-  .info-bar-sub { font-size: 11px; opacity: 0.85; margin-top: 2px; }
-  .open-all {
-    display: block;
-    background: rgba(255,255,255,0.2);
-    border: 1.5px solid rgba(255,255,255,0.5);
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
   .section-label {
     font-size: 14px;
     font-weight: 800;
@@ -151,7 +119,6 @@
     border-bottom: 2px solid #bae6fd;
   }
 
-  /* 特典リスト */
   .tokuten-list { display: flex; flex-direction: column; gap: 10px; }
   .tokuten-item {
     background: white;
@@ -163,9 +130,10 @@
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.12s;
+    transition: transform 0.12s, opacity 0.2s;
   }
   .tokuten-item:active { transform: scale(0.98); }
+  .tokuten-item.off { opacity: 0.35; }
   .tokuten-num {
     width: 28px;
     height: 28px;
@@ -181,23 +149,137 @@
     margin-right: 10px;
   }
   .tokuten-emoji { font-size: 20px; margin-right: 10px; flex-shrink: 0; }
-  .tokuten-text { flex: 1; }
+  .tokuten-text { flex: 1; min-width: 0; }
   .tokuten-name { font-size: 14px; font-weight: 700; color: #1e293b; line-height: 1.3; }
   .tokuten-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
   .tokuten-arrow { color: #38bdf8; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+
+  .drag-handle {
+    cursor: grab;
+    color: #b0bec5;
+    font-size: 15px;
+    flex-shrink: 0;
+    padding: 4px 8px 4px 0;
+    touch-action: none;
+    user-select: none;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .drag-handle:active { cursor: grabbing; color: #64748b; }
+
+  .toggle-wrap { flex-shrink: 0; margin-left: 10px; }
+  .toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    display: block;
+    cursor: pointer;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .slider {
+    position: absolute;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 24px;
+    transition: background 0.25s;
+  }
+  .slider:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle input:checked + .slider { background: #38bdf8; }
+  .toggle input:checked + .slider:before { transform: translateX(20px); }
+
+  #admin-section { display: none; margin-top: 28px; }
+  .publish-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 18px 24px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: opacity 0.15s;
+  }
+  .publish-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .status-msg { font-size: 12px; color: #64748b; text-align: center; margin-top: 8px; min-height: 18px; }
+  .pat-box {
+    margin-top: 16px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .pat-label { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+  .pat-input {
+    width: 100%;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #1e293b;
+    font-family: monospace;
+    outline: none;
+  }
+  .pat-input:focus { border-color: #38bdf8; }
+  .pat-hint { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+  .sns-footer {
+    background: #1e293b;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  .sns-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .sns-btn:active { opacity: 0.7; transform: scale(0.93); }
+  .sns-btn svg { width: 26px; height: 26px; fill: white; }
+  .sns-ig   { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+  .sns-line { background: #06c755; }
+  .sns-tt   { background: #000; }
+  .sns-yt   { background: #ff0000; }
+  .sns-note { background: #41c9b4; }
+
+  .sortable-ghost  { opacity: 0.35; background: #e0f2fe !important; }
+  .sortable-chosen { box-shadow: 0 8px 24px rgba(2,132,199,0.22) !important; }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <p class="hero-eyebrow">そうた｜損しないNISAの始め方</p>
-  <h1>プレゼント・記事一覧</h1>
+<div id="admin-topbar">
+  <span class="admin-badge">管理用</span>
+  <span class="hint">オン/オフ ＋ ドラッグで並び替え → 公開ボタンで全員に反映</span>
 </div>
 
-<!-- View 1: ホーム -->
+<div class="hero">
+  <p class="hero-eyebrow">そうた｜損しないNISAの始め方</p>
+  <h1>プレゼント・記事一覧（管理用）</h1>
+</div>
+
 <div id="view-home" class="view active">
   <div class="container">
-    <!-- NISA完全攻略ガイド -->
     <div class="menu-card" onclick="showView('view-nisa')">
       <div class="card-body">
         <div class="card-icon">🎁</div>
@@ -205,8 +287,6 @@
       </div>
       <div class="card-footer">→</div>
     </div>
-
-    <!-- 資産形成を爆速に -->
     <a class="menu-card" href="https://sota-toushilife.github.io/other-presents/">
       <div class="card-body">
         <div class="card-icon">📗</div>
@@ -217,125 +297,163 @@
   </div>
 </div>
 
-<!-- View 2: 11特典一覧 -->
 <div id="view-nisa" class="view">
   <div class="container">
     <button class="back-btn" onclick="showView('view-home')">← 戻る</button>
-
-
     <div class="section-label">🎁 全11特典</div>
-
-        <div class="tokuten-list">
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/kouza-kaisestu-guide/">
-        <div class="tokuten-num">1</div>
-        <div class="tokuten-emoji">📋</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">口座開設ガイド</div>
-          <div class="tokuten-sub">楽天証券を最短で開設する手順</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/Shoukengaisya_shindan/">
-        <div class="tokuten-num">2</div>
-        <div class="tokuten-emoji">🔍</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">楽天・SBI診断</div>
-          <div class="tokuten-sub">あなたに合う証券会社がわかる</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/nisa-guide/">
-        <div class="tokuten-num">3</div>
-        <div class="tokuten-emoji">📗</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">NISA完全攻略ガイド</div>
-          <div class="tokuten-sub">NISAの基礎から積立設定まで</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/tsumitate-simulator/">
-        <div class="tokuten-num">4</div>
-        <div class="tokuten-emoji">📊</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">積立シミュレーター</div>
-          <div class="tokuten-sub">将来の資産額を試算できる</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/1000man-roadmap/">
-        <div class="tokuten-num">5</div>
-        <div class="tokuten-emoji">🗺️</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">1000万円ロードマップ</div>
-          <div class="tokuten-sub">1000万円到達までの道筋</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/rakuten-setting/">
-        <div class="tokuten-num">6</div>
-        <div class="tokuten-emoji">⚙️</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">楽天証券 神設定</div>
-          <div class="tokuten-sub">やっておくべき必須設定</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/meigar-shindan/">
-        <div class="tokuten-num">7</div>
-        <div class="tokuten-emoji">🎯</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">最適銘柄診断</div>
-          <div class="tokuten-sub">オルカンorS&P500 あなたに最適な銘柄は？</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/real-jisseki/">
-        <div class="tokuten-num">8</div>
-        <div class="tokuten-emoji">📈</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">積立実績公開</div>
-          <div class="tokuten-sub">そうたのリアルな運用実績</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/real-jisseki/mindset.html">
-        <div class="tokuten-num">9</div>
-        <div class="tokuten-emoji">🧠</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">投資初心者マインド</div>
-          <div class="tokuten-sub">長期投資で成功するための考え方</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/saiteki-tsumitate-shindan/">
-        <div class="tokuten-num">10</div>
-        <div class="tokuten-emoji">💰</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">最適積立額診断</div>
-          <div class="tokuten-sub">あなたの最適な積立金額は？</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-      <a class="tokuten-item" href="https://sota-toushilife.github.io/real-jisseki/kakeibo.html">
-        <div class="tokuten-num">11</div>
-        <div class="tokuten-emoji">📒</div>
-        <div class="tokuten-text">
-          <div class="tokuten-name">家計見直し</div>
-          <div class="tokuten-sub">固定費を削ってお金を残す</div>
-        </div>
-        <div class="tokuten-arrow">›</div>
-      </a>
-    </div>
+    <div class="tokuten-list" id="tokuten-list"></div>
+    <div id="admin-section">
+      <button class="publish-btn" id="publish-btn" onclick="publish()">
+        🚀 公開する（全員に反映）
+      </button>
+      <div class="status-msg" id="status-msg"></div>
+      <div class="pat-box">
+        <div class="pat-label">GitHub PAT（初回のみ入力）</div>
+        <input class="pat-input" id="pat-input" type="password"
+          placeholder="ghp_xxxxxxxxxx..."
+          oninput="localStorage.setItem('gh_pat_portal', this.value)">
+        <div class="pat-hint">入力後は自動保存されます</div>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="sns-footer">
+  <a href="https://www.instagram.com/sota_toushilife/" class="sns-btn sns-ig" title="Instagram">
+    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+  </a>
+  <a href="https://j5hfzu1m.autosns.app/addfriend/s/MQPebM1NZT/@115zmpjr/KTvX5K" class="sns-btn sns-line" title="LINE">
+    <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+  </a>
+  <a href="https://www.tiktok.com/@sota_toushilife" class="sns-btn sns-tt" title="TikTok">
+    <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+  </a>
+  <a href="https://www.youtube.com/@sota_toushilife" class="sns-btn sns-yt" title="YouTube">
+    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+  </a>
+  <a href="https://note.com/sota_toushilife" class="sns-btn sns-note" title="note">
+    <svg viewBox="0 0 24 24"><path d="M14.5 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h14.5c.4 0 .7-.1 1-.3l5.5-4.5c.3-.3.5-.7.5-1.1V2c0-1.1-.9-2-2-2H14.5zM5 6h9v1.5H5V6zm0 3h9v1.5H5V9zm0 3h6v1.5H5V12z"/></svg>
+  </a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <script>
+const DEFAULT_ITEMS = [
+  {id:"t1", emoji:"📋", name:"口座開設ガイド",      sub:"楽天証券を最短で開設する手順",             url:"https://sota-toushilife.github.io/kouza-kaisestu-guide/",       visible:true},
+  {id:"t2", emoji:"🔍", name:"楽天・SBI診断",       sub:"あなたに合う証券会社がわかる",             url:"https://sota-toushilife.github.io/Shoukengaisya_shindan/",     visible:true},
+  {id:"t3", emoji:"📗", name:"NISA完全攻略ガイド",  sub:"NISAの基礎から積立設定まで",               url:"https://sota-toushilife.github.io/nisa-guide/",               visible:true},
+  {id:"t4", emoji:"📊", name:"積立シミュレーター",  sub:"将来の資産額を試算できる",                 url:"https://sota-toushilife.github.io/tsumitate-simulator/",      visible:true},
+  {id:"t5", emoji:"🗺️",name:"1000万円ロードマップ",sub:"1000万円到達までの道筋",                   url:"https://sota-toushilife.github.io/1000man-roadmap/",          visible:true},
+  {id:"t6", emoji:"⚙️", name:"楽天証券 神設定",    sub:"やっておくべき必須設定",                   url:"https://sota-toushilife.github.io/rakuten-setting/",          visible:true},
+  {id:"t7", emoji:"🎯", name:"最適銘柄診断",        sub:"オルカンorS&P500 あなたに最適な銘柄は？", url:"https://sota-toushilife.github.io/meigar-shindan/",           visible:true},
+  {id:"t8", emoji:"📈", name:"積立実績公開",        sub:"そうたのリアルな運用実績",                 url:"https://sota-toushilife.github.io/real-jisseki/",             visible:true},
+  {id:"t9", emoji:"🧠", name:"投資初心者マインド",  sub:"長期投資で成功するための考え方",           url:"https://sota-toushilife.github.io/real-jisseki/mindset.html", visible:true},
+  {id:"t10",emoji:"💰", name:"最適積立額診断",      sub:"あなたの最適な積立金額は？",               url:"https://sota-toushilife.github.io/saiteki-tsumitate-shindan/",visible:true},
+  {id:"t11",emoji:"📒", name:"家計見直し",          sub:"固定費を削ってお金を残す",                 url:"https://sota-toushilife.github.io/real-jisseki/kakeibo.html", visible:true}
+];
+
+const isAdmin = new URLSearchParams(location.search).has('admin');
+let items = [];
+let sortableInst = null;
+
+async function init() {
+  try {
+    const r = await fetch('data.json?t=' + Date.now());
+    if (r.ok) { items = (await r.json()).items; }
+    else throw 0;
+  } catch {
+    items = DEFAULT_ITEMS.map(i => ({...i}));
+  }
+  renderList();
+  if (isAdmin) setupAdmin();
+}
+
+function renderList() {
+  const list = document.getElementById('tokuten-list');
+  const toShow = isAdmin ? items : items.filter(i => i.visible !== false);
+  list.innerHTML = toShow.map((item, idx) => {
+    const off = item.visible === false;
+    return `<a class="tokuten-item${off ? ' off' : ''}" href="${item.url}" data-id="${item.id}">
+      ${isAdmin ? '<span class="drag-handle" onclick="event.preventDefault();event.stopPropagation()">⠿⠿</span>' : ''}
+      <div class="tokuten-num">${idx + 1}</div>
+      <div class="tokuten-emoji">${item.emoji}</div>
+      <div class="tokuten-text">
+        <div class="tokuten-name">${item.name}</div>
+        <div class="tokuten-sub">${item.sub}</div>
+      </div>
+      ${isAdmin
+        ? `<span class="toggle-wrap" onclick="event.preventDefault();event.stopPropagation()"><label class="toggle"><input type="checkbox" ${off ? '' : 'checked'} onchange="toggleItem('${item.id}',this.checked)"><span class="slider"></span></label></span>`
+        : '<div class="tokuten-arrow">›</div>'}`
+    + '</a>';
+  }).join('');
+  list.querySelectorAll('.tokuten-num').forEach((el, i) => { el.textContent = i + 1; });
+  if (isAdmin) {
+    if (sortableInst) sortableInst.destroy();
+    sortableInst = new Sortable(list, {
+      handle: '.drag-handle', animation: 150,
+      ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen',
+      onEnd: syncFromDOM
+    });
+  }
+}
+
+function toggleItem(id, visible) {
+  const item = items.find(i => i.id === id);
+  if (item) item.visible = visible;
+  const el = document.querySelector('[data-id="' + id + '"]');
+  if (el) el.classList.toggle('off', !visible);
+}
+
+function syncFromDOM() {
+  const els = document.querySelectorAll('#tokuten-list .tokuten-item');
+  const newItems = [];
+  els.forEach(el => { const f = items.find(i => i.id === el.dataset.id); if (f) newItems.push(f); });
+  items = newItems;
+  document.querySelectorAll('#tokuten-list .tokuten-num').forEach((el, i) => { el.textContent = i + 1; });
+}
+
+function setupAdmin() {
+  document.getElementById('admin-topbar').style.display = 'flex';
+  document.getElementById('admin-section').style.display = 'block';
+  const saved = localStorage.getItem('gh_pat_portal');
+  if (saved) document.getElementById('pat-input').value = saved;
+}
+
+async function publish() {
+  syncFromDOM();
+  const pat = document.getElementById('pat-input').value.trim() || localStorage.getItem('gh_pat_portal');
+  if (!pat) { setStatus('❌ PATを入力してください'); return; }
+  localStorage.setItem('gh_pat_portal', pat);
+  const btn = document.getElementById('publish-btn');
+  btn.disabled = true; btn.textContent = '⏳ 公開中...';
+  setStatus('GitHubに接続中...');
+  try {
+    const API = 'https://api.github.com/repos/sota-toushilife/other-presents/contents/data.json';
+    const hdrs = {'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json'};
+    let sha = null;
+    const g = await fetch(API, {headers: hdrs});
+    if (g.ok) sha = (await g.json()).sha;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({items}, null, 2))));
+    const p = await fetch(API, {method: 'PUT', headers: hdrs, body: JSON.stringify({message: '管理ポータルから設定更新', content, ...(sha ? {sha} : {})})});
+    if (!p.ok) { const e = await p.json(); throw new Error(e.message || p.status); }
+    btn.textContent = '✅ 公開完了！';
+    setStatus('約30秒後に全員へ反映されます 🎉');
+    setTimeout(() => { btn.textContent = '🚀 公開する（全員に反映）'; btn.disabled = false; setStatus(''); }, 5000);
+  } catch(e) {
+    btn.textContent = '🚀 公開する（全員に反映）'; btn.disabled = false;
+    setStatus('❌ エラー: ' + e.message);
+  }
+}
+
+function setStatus(msg) { document.getElementById('status-msg').textContent = msg; }
+
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
 }
+
+init();
 </script>
 </body>
 </html>
