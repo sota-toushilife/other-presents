@@ -22,7 +22,7 @@
     padding: 8px 16px;
     font-size: 12px;
     font-weight: 800;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
@@ -198,7 +198,7 @@
   .toggle input:checked + .slider { background: #38bdf8; }
   .toggle input:checked + .slider:before { transform: translateX(20px); }
 
-  #admin-section { display: none; margin-top: 28px; }
+  #admin-section { display: block; margin-top: 28px; }
   .publish-btn {
     width: 100%;
     background: linear-gradient(90deg, #22c55e, #16a34a);
@@ -352,7 +352,7 @@ const DEFAULT_ITEMS = [
   {id:"t11",emoji:"📒", name:"家計見直し",          sub:"固定費を削ってお金を残す",                 url:"https://sota-toushilife.github.io/real-jisseki/kakeibo.html", visible:true}
 ];
 
-const isAdmin = new URLSearchParams(location.search).has('admin');
+const isAdmin = true; // 常に管理モード
 let items = [];
 let sortableInst = null;
 
