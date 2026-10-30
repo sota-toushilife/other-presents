@@ -1,0 +1,15 @@
+{
+  "items": [
+    {"id":"t1","emoji":"📋","name":"口座開設ガイド","sub":"楽天証券を最短で開設する手順","url":"https://sota-toushilife.github.io/kouza-kaisestu-guide/","visible":true},
+    {"id":"t2","emoji":"🔍","name":"楽天・SBI診断","sub":"あなたに合う証券会社がわかる","url":"https://sota-toushilife.github.io/Shoukengaisya_shindan/","visible":true},
+    {"id":"t3","emoji":"📗","name":"NISA完全攻略ガイド","sub":"NISAの基礎から積立設定まで","url":"https://sota-toushilife.github.io/nisa-guide/","visible":true},
+    {"id":"t4","emoji":"📊","name":"積立シミュレーター","sub":"将来の資産額を試算できる","url":"https://sota-toushilife.github.io/tsumitate-simulator/","visible":true},
+    {"id":"t5","emoji":"🗺️","name":"1000万円ロードマップ","sub":"1000万円到達までの道筋","url":"https://sota-toushilife.github.io/1000man-roadmap/","visible":true},
+    {"id":"t6","emoji":"⚙️","name":"楽天証券 神設定","sub":"やっておくべき必須設定","url":"https://sota-toushilife.github.io/rakuten-setting/","visible":true},
+    {"id":"t7","emoji":"🎯","name":"最適銘柄診断","sub":"オルカンorS&P500 あなたに最適な銘柄は？","url":"https://sota-toushilife.github.io/meigar-shindan/","visible":true},
+    {"id":"t8","emoji":"📈","name":"積立実績公開","sub":"そうたのリアルな運用実績","url":"https://sota-toushilife.github.io/real-jisseki/","visible":true},
+    {"id":"t9","emoji":"🧠","name":"投資初心者マインド","sub":"長期投資で成功するための考え方","url":"https://sota-toushilife.github.io/real-jisseki/mindset.html","visible":true},
+    {"id":"t10","emoji":"💰","name":"最適積立額診断","sub":"あなたの最適な積立金額は？","url":"https://sota-toushilife.github.io/saiteki-tsumitate-shindan/","visible":true},
+    {"id":"t11","emoji":"📒","name":"家計見直し","sub":"固定費を削ってお金を残す","url":"https://sota-toushilife.github.io/real-jisseki/kakeibo.html","visible":true}
+  ]
+}
