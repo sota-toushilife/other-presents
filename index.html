@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>その他プレゼント一覧</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -13,148 +14,202 @@ body {
   padding: 0 0 40px;
 }
 .container { max-width: 480px; margin: 0 auto; }
-
+#admin-topbar {
+  background: #1e293b; color: #f59e0b;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  position: sticky; top: 0; z-index: 100;
+}
+#admin-topbar span { display: flex; align-items: center; gap: 6px; }
+#publish-btn {
+  background: #f59e0b; color: #1e293b; border: none;
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 13px; font-weight: 900; cursor: pointer;
+}
+#publish-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+#pw-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 200;
+  align-items: center; justify-content: center;
+}
+#pw-modal.open { display: flex; }
+#pw-box {
+  background: #fff; border-radius: 16px; padding: 28px 24px;
+  max-width: 320px; width: 90%; text-align: center;
+}
+#pw-box h3 { font-size: 16px; font-weight: 900; color: #1e293b; margin-bottom: 8px; }
+#pw-box p { font-size: 13px; color: #64748b; margin-bottom: 16px; }
+#pw-input {
+  width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0;
+  border-radius: 10px; font-size: 15px; margin-bottom: 12px; outline: none;
+}
+#pw-input:focus { border-color: #38bdf8; }
+#pw-ok {
+  width: 100%; background: #f59e0b; color: #1e293b; border: none;
+  border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 900;
+  cursor: pointer; margin-bottom: 8px;
+}
+#pw-cancel { background: none; border: none; color: #94a3b8; font-size: 13px; cursor: pointer; }
+#pw-err { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
 .hero {
   background: linear-gradient(90deg, #38bdf8, #0284c7);
-  padding: 28px 20px 24px;
-  text-align: center;
+  padding: 28px 20px 24px; text-align: center;
 }
 .hero-eyebrow { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 8px; }
 .hero h1 { color: #fff; font-size: 20px; font-weight: 900; line-height: 1.5; }
-
 .list { padding: 20px 16px 0; display: flex; flex-direction: column; gap: 12px; }
-
 .item {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  text-decoration: none;
-  display: block;
-  transition: transform 0.1s;
+  background: #fff; border-radius: 14px; padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; transition: transform 0.1s;
 }
 .item:active { transform: scale(0.98); }
+.item-body { flex: 1; }
 .item-title { font-size: 15px; font-weight: 900; color: #0369a1; margin-bottom: 6px; line-height: 1.5; }
-.item-arrow {
-  display: flex; justify-content: flex-end; align-items: center;
-  margin-top: 10px;
-}
+.item-arrow { display: flex; justify-content: flex-end; align-items: center; margin-top: 10px; }
 .item-btn {
   background: linear-gradient(90deg, #38bdf8, #0284c7);
   color: #fff; font-size: 13px; font-weight: 700;
-  padding: 8px 18px; border-radius: 20px;
+  padding: 8px 18px; border-radius: 20px; white-space: nowrap;
 }
-
+.item.off { opacity: 0.4; }
+.item.off .item-btn { background: #94a3b8; }
+.drag-handle {
+  cursor: grab; color: #b0bec5; font-size: 20px;
+  touch-action: none; letter-spacing: -2px;
+  padding: 4px 2px; user-select: none; flex-shrink: 0;
+}
+.drag-handle:active { cursor: grabbing; }
+.toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; inset: 0; background: #cbd5e1;
+  border-radius: 12px; cursor: pointer; transition: background 0.2s;
+}
+.slider:before {
+  content: ''; position: absolute; left: 3px; top: 3px;
+  width: 18px; height: 18px; background: #fff;
+  border-radius: 50%; transition: transform 0.2s;
+}
+.toggle input:checked + .slider { background: #38bdf8; }
+.toggle input:checked + .slider:before { transform: translateX(20px); }
+.sortable-ghost { opacity: 0.3; }
+.sortable-chosen { box-shadow: 0 4px 20px rgba(56,189,248,0.3); }
 .line-btn {
-  display: block; text-align: center;
-  background: #06c755; color: #fff;
-  font-size: 15px; font-weight: 900;
-  padding: 16px; border-radius: 12px;
+  display: block; text-align: center; background: #06c755; color: #fff;
+  font-size: 15px; font-weight: 900; padding: 16px; border-radius: 12px;
   text-decoration: none; margin: 20px 16px 0;
+}
+#status-msg {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; color: #fff; padding: 10px 20px; border-radius: 20px;
+  font-size: 13px; font-weight: 700; z-index: 300; display: none; white-space: nowrap;
 }
 </style>
 </head>
 <body>
+<div id="pw-modal">
+  <div id="pw-box">
+    <h3>🔒 管理者パスワード</h3>
+    <p>公開するにはパスワードを入力してください</p>
+    <input type="password" id="pw-input" placeholder="パスワード">
+    <div id="pw-err">❌ パスワードが違います</div>
+    <button id="pw-ok" onclick="checkPw()">公開する</button>
+    <button id="pw-cancel" onclick="closePwModal()">キャンセル</button>
+  </div>
+</div>
+<div id="status-msg"></div>
 <div class="container">
-
-<div class="hero">
-  <p class="hero-eyebrow">そうた｜損しないNISAの始め方</p>
-  <h1>資産形成を爆速にする情報を<br>まとめました🎁</h1>
+  <div id="admin-topbar">
+    <span>⚙️ 管理モード</span>
+    <button id="publish-btn" onclick="askPassword()">🚀 公開する（全員に反映）</button>
+  </div>
+  <div class="hero">
+    <p class="hero-eyebrow">そうた｜損しないNISAの始め方</p>
+    <h1>資産形成を爆速にする情報を<br>まとめました🎁</h1>
+  </div>
+  <div class="list" id="item-list"></div>
+  <a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 ここをタップでそうたに聞いてみる！</a>
 </div>
-
-<div class="list">
-    <a href="orukan-checklist.html" class="item">
-    <div class="item-title">✅ オルカンで失敗しない！20項目チェックシート</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="sp500-checklist.html" class="item">
-    <div class="item-title">✅ 積立始めたけど本当に大丈夫？S&amp;P500の必須確認リスト17</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="nisa-type-shindan.html" class="item">
-    <div class="item-title">🔍 NISAタイプ診断</div>
-    <div class="item-arrow"><span class="item-btn">診断する →</span></div>
-  </a>
-  <a href="rakuten-security-guide.html" class="item">
-    <div class="item-title">🔒 不正アクセス対策！楽天証券の必須設定ガイド</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="shokuhi-2man.html" class="item">
-    <div class="item-title">🍙 節約ガチ勢そうたがやってきた、食費を月2万にするキモすぎる方法</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="nisa-jinsei-tsumu.html" class="item">
-    <div class="item-title">💀 NISAをやらない人間はもれなく人生が詰む理由</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-  <a href="orukan-sp500-saikyo.html" class="item">
-  <div class="item-title">📊 なぜオルカンとS&P500が最強なのか</div>
-  <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-</a>
-<a href="20dai-shisan-keisei.html" class="item">
-  <div class="item-title">🚀 20代で資産形成をガチると死ぬまでイージーモード</div>
-  <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-</a>
-<a href="toushi-benkyou-shinaide.html" class="item">
-  <div class="item-title">📚 投資の勉強、しないでください</div>
-  <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-</a>
-<a href="okane-tsukaanai.html" class="item">
-  <div class="item-title">💡 お金を使わない生き方が人生のハードルを超下げる理由</div>
-  <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-</a>
-<a href="fire-kaishain.html" class="item">
-    <div class="item-title">🔥 会社員でも夢じゃない！知られざるFIREの世界</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="https://sota-toushilife.github.io/rakuten-mobile-free/" class="item" target="_blank">
-    <div class="item-title">📱 株主優待でスマホ代を０円にする裏技</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  <a href="https://sota-toushilife.github.io/nisa-guide/" class="item" target="_blank">
-    <div class="item-title">📗 NISA完全攻略ガイド</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-    <a href="https://sota-toushilife.github.io/paypay-point-guide/" class="item" target="_blank">
-    <div class="item-title">💳 PayPayポイントを爆増させる方法</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-  
-  <a href="https://sota-toushilife.github.io/yuutai-guide/" class="item" target="_blank">
-    <div class="item-title">🎁 10万円から始める優待生活デビューの教科書</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-    <a href="https://sota-toushilife.github.io/maitsuki-haitoukin/" class="item" target="_blank">
-    <div class="item-title">💰 たった300円で毎月配当金をゲットする方法</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-    <a href="https://sota-toushilife.github.io/shuunyugen-guide/" class="item" target="_blank">
-    <div class="item-title">💡 収入源を増やす6つの方法</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-    <a href="https://sota-toushilife.github.io/point-site-guide/" class="item" target="_blank">
-    <div class="item-title">💰 NISAを始めると同時に36,400円もらえる裏技</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-    <a href="https://sota-toushilife.github.io/okane-no-wana/" class="item" target="_blank">
-    <div class="item-title">🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-  <a href="https://canva.link/7la58gt0yh2s7tu" class="item" target="_blank">
-    <div class="item-title">📈 S&P500一括購入方法解説</div>
-    <div class="item-arrow"><span class="item-btn">見てみる →</span></div>
-  </a>
-
-</div>
-
-<a href="https://lin.ee/tXRnQHW" class="line-btn" target="_blank">👆 ここをタップでそうたに聞いてみる！</a>
-
-</div>
+<script>
+const DEFAULT_ITEMS = [
+  {id:'i1',title:'✅ オルカンで失敗しない！20項目チェックシート',url:'orukan-checklist.html',btn:'見てみる →',ext:false},
+  {id:'i2',title:'✅ 積立始めたけど本当に大丈夫？S&P500の必須確認リスト17',url:'sp500-checklist.html',btn:'見てみる →',ext:false},
+  {id:'i3',title:'🔍 NISAタイプ診断',url:'nisa-type-shindan.html',btn:'診断する →',ext:false},
+  {id:'i4',title:'🔒 不正アクセス対策！楽天証券の必須設定ガイド',url:'rakuten-security-guide.html',btn:'見てみる →',ext:false},
+  {id:'i5',title:'🍙 節約ガチ勢そうたがやってきた、食費を月2万にするキモすぎる方法',url:'shokuhi-2man.html',btn:'見てみる →',ext:false},
+  {id:'i6',title:'💀 NISAをやらない人間はもれなく人生が詰む理由',url:'nisa-jinsei-tsumu.html',btn:'見てみる →',ext:false},
+  {id:'i7',title:'📊 なぜオルカンとS&P500が最強なのか',url:'orukan-sp500-saikyo.html',btn:'見てみる →',ext:false},
+  {id:'i8',title:'🚀 20代で資産形成をガチると死ぬまでイージーモード',url:'20dai-shisan-keisei.html',btn:'見てみる →',ext:false},
+  {id:'i9',title:'📚 投資の勉強、しないでください',url:'toushi-benkyou-shinaide.html',btn:'見てみる →',ext:false},
+  {id:'i10',title:'💡 お金を使わない生き方が人生のハードルを超下げる理由',url:'okane-tsukaanai.html',btn:'見てみる →',ext:false},
+  {id:'i11',title:'🔥 会社員でも夢じゃない！知られざるFIREの世界',url:'fire-kaishain.html',btn:'見てみる →',ext:false},
+  {id:'i12',title:'📱 株主優待でスマホ代を０円にする裏技',url:'https://sota-toushilife.github.io/rakuten-mobile-free/',btn:'見てみる →',ext:true},
+  {id:'i13',title:'📗 NISA完全攻略ガイド',url:'https://sota-toushilife.github.io/nisa-guide/',btn:'見てみる →',ext:true},
+  {id:'i14',title:'💳 PayPayポイントを爆増させる方法',url:'https://sota-toushilife.github.io/paypay-point-guide/',btn:'見てみる →',ext:true},
+  {id:'i15',title:'🎁 10万円から始める優待生活デビューの教科書',url:'https://sota-toushilife.github.io/yuutai-guide/',btn:'見てみる →',ext:true},
+  {id:'i16',title:'💰 たった300円で毎月配当金をゲットする方法',url:'https://sota-toushilife.github.io/maitsuki-haitoukin/',btn:'見てみる →',ext:true},
+  {id:'i17',title:'💡 収入源を増やす6つの方法',url:'https://sota-toushilife.github.io/shuunyugen-guide/',btn:'見てみる →',ext:true},
+  {id:'i18',title:'💰 NISAを始めると同時に36,400円もらえる裏技',url:'https://sota-toushilife.github.io/point-site-guide/',btn:'見てみる →',ext:true},
+  {id:'i19',title:'🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選',url:'https://sota-toushilife.github.io/okane-no-wana/',btn:'見てみる →',ext:true},
+  {id:'i20',title:'📈 S&P500一括購入方法解説',url:'https://canva.link/7la58gt0yh2s7tu',btn:'見てみる →',ext:true}
+];
+const REPO_API='https://api.github.com/repos/sota-toushilife/other-presents/contents/data-index.json';
+const ADMIN_PW='Toushi100man';
+let items=[],sortableInst=null;
+async function init(){
+  try{const r=await fetch('data-index.json?t='+Date.now());if(r.ok)items=(await r.json()).items;else throw 0;}
+  catch{items=DEFAULT_ITEMS.map(i=>({...i,visible:true}));}
+  render();setupSortable();
+}
+function render(){
+  const list=document.getElementById('item-list');
+  list.innerHTML=items.map(item=>{
+    const off=item.visible===false;
+    return '<a class="item'+(off?' off':'')+'" href="'+item.url+'"'+(item.ext?' target="_blank"':'')+' data-id="'+item.id+'" onclick="if(event.target.closest(\'.drag-handle,.toggle\')){event.preventDefault();return;}">'
+    +'<span class="drag-handle" onclick="event.preventDefault();event.stopPropagation()">⠿⠿</span>'
+    +'<div class="item-body"><div class="item-title">'+item.title+'</div>'
+    +'<div class="item-arrow"><span class="item-btn">'+(item.btn||'見てみる →')+'</span></div></div>'
+    +'<label class="toggle" onclick="event.stopPropagation();event.preventDefault();toggleItem(\'' +item.id+ '\')">'
+    +'<input type="checkbox" '+(off?'':'checked')+'><span class="slider"></span></label></a>';
+  }).join('');
+}
+function toggleItem(id){const item=items.find(i=>i.id===id);if(item)item.visible=!item.visible;render();setupSortable();}
+function setupSortable(){
+  if(sortableInst)sortableInst.destroy();
+  sortableInst=new Sortable(document.getElementById('item-list'),{handle:'.drag-handle',animation:150,ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',onEnd:syncFromDOM});
+}
+function syncFromDOM(){const els=document.querySelectorAll('#item-list .item');const ord=Array.from(els).map(e=>e.getAttribute('data-id'));items.sort((a,b)=>ord.indexOf(a.id)-ord.indexOf(b.id));}
+function askPassword(){document.getElementById('pw-modal').classList.add('open');document.getElementById('pw-input').value='';document.getElementById('pw-err').style.display='none';setTimeout(()=>document.getElementById('pw-input').focus(),100);}
+function closePwModal(){document.getElementById('pw-modal').classList.remove('open');}
+function checkPw(){if(document.getElementById('pw-input').value===ADMIN_PW){closePwModal();publish();}else{document.getElementById('pw-err').style.display='block';}}
+document.getElementById('pw-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPw();});
+function showStatus(msg,d=3000){const el=document.getElementById('status-msg');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',d);}
+async function publish(){
+  syncFromDOM();
+  const btn=document.getElementById('publish-btn');
+  btn.disabled=true;btn.textContent='📤 公開中...';
+  try{
+    const token=await getToken();
+    if(!token){showStatus('❌ GitHub Tokenがありません');btn.disabled=false;btn.textContent='🚀 公開する（全員に反映）';return;}
+    let sha=null;
+    const g=await fetch(REPO_API,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+    if(g.ok)sha=(await g.json()).sha;
+    const payload={items:items.map(({id,title,url,btn:b,ext,visible})=>({id,title,url,btn:b,ext,visible}))};
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,2))));
+    const body={message:'index管理から設定更新',content,...(sha?{sha}:{})};
+    const res=await fetch(REPO_API,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
+    if(res.ok){showStatus('✅ 公開しました！',4000);}
+    else{const err=await res.json();showStatus('❌ エラー: '+(err.message||res.status));}
+  }catch(e){showStatus('❌ 失敗: '+e.message);}
+  btn.disabled=false;btn.textContent='🚀 公開する（全員に反映）';
+}
+async function getToken(){
+  let t=localStorage.getItem('gh_pat_index');
+  if(!t){t=prompt('GitHub Personal Access Token を入力してください\n（初回のみ。入力後は自動保存されます）');if(t)localStorage.setItem('gh_pat_index',t.trim());}
+  return t?t.trim():null;
+}
+init();
+</script>
 </body>
 </html>
