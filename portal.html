@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>そうた｜損しないNISAの始め方</title>
 <style>
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
@@ -264,9 +265,23 @@
 
   .sortable-ghost  { opacity: 0.35; background: #e0f2fe !important; }
   .sortable-chosen { box-shadow: 0 8px 24px rgba(2,132,199,0.22) !important; }
+
+/* その他プレゼント管理用 */
+.item-list { display: flex; flex-direction: column; gap: 10px; }
+.item-row {
+  background: white; border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(2,132,199,0.08);
+  display: flex; align-items: center; padding: 14px 16px; gap: 10px;
+}
+.item-drag { cursor: grab; color: #b0bec5; font-size:15px; touch-action:none; user-select:none; letter-spacing:-2px; flex-shrink:0; }
+.item-drag:active { cursor: grabbing; }
+.item-title { flex:1; font-size:13px; font-weight:700; color:#1e293b; line-height:1.4; }
+.pat-explain { font-size:12px; color:#64748b; margin-bottom:6px; line-height:1.5; }
 </style>
 </head>
 <body>
+
+<!-- パスワードモーダル -->
 <div id="pw-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:320px;width:90%;text-align:center;">
     <h3 style="font-size:16px;font-weight:900;color:#1e293b;margin-bottom:8px;">🔒 管理者パスワード</h3>
@@ -279,8 +294,8 @@
 </div>
 
 <div id="admin-topbar">
-  <span class="admin-badge">管理用</span>
-  <span class="hint">オン/オフ ＋ ドラッグで並び替え → 公開ボタンで全員に反映</span>
+  <span class="admin-badge">ADMIN</span>
+  <span class="hint">管理専用ページ</span>
 </div>
 
 <div class="hero">
@@ -288,6 +303,7 @@
   <h1>プレゼント・記事一覧（管理用）</h1>
 </div>
 
+<!-- ①選択画面 -->
 <div id="view-home" class="view active">
   <div class="container">
     <div class="menu-card" onclick="showView('view-nisa')">
@@ -297,32 +313,39 @@
       </div>
       <div class="card-footer">→</div>
     </div>
-    <a class="menu-card" href="https://sota-toushilife.github.io/other-presents/">
+    <div class="menu-card" onclick="showView('view-others')">
       <div class="card-body">
         <div class="card-icon">📗</div>
         <h2 class="card-title">その他プレゼント・記事</h2>
       </div>
       <div class="card-footer green">→</div>
-    </a>
+    </div>
   </div>
 </div>
 
+<!-- ②11特典（シンプルリスト） -->
 <div id="view-nisa" class="view">
   <div class="container">
     <button class="back-btn" onclick="showView('view-home')">← 戻る</button>
     <div class="section-label">🎁 全11特典</div>
     <div class="tokuten-list" id="tokuten-list"></div>
-    <div id="admin-section">
-      <button class="publish-btn" id="publish-btn" onclick="askPassword()">
-        🚀 公開する（全員に反映）
-      </button>
+  </div>
+</div>
+
+<!-- ③その他プレゼント管理 -->
+<div id="view-others" class="view">
+  <div class="container">
+    <button class="back-btn" onclick="showView('view-home')">← 戻る</button>
+    <div class="section-label">📗 その他プレゼント・記事</div>
+    <div class="item-list" id="others-list"></div>
+    <div style="margin-top:28px;">
+      <button class="publish-btn" id="publish-btn" onclick="askPassword()">🚀 公開する（全員に反映）</button>
       <div class="status-msg" id="status-msg"></div>
-      <div class="pat-box">
-        <div class="pat-label">GitHub PAT（初回のみ入力）</div>
-        <input class="pat-input" id="pat-input" type="password"
-          placeholder="ghp_xxxxxxxxxx..."
+      <div class="pat-box" style="margin-top:16px;">
+        <div class="pat-label">GitHub アクセスキー</div>
+        <div class="pat-explain">GitHubにファイルを書き込む鍵です。<br>一度入力するとこのブラウザに記憶されます。</div>
+        <input class="pat-input" id="pat-input" type="password" placeholder="ghp_xxxxxxxxxx..."
           oninput="localStorage.setItem('gh_pat_portal', this.value)">
-        <div class="pat-hint">入力後は自動保存されます</div>
       </div>
     </div>
   </div>
@@ -348,118 +371,137 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <script>
-const DEFAULT_ITEMS = [
-  {id:"t1", emoji:"📋", name:"口座開設ガイド",      sub:"楽天証券を最短で開設する手順",             url:"https://sota-toushilife.github.io/kouza-kaisestu-guide/",       visible:true},
-  {id:"t2", emoji:"🔍", name:"楽天・SBI診断",       sub:"あなたに合う証券会社がわかる",             url:"https://sota-toushilife.github.io/Shoukengaisya_shindan/",     visible:true},
-  {id:"t3", emoji:"📗", name:"NISA完全攻略ガイド",  sub:"NISAの基礎から積立設定まで",               url:"https://sota-toushilife.github.io/nisa-guide/",               visible:true},
-  {id:"t4", emoji:"📊", name:"積立シミュレーター",  sub:"将来の資産額を試算できる",                 url:"https://sota-toushilife.github.io/tsumitate-simulator/",      visible:true},
-  {id:"t5", emoji:"🗺️",name:"1000万円ロードマップ",sub:"1000万円到達までの道筋",                   url:"https://sota-toushilife.github.io/1000man-roadmap/",          visible:true},
-  {id:"t6", emoji:"⚙️", name:"楽天証券 神設定",    sub:"やっておくべき必須設定",                   url:"https://sota-toushilife.github.io/rakuten-setting/",          visible:true},
-  {id:"t7", emoji:"🎯", name:"最適銘柄診断",        sub:"オルカンorS&P500 あなたに最適な銘柄は？", url:"https://sota-toushilife.github.io/meigar-shindan/",           visible:true},
-  {id:"t8", emoji:"📈", name:"積立実績公開",        sub:"そうたのリアルな運用実績",                 url:"https://sota-toushilife.github.io/real-jisseki/",             visible:true},
-  {id:"t9", emoji:"🧠", name:"投資初心者マインド",  sub:"長期投資で成功するための考え方",           url:"https://sota-toushilife.github.io/real-jisseki/mindset.html", visible:true},
-  {id:"t10",emoji:"💰", name:"最適積立額診断",      sub:"あなたの最適な積立金額は？",               url:"https://sota-toushilife.github.io/saiteki-tsumitate-shindan/",visible:true},
-  {id:"t11",emoji:"📒", name:"家計見直し",          sub:"固定費を削ってお金を残す",                 url:"https://sota-toushilife.github.io/real-jisseki/kakeibo.html", visible:true}
+const NISA_ITEMS = [
+  {id:"t1", emoji:"📋", name:"口座開設ガイド",      sub:"楽天証券を最短で開設する手順",             url:"https://sota-toushilife.github.io/kouza-kaisestu-guide/"},
+  {id:"t2", emoji:"🔍", name:"楽天・SBI診断",       sub:"あなたに合う証券会社がわかる",             url:"https://sota-toushilife.github.io/Shoukengaisya_shindan/"},
+  {id:"t3", emoji:"📗", name:"NISA完全攻略ガイド",  sub:"NISAの基礎から積立設定まで",               url:"https://sota-toushilife.github.io/nisa-guide/"},
+  {id:"t4", emoji:"📊", name:"積立シミュレーター",  sub:"将来の資産額を試算できる",                 url:"https://sota-toushilife.github.io/tsumitate-simulator/"},
+  {id:"t5", emoji:"🗺️",name:"1000万円ロードマップ",sub:"1000万円到達までの道筋",                   url:"https://sota-toushilife.github.io/1000man-roadmap/"},
+  {id:"t6", emoji:"⚙️", name:"楽天証券 神設定",    sub:"やっておくべき必須設定",                   url:"https://sota-toushilife.github.io/rakuten-setting/"},
+  {id:"t7", emoji:"🎯", name:"最適銘柄診断",        sub:"オルカンorS&P500 あなたに最適な銘柄は？", url:"https://sota-toushilife.github.io/meigar-shindan/"},
+  {id:"t8", emoji:"📈", name:"積立実績公開",        sub:"そうたのリアルな運用実績",                 url:"https://sota-toushilife.github.io/real-jisseki/"},
+  {id:"t9", emoji:"🧠", name:"投資初心者マインド",  sub:"長期投資で成功するための考え方",           url:"https://sota-toushilife.github.io/real-jisseki/mindset.html"},
+  {id:"t10",emoji:"💰", name:"最適積立額診断",      sub:"あなたの最適な積立金額は？",               url:"https://sota-toushilife.github.io/saiteki-tsumitate-shindan/"},
+  {id:"t11",emoji:"📒", name:"家計見直し",          sub:"固定費を削ってお金を残す",                 url:"https://sota-toushilife.github.io/real-jisseki/kakeibo.html"}
 ];
 
-const isAdmin = true; // 常に管理モード
-let items = [];
+const DEFAULT_OTHERS = [
+  {id:"i1",title:"✅ オルカンで失敗しない！20項目チェックシート",url:"orukan-checklist.html",ext:false,visible:true},
+  {id:"i2",title:"✅ 積立始めたけど本当に大丈夫？S&P500の必須確認リスト17",url:"sp500-checklist.html",ext:false,visible:true},
+  {id:"i3",title:"🔍 NISAタイプ診断",url:"nisa-type-shindan.html",ext:false,visible:true},
+  {id:"i4",title:"🔒 不正アクセス対策！楽天証券の必須設定ガイド",url:"rakuten-security-guide.html",ext:false,visible:true},
+  {id:"i5",title:"🍙 節約ガチ勢そうたがやってきた、食費を月2万にするキモすぎる方法",url:"shokuhi-2man.html",ext:false,visible:true},
+  {id:"i6",title:"💀 NISAをやらない人間はもれなく人生が詰む理由",url:"nisa-jinsei-tsumu.html",ext:false,visible:true},
+  {id:"i7",title:"📊 なぜオルカンとS&P500が最強なのか",url:"orukan-sp500-saikyo.html",ext:false,visible:true},
+  {id:"i8",title:"🚀 20代で資産形成をガチると死ぬまでイージーモード",url:"20dai-shisan-keisei.html",ext:false,visible:true},
+  {id:"i9",title:"📚 投資の勉強、しないでください",url:"toushi-benkyou-shinaide.html",ext:false,visible:true},
+  {id:"i10",title:"💡 お金を使わない生き方が人生のハードルを超下げる理由",url:"okane-tsukaanai.html",ext:false,visible:true},
+  {id:"i11",title:"🔥 会社員でも夢じゃない！知られざるFIREの世界",url:"fire-kaishain.html",ext:false,visible:true},
+  {id:"i12",title:"📱 株主優待でスマホ代を０円にする裏技",url:"https://sota-toushilife.github.io/rakuten-mobile-free/",ext:true,visible:true},
+  {id:"i13",title:"📗 NISA完全攻略ガイド",url:"https://sota-toushilife.github.io/nisa-guide/",ext:true,visible:true},
+  {id:"i14",title:"💳 PayPayポイントを爆増させる方法",url:"https://sota-toushilife.github.io/paypay-point-guide/",ext:true,visible:true},
+  {id:"i15",title:"🎁 10万円から始める優待生活デビューの教科書",url:"https://sota-toushilife.github.io/yuutai-guide/",ext:true,visible:true},
+  {id:"i16",title:"💰 たった300円で毎月配当金をゲットする方法",url:"https://sota-toushilife.github.io/maitsuki-haitoukin/",ext:true,visible:true},
+  {id:"i17",title:"💡 収入源を増やす6つの方法",url:"https://sota-toushilife.github.io/shuunyugen-guide/",ext:true,visible:true},
+  {id:"i18",title:"💰 NISAを始めると同時に36,400円もらえる裏技",url:"https://sota-toushilife.github.io/point-site-guide/",ext:true,visible:true},
+  {id:"i19",title:"🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選",url:"https://sota-toushilife.github.io/okane-no-wana/",ext:true,visible:true},
+  {id:"i20",title:"📈 S&P500一括購入方法解説",url:"https://canva.link/7la58gt0yh2s7tu",ext:true,visible:true}
+];
+
+let othersItems = [];
 let sortableInst = null;
 
-async function init() {
-  try {
-    const r = await fetch('data.json?t=' + Date.now());
-    if (r.ok) { items = (await r.json()).items; }
-    else throw 0;
-  } catch {
-    items = DEFAULT_ITEMS.map(i => ({...i}));
-  }
-  renderList();
-  if (isAdmin) setupAdmin();
-}
-
-function renderList() {
+// --- 11特典リスト（シンプル表示） ---
+function renderNisa() {
   const list = document.getElementById('tokuten-list');
-  const toShow = isAdmin ? items : items.filter(i => i.visible !== false);
-  list.innerHTML = toShow.map((item, idx) => {
-    const off = item.visible === false;
-    return `<a class="tokuten-item${off ? ' off' : ''}" href="${item.url}" data-id="${item.id}">
-      ${isAdmin ? '<span class="drag-handle" onclick="event.preventDefault();event.stopPropagation()">⠿⠿</span>' : ''}
+  list.innerHTML = NISA_ITEMS.map((item, idx) => `
+    <a class="tokuten-item" href="${item.url}" target="_blank">
       <div class="tokuten-num">${idx + 1}</div>
       <div class="tokuten-emoji">${item.emoji}</div>
       <div class="tokuten-text">
         <div class="tokuten-name">${item.name}</div>
         <div class="tokuten-sub">${item.sub}</div>
       </div>
-      ${isAdmin
-        ? `<span class="toggle-wrap" onclick="event.preventDefault();event.stopPropagation()"><label class="toggle"><input type="checkbox" ${off ? '' : 'checked'} onchange="toggleItem('${item.id}',this.checked)"><span class="slider"></span></label></span>`
-        : '<div class="tokuten-arrow">›</div>'}`
-    + '</a>';
+      <div class="tokuten-arrow">›</div>
+    </a>`).join('');
+}
+
+// --- その他プレゼント管理 ---
+async function loadOthers() {
+  try {
+    const r = await fetch('data-index.json?t=' + Date.now());
+    if (r.ok) { othersItems = (await r.json()).items; return; }
+  } catch {}
+  othersItems = DEFAULT_OTHERS.map(i => ({...i}));
+}
+
+function renderOthers() {
+  const list = document.getElementById('others-list');
+  list.innerHTML = othersItems.map(item => {
+    const off = item.visible === false;
+    return `<div class="item-row${off ? ' tokuten-item off' : ''}" data-id="${item.id}">
+      <span class="item-drag" onclick="event.stopPropagation()">⠿⠿</span>
+      <span class="item-title" style="${off ? 'opacity:0.5' : ''}">${item.title}</span>
+      <span class="toggle-wrap" onclick="toggleOther('${item.id}')">
+        <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''}><span class="slider"></span></label>
+      </span>
+    </div>`;
   }).join('');
-  list.querySelectorAll('.tokuten-num').forEach((el, i) => { el.textContent = i + 1; });
-  if (isAdmin) {
-    if (sortableInst) sortableInst.destroy();
-    sortableInst = new Sortable(list, {
-      handle: '.drag-handle', animation: 150,
-      ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen',
-      onEnd: syncFromDOM
-    });
-  }
+  if (sortableInst) sortableInst.destroy();
+  sortableInst = new Sortable(list, {
+    handle: '.item-drag', animation: 150,
+    ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen',
+    onEnd: syncOthersFromDOM
+  });
 }
 
-function toggleItem(id, visible) {
-  const item = items.find(i => i.id === id);
-  if (item) item.visible = visible;
-  const el = document.querySelector('[data-id="' + id + '"]');
-  if (el) el.classList.toggle('off', !visible);
+function toggleOther(id) {
+  const item = othersItems.find(i => i.id === id);
+  if (item) item.visible = !item.visible;
+  renderOthers();
 }
 
-function syncFromDOM() {
-  const els = document.querySelectorAll('#tokuten-list .tokuten-item');
-  const newItems = [];
-  els.forEach(el => { const f = items.find(i => i.id === el.dataset.id); if (f) newItems.push(f); });
-  items = newItems;
-  document.querySelectorAll('#tokuten-list .tokuten-num').forEach((el, i) => { el.textContent = i + 1; });
+function syncOthersFromDOM() {
+  const els = document.querySelectorAll('#others-list [data-id]');
+  const ord = Array.from(els).map(e => e.getAttribute('data-id'));
+  othersItems.sort((a,b) => ord.indexOf(a.id) - ord.indexOf(b.id));
 }
 
-function setupAdmin() {
-  document.getElementById('admin-topbar').style.display = 'flex';
-  document.getElementById('admin-section').style.display = 'block';
-  const saved = localStorage.getItem('gh_pat_portal');
-  if (saved) document.getElementById('pat-input').value = saved;
-}
-
-
+// --- パスワード ---
 const ADMIN_PW = 'Toushi100man';
-function askPassword(){
-  const m=document.getElementById('pw-modal');
-  m.style.display='flex';
-  document.getElementById('pw-input').value='';
-  document.getElementById('pw-err').style.display='none';
-  setTimeout(()=>document.getElementById('pw-input').focus(),100);
+function askPassword() {
+  document.getElementById('pw-modal').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-err').style.display = 'none';
+  setTimeout(() => document.getElementById('pw-input').focus(), 100);
 }
-function closePwModal(){ document.getElementById('pw-modal').style.display='none'; }
-function checkPw(){
-  if(document.getElementById('pw-input').value===ADMIN_PW){closePwModal();publish();}
-  else{document.getElementById('pw-err').style.display='block';}
+function closePwModal() { document.getElementById('pw-modal').style.display = 'none'; }
+function checkPw() {
+  if (document.getElementById('pw-input').value === ADMIN_PW) { closePwModal(); publish(); }
+  else { document.getElementById('pw-err').style.display = 'block'; }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('pw-modal').style.display==='flex')checkPw();});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('pw-modal').style.display === 'flex') checkPw();
+});
+
+// --- 公開 ---
 async function publish() {
-  syncFromDOM();
+  syncOthersFromDOM();
   const pat = document.getElementById('pat-input').value.trim() || localStorage.getItem('gh_pat_portal');
-  if (!pat) { setStatus('❌ PATを入力してください'); return; }
+  if (!pat) { setStatus('❌ GitHubアクセスキーを入力してください'); return; }
   localStorage.setItem('gh_pat_portal', pat);
   const btn = document.getElementById('publish-btn');
   btn.disabled = true; btn.textContent = '⏳ 公開中...';
   setStatus('GitHubに接続中...');
   try {
-    const API = 'https://api.github.com/repos/sota-toushilife/other-presents/contents/data.json';
+    const API = 'https://api.github.com/repos/sota-toushilife/other-presents/contents/data-index.json';
     const hdrs = {'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json'};
     let sha = null;
     const g = await fetch(API, {headers: hdrs});
     if (g.ok) sha = (await g.json()).sha;
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify({items}, null, 2))));
-    const p = await fetch(API, {method: 'PUT', headers: hdrs, body: JSON.stringify({message: '管理ポータルから設定更新', content, ...(sha ? {sha} : {})})});
+    const payload = {items: othersItems};
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+    const p = await fetch(API, {method: 'PUT', headers: hdrs, body: JSON.stringify({message: 'その他プレゼント設定更新', content, ...(sha ? {sha} : {})}) });
     if (!p.ok) { const e = await p.json(); throw new Error(e.message || p.status); }
     btn.textContent = '✅ 公開完了！';
     setStatus('約30秒後に全員へ反映されます 🎉');
@@ -476,9 +518,14 @@ function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
+  if (id === 'view-nisa') renderNisa();
+  if (id === 'view-others') { loadOthers().then(renderOthers); }
 }
 
-init();
+// 初期化
+renderNisa();
+const saved = localStorage.getItem('gh_pat_portal');
+if (saved) document.getElementById('pat-input').value = saved;
 </script>
 </body>
 </html>
