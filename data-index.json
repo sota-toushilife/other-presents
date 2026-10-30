@@ -1,0 +1,144 @@
+{
+  "items": [
+    {
+      "id": "i3",
+      "title": "🔍 NISAタイプ診断",
+      "url": "nisa-type-shindan.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i1",
+      "title": "✅ オルカンで失敗しない！20項目チェックシート",
+      "url": "orukan-checklist.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i2",
+      "title": "✅ 積立始めたけど本当に大丈夫？S&P500の必須確認リスト17",
+      "url": "sp500-checklist.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i4",
+      "title": "🔒 不正アクセス対策！楽天証券の必須設定ガイド",
+      "url": "rakuten-security-guide.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i5",
+      "title": "🍙 節約ガチ勢そうたがやってきた、食費を月2万にするキモすぎる方法",
+      "url": "shokuhi-2man.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i6",
+      "title": "💀 NISAをやらない人間はもれなく人生が詰む理由",
+      "url": "nisa-jinsei-tsumu.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i7",
+      "title": "📊 なぜオルカンとS&P500が最強なのか",
+      "url": "orukan-sp500-saikyo.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i8",
+      "title": "🚀 20代で資産形成をガチると死ぬまでイージーモード",
+      "url": "20dai-shisan-keisei.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i9",
+      "title": "📚 投資の勉強、しないでください",
+      "url": "toushi-benkyou-shinaide.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i10",
+      "title": "💡 お金を使わない生き方が人生のハードルを超下げる理由",
+      "url": "okane-tsukaanai.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i11",
+      "title": "🔥 会社員でも夢じゃない！知られざるFIREの世界",
+      "url": "fire-kaishain.html",
+      "ext": false,
+      "visible": true
+    },
+    {
+      "id": "i12",
+      "title": "📱 株主優待でスマホ代を０円にする裏技",
+      "url": "https://sota-toushilife.github.io/rakuten-mobile-free/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i13",
+      "title": "📗 NISA完全攻略ガイド",
+      "url": "https://sota-toushilife.github.io/nisa-guide/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i14",
+      "title": "💳 PayPayポイントを爆増させる方法",
+      "url": "https://sota-toushilife.github.io/paypay-point-guide/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i15",
+      "title": "🎁 10万円から始める優待生活デビューの教科書",
+      "url": "https://sota-toushilife.github.io/yuutai-guide/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i16",
+      "title": "💰 たった300円で毎月配当金をゲットする方法",
+      "url": "https://sota-toushilife.github.io/maitsuki-haitoukin/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i17",
+      "title": "💡 収入源を増やす6つの方法",
+      "url": "https://sota-toushilife.github.io/shuunyugen-guide/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i18",
+      "title": "💰 NISAを始めると同時に36,400円もらえる裏技",
+      "url": "https://sota-toushilife.github.io/point-site-guide/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i19",
+      "title": "🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選",
+      "url": "https://sota-toushilife.github.io/okane-no-wana/",
+      "ext": true,
+      "visible": true
+    },
+    {
+      "id": "i20",
+      "title": "📈 S&P500一括購入方法解説",
+      "url": "https://canva.link/7la58gt0yh2s7tu",
+      "ext": true,
+      "visible": true
+    }
+  ]
+}
