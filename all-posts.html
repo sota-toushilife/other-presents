@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全記事一覧｜そうたブログ</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; vertical-align: bottom; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; }
+
+:root {
+  --g1: #0284c7;
+  --g2: #38bdf8;
+  --grad: linear-gradient(100deg, #0284c7 0%, #38bdf8 52%, #7dd3fc 100%);
+  --body-bg: #f0f9ff;
+  --white: #fff;
+  --text: #2b2b2b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,.10);
+  --shadow-hover: 0 6px 20px rgba(0,0,0,.16);
+}
+
+body {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: var(--body-bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 76px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.hamburger { display: flex; flex-direction: column; gap: 5px; padding: 8px; flex-shrink: 0; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.logo { position: absolute; left: 50%; transform: translateX(-50%); }
+.logo-frog { display: block; width: 54px; height: 54px; border-radius: 50%; overflow: hidden; background: #ffe0b2; box-shadow: 0 2px 8px rgba(0,0,0,.15); transition: transform .2s; }
+.logo-frog img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.logo:hover .logo-frog { transform: scale(1.05); }
+.nav_btn { display: flex; align-items: center; width: 120px; height: 46px; background: var(--grad); border-radius: 30px; overflow: hidden; color: var(--white); font-size: 11px; font-weight: 700; box-shadow: rgba(2,132,199,.35) 0 4px 14px 0; flex-shrink: 0; transition: box-shadow .2s; }
+.nav_btn:hover { box-shadow: rgba(2,132,199,.55) 0 6px 18px 0; }
+.marquee { display: inline-block; white-space: nowrap; animation: marquee 14s linear infinite; padding-left: 4px; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* DRAWER */
+.drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; backdrop-filter: blur(2px); }
+.drawer-overlay.open { display: block; }
+.drawer { position: fixed; top: 0; left: -290px; width: 290px; height: 100%; background: var(--white); z-index: 300; transition: left .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
+.drawer.open { left: 0; }
+.drawer-inner { padding: 24px 0 40px; }
+.drawer_link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; font-size: 14px; font-weight: 700; border-bottom: 1px solid var(--border); transition: background .2s; }
+.drawer_link:hover { background: var(--body-bg); color: var(--g1); }
+.drawer_link .di svg { width: 18px; height: 18px; color: var(--g1); }
+.drawer_head { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--text-light); padding: 18px 24px 8px; }
+.drawer_sns { padding: 20px 24px 0; }
+.drawer_sns_list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.drawer_sns_list a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px; background: var(--body-bg); transition: background .2s; }
+.drawer_sns_list a:hover { background: #e0f2fe; }
+
+/* HERO */
+.blog_head {
+  background: linear-gradient(rgba(0,0,0,.38), rgba(0,0,0,.50)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='100%25' y2='100%25'%3E%3Cstop offset='0' stop-color='%230284c7'/%3E%3Cstop offset='0.5' stop-color='%230ea5e9'/%3E%3Cstop offset='1' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E");
+  padding: 60px 20px;
+  text-align: center;
+}
+.page_ttl { color: var(--white); }
+.page_ttl .main { display: block; font-size: clamp(28px, 6vw, 42px); font-weight: 800; letter-spacing: .05em; text-shadow: 0 2px 8px rgba(0,0,0,.3); margin-bottom: 18px; }
+.ttl_box { display: inline-block; background: rgba(255,255,255,.18); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.35); border-radius: 10px; padding: 14px 28px; }
+.ttl_txt { display: block; font-size: 15px; font-weight: 600; opacity: .96; line-height: 2; color: var(--white); }
+
+/* ALL POSTS */
+.allposts_wrap { padding: 52px 0 80px; }
+.allposts_inner { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+/* セクション見出し */
+.section_head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section_head .en {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8px;
+}
+.section_head h1 {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 800;
+  color: var(--text);
+}
+.section_head .desc {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-top: 10px;
+}
+
+/* 年月グループ */
+.month_group { margin-bottom: 40px; }
+.month_header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 0;
+}
+.month_header .year_month {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.month_header .year {
+  font-size: 28px;
+  font-weight: 900;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.month_header .month {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+.month_header .count {
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+/* 記事リスト */
+.article_list { display: flex; flex-direction: column; }
+.article_item {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+.article_item:hover { background: rgba(224,242,254,.3); }
+.article_item .art_date {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 600;
+  width: 44px;
+  text-align: right;
+}
+.article_item .art_title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.6;
+  flex: 1;
+  transition: color .2s;
+}
+.article_item:hover .art_title { color: var(--g1); }
+@media (max-width: 480px) {
+  .article_item .art_title { font-size: 14px; }
+}
+
+/* フッター */
+.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.profile_wrap { background: var(--body-bg); border-top: 1px solid var(--border); padding: 52px 20px; }
+.profile_card { max-width: 680px; margin: 0 auto; background: var(--white); border: 2px solid var(--g2); border-radius: 18px; padding: 32px 28px; box-shadow: 0 4px 20px rgba(2,132,199,.12); }
+.author_profile .head { display: flex; align-items: center; gap: 22px; margin-bottom: 22px; }
+.avatar { flex-shrink: 0; width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: #ffe0b2; box-shadow: 0 3px 12px rgba(0,0,0,.15); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.name_wrap .label { display: block; font-size: 11px; font-weight: 800; letter-spacing: .12em; margin-bottom: 4px; }
+.pname { font-size: 22px; font-weight: 800; line-height: 1.2; }
+.role { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+.bio { font-size: 13px; line-height: 2; color: var(--text); }
+.bio p + p { margin-top: 6px; }
+.line_btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #06c755; color: var(--white); padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 800; margin-top: 18px; box-shadow: 0 3px 10px rgba(6,199,85,.35); transition: opacity .2s, transform .2s; }
+.line_btn:hover { opacity: .88; transform: translateY(-2px); }
+.footcta { background: var(--white); border-top: 1px solid var(--border); padding: 52px 20px; }
+.cta_wrap { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 640px) { .cta_wrap { grid-template-columns: 1fr; } }
+.cta_box { display: block; background: var(--body-bg); border-radius: 12px; padding: 26px 22px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.cta_box:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.cta_ttl { display: flex; flex-direction: column; margin-bottom: 8px; }
+.cta_ttl .en { font-size: 22px; font-weight: 800; letter-spacing: .04em; }
+.cta_ttl .ja { font-size: 12px; font-weight: 700; color: var(--text); margin-top: 2px; }
+.cta_desc { font-size: 12px; color: var(--text-light); line-height: 1.7; margin-bottom: 16px; }
+.cta_btn { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: var(--g1); }
+.arw { transition: transform .2s; }
+.cta_box:hover .arw { transform: translateX(4px); }
+.copybar { background: #1e293b; color: #94a3b8; text-align: center; padding: 24px 20px; }
+.privacy { font-size: 12px; margin-bottom: 8px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.privacy a { color: #94a3b8; transition: color .2s; }
+.privacy a:hover { color: var(--white); }
+.rights { font-size: 12px; color: #64748b; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="logo" href="index.html">
+    <span class="logo-frog">
+      <img src="sota-icon.png" alt="そうた" onerror="this.style.display='none';this.parentNode.textContent='🧑'">
+    </span>
+  </a>
+  <a class="nav_btn" href="https://lin.ee/tXRnQHW" target="_blank">
+    <span class="marquee">LINE登録で11特典プレゼント！今すぐ受け取る！&emsp;&emsp;LINE登録で11特典プレゼント！今すぐ受け取る！&emsp;&emsp;</span>
+  </a>
+</header>
+
+<div class="drawer-overlay" id="overlay"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-inner">
+    <a class="drawer_link" href="index.html">
+      <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg></span>
+      トップページ
+    </a>
+    <a class="drawer_link" href="all-posts.html">
+      <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg></span>
+      全記事一覧
+    </a>
+    <div class="drawer_sns">
+      <p class="drawer_head" style="padding:0 0 8px">SNS・公式アカウント</p>
+      <div class="drawer_sns_list">
+        <a href="https://www.instagram.com/sota_toushilife/" target="_blank">📸 Instagram</a>
+        <a href="https://lin.ee/tXRnQHW" target="_blank">💬 公式LINE</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="blog_head">
+  <h1 class="page_ttl">
+    <span class="main">そうたブログ</span>
+    <div class="ttl_box">
+      <span class="ttl_txt">お金の知識をもっと身近に。</span>
+      <span class="ttl_txt">NISAや資産形成を、わかりやすく発信しています。</span>
+    </div>
+  </h1>
+</div>
+
+<!-- ALL POSTS -->
+<div class="allposts_wrap">
+  <div class="allposts_inner">
+
+    <div class="section_head">
+      <span class="en">All Articles</span>
+      <h1>全記事一覧</h1>
+      <p class="desc">これまでに書いた記事20本を、新しい順にまとめています。</p>
+    </div>
+
+    <!-- 2026年 11月 -->
+    <div class="month_group">
+      <div class="month_header">
+        <div class="year_month">
+          <span class="year">2026</span>
+          <span class="month">11月</span>
+        </div>
+        <span class="count">20本</span>
+      </div>
+      <ul class="article_list">
+        <li><a class="article_item" href="self-intro.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">知識ゼロ・貯金ゼロだった高卒社会人がNISA投資を発信する理由</span>
+        </a></li>
+        <li><a class="article_item" href="nisa-jinsei-tsumu.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">NISAをやらない人間はもれなく人生が詰む理由</span>
+        </a></li>
+        <li><a class="article_item" href="orukan-checklist.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">オルカンで失敗しない！20項目チェックシート</span>
+        </a></li>
+        <li><a class="article_item" href="sp500-checklist.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">積立始めたけど本当に大丈夫？S&amp;P500の必須確認リスト17</span>
+        </a></li>
+        <li><a class="article_item" href="nisa-type-shindan.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">NISAタイプ診断｜あなたに合った積立スタイルがわかる</span>
+        </a></li>
+        <li><a class="article_item" href="orukan-sp500-saikyo.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">なぜオルカンとS&amp;P500が最強なのか</span>
+        </a></li>
+        <li><a class="article_item" href="toushi-benkyou-shinaide.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">投資の勉強、しないでください</span>
+        </a></li>
+        <li><a class="article_item" href="20dai-shisan-keisei.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">20代で資産形成をガチると死ぬまでイージーモード</span>
+        </a></li>
+        <li><a class="article_item" href="fire-kaishain.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">会社員でも夢じゃない！知られざるFIREの世界</span>
+        </a></li>
+        <li><a class="article_item" href="okane-tsukaanai.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">お金を使わない生き方が人生のハードルを超下げる理由</span>
+        </a></li>
+        <li><a class="article_item" href="shokuhi-2man.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">節約ガチ勢がやってきた、食費を月2万にするキモすぎる方法</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/rakuten-mobile-free/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">株主優待でスマホ代を０円にする裏技</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/yuutai-guide/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">10万円から始める優待生活デビューの教科書</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/maitsuki-haitoukin/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">たった300円で毎月配当金をゲットする方法</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/point-site-guide/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">NISAを始めると同時に37,800円もらえる裏技</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/paypay-point-guide/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">PayPayポイントを爆増させる方法</span>
+        </a></li>
+        <li><a class="article_item" href="rakuten-security-guide.html">
+          <span class="art_date">11/2</span>
+          <span class="art_title">不正アクセス対策！楽天証券の必須設定ガイド</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/shuunyugen-guide/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">収入源を増やす6つの方法</span>
+        </a></li>
+        <li><a class="article_item" href="https://sota-toushilife.github.io/okane-no-wana/" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">今すぐやめろ！情弱だけが一生カモにされるお金の罠19選</span>
+        </a></li>
+        <li><a class="article_item" href="https://canva.link/7la58gt0yh2s7tu" target="_blank">
+          <span class="art_date">11/2</span>
+          <span class="art_title">S&amp;P500一括購入方法解説</span>
+        </a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="profile_wrap">
+  <div class="profile_card">
+    <div class="author_profile">
+      <div class="head">
+        <span class="avatar">
+          <img src="sota-icon.png" alt="そうた" onerror="this.style.display='none';this.parentNode.style.background='#ffe0b2'">
+        </span>
+        <div class="name_wrap">
+          <span class="label grad-text">PROFILE</span>
+          <p class="pname">そうた</p>
+          <p class="role">投資発信クリエイター</p>
+        </div>
+      </div>
+      <div class="bio">
+        <p>会社員をやめてお金の知識・投資・資産形成について発信中。</p>
+        <p>難しいお金の話をわかりやすく伝えることが得意。</p>
+        <p>自身も20歳からNISAとオルカンで資産形成を実践中。</p>
+        <p>LINE登録者限定でNISA完全攻略ガイド11特典を配布しています。</p>
+      </div>
+      <a href="https://lin.ee/tXRnQHW" target="_blank" class="line_btn">📲 LINE登録で11特典を無料でもらう</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOT CTA -->
+<section class="footcta">
+  <div class="cta_wrap">
+    <a class="cta_box" href="https://lin.ee/tXRnQHW" target="_blank">
+      <p class="cta_ttl"><span class="en grad-text">LINE</span><span class="ja">公式LINE登録</span></p>
+      <p class="cta_desc">NISA完全攻略ガイド11特典を無料で受け取れます。登録するだけでOK。</p>
+      <span class="cta_btn">登録して受け取る<span class="arw">→</span></span>
+    </a>
+    <a class="cta_box" href="https://www.instagram.com/sota_toushilife/" target="_blank">
+      <p class="cta_ttl"><span class="en grad-text">Instagram</span><span class="ja">投資インスタ</span></p>
+      <p class="cta_desc">毎日投資・NISA・節約の情報を発信しています。</p>
+      <span class="cta_btn">フォローする<span class="arw">→</span></span>
+    </a>
+    <a class="cta_box" href="self-intro.html">
+      <p class="cta_ttl"><span class="en grad-text">About</span><span class="ja">運営者そうたについて</span></p>
+      <p class="cta_desc">20歳からNISAを実践中。お金の知識を誰でもわかりやすく伝えることが使命です。</p>
+      <span class="cta_btn">自己紹介を読む<span class="arw">→</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- COPYBAR -->
+<div class="copybar">
+  <p class="privacy">
+    <a href="all-posts.html">全記事一覧</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">特定商取引法に基づく表記</a>
+  </p>
+  <p class="rights">© 2026 そうた All Rights Reserved.</p>
+</div>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+function openDrawer() { hamburger.classList.add('open'); drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+overlay.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', closeDrawer));
+</script>
+
+</body>
+</html>
