@@ -271,15 +271,30 @@ body {
 
 /* ===== PICKUP ===== */
 .pickup_blog { margin-bottom: 52px; }
-.pickup_blog .blog_item a {
+.pickup_blog_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 52px;
+}
+.pickup_blog_grid .blog_item:first-child {
+  grid-column: 1 / -1;
+}
+@media (max-width: 600px) {
+  .pickup_blog_grid { grid-template-columns: 1fr; }
+  .pickup_blog_grid .blog_item:first-child { grid-column: 1; }
+}
+.pickup_blog .blog_item a,
+a.pickup_blog {
   display: block;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: box-shadow .3s, transform .3s;
   background: var(--white);
+  border: 2px solid var(--border);
 }
-.pickup_blog .blog_item a:hover {
+.pickup_blog .blog_item a:hover, a.pickup_blog:hover {
   box-shadow: var(--shadow-hover);
   transform: translateY(-3px);
 }
@@ -304,7 +319,9 @@ body {
   transition: transform .4s ease;
 }
 .pickup_blog .blog_item a:hover .thumb-emoji,
-.pickup_blog .blog_item a:hover img { transform: scale(1.06); }
+a.pickup_blog:hover .thumb-emoji,
+.pickup_blog .blog_item a:hover img,
+a.pickup_blog:hover img { transform: scale(1.06); }
 .pickup_blog .body {
   padding: 18px 20px 20px;
 }
@@ -319,7 +336,7 @@ body {
   color: var(--text);
   transition: color .2s;
 }
-.pickup_blog .blog_item a:hover .blog_txt { color: var(--g1); }
+.pickup_blog .blog_item a:hover .blog_txt, a.pickup_blog:hover .blog_txt { color: var(--g1); }
 
 /* ===== 記事一覧 ===== */
 .mid_ttl {
@@ -346,6 +363,8 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   transition: transform .25s, box-shadow .25s;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
 }
 .blog_item a:hover {
   transform: translateY(-3px);
@@ -671,7 +690,7 @@ body {
 <div class="blog_head">
   <h1 class="page_ttl">
     <span class="main">そうたブログ</span>
-    <span class="ttl_txt">NISAをもっと身近に。</span>
+    <span class="ttl_txt">NISAや資産形成を、わかりやすく発信しています。</span>
   </h1>
 </div>
 
@@ -687,9 +706,10 @@ body {
         <span class="blog-heading__en">Pick Up</span>
         <span class="blog-heading__ja">ピックアップ記事</span>
       </h2>
-      <div class="pickup_blog">
+      <div class="pickup_blog_grid">
+        <!-- PICKUP1: 自己紹介（横幅100%） -->
         <div class="blog_item" data-cat="自己紹介">
-          <a href="self-intro.html">
+          <a href="self-intro.html" class="pickup_blog">
             <div class="img">
               <span class="thumb-emoji">🙋</span>
             </div>
@@ -698,7 +718,37 @@ body {
                 <p class="date">2026.11.02</p>
                 <div class="tag_box"><p class="tag" style="background:#7c3aed">自己紹介</p></div>
               </div>
-              <p class="blog_txt">このブログを運営する「そうた」について｜自己紹介と発信への思い</p>
+              <p class="blog_txt">知識ゼロ・貯金ゼロだった高卒社会人がNISA投資を発信する理由</p>
+            </div>
+          </a>
+        </div>
+        <!-- PICKUP2 -->
+        <div class="blog_item" data-cat="NISA">
+          <a href="nisa-jinsei-tsumu.html" class="pickup_blog">
+            <div class="img">
+              <span class="thumb-emoji">💀</span>
+            </div>
+            <div class="body">
+              <div class="date_box">
+                <p class="date">2026.11.02</p>
+                <div class="tag_box"><p class="tag">NISA</p></div>
+              </div>
+              <p class="blog_txt">NISAをやらない人間はもれなく人生が詰む理由</p>
+            </div>
+          </a>
+        </div>
+        <!-- PICKUP3 -->
+        <div class="blog_item" data-cat="FIRE">
+          <a href="20dai-shisan-keisei.html" class="pickup_blog">
+            <div class="img">
+              <span class="thumb-emoji">🚀</span>
+            </div>
+            <div class="body">
+              <div class="date_box">
+                <p class="date">2026.11.02</p>
+                <div class="tag_box"><p class="tag">FIRE</p></div>
+              </div>
+              <p class="blog_txt">20代で資産形成をガチると死ぬまでイージーモード</p>
             </div>
           </a>
         </div>
@@ -709,10 +759,10 @@ body {
         <h2 class="mid_ttl">記事一覧</h2>
         <ul class="blog_list" id="articleList">
 
-          <li class="blog_item" data-cat="NISA" data-key="nisa-jinsei-tsumu" style="opacity:.6;pointer-events:none">
-            <a href="#">
+          <li class="blog_item" data-cat="NISA" data-key="nisa-jinsei-tsumu">
+            <a href="nisa-jinsei-tsumu.html">
               <div class="img"><span class="thumb-emoji">💀</span></div>
-              <div class="date_box"><p class="date">準備中</p><div class="tag_box"><p class="tag">NISA</p></div></div>
+              <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">NISA</p></div></div>
               <p class="blog_txt">NISAをやらない人間はもれなく人生が詰む理由</p>
             </a>
           </li>
@@ -741,24 +791,24 @@ body {
             </a>
           </li>
 
-          <li class="blog_item" data-cat="投資基礎" data-key="orukan-sp500-saikyo" style="opacity:.65;pointer-events:none">
-            <a href="#" style="cursor:default">
+          <li class="blog_item" data-cat="投資基礎" data-key="orukan-sp500-saikyo">
+            <a href="orukan-sp500-saikyo.html">
               <div class="img"><span class="thumb-emoji">📊</span></div>
               <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">投資基礎</p></div></div>
               <p class="blog_txt">なぜオルカンとS&amp;P500が最強なのか</p>
             </a>
           </li>
 
-          <li class="blog_item" data-cat="投資基礎" data-key="toushi-benkyou-shinaide" style="opacity:.65;pointer-events:none">
-            <a href="#" style="cursor:default">
+          <li class="blog_item" data-cat="投資基礎" data-key="toushi-benkyou-shinaide">
+            <a href="toushi-benkyou-shinaide.html">
               <div class="img"><span class="thumb-emoji">📚</span></div>
               <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">投資基礎</p></div></div>
               <p class="blog_txt">投資の勉強、しないでください</p>
             </a>
           </li>
 
-          <li class="blog_item" data-cat="FIRE" data-key="20dai-shisan-keisei" style="opacity:.65;pointer-events:none">
-            <a href="#" style="cursor:default">
+          <li class="blog_item" data-cat="FIRE" data-key="20dai-shisan-keisei">
+            <a href="20dai-shisan-keisei.html">
               <div class="img"><span class="thumb-emoji">🚀</span></div>
               <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">FIRE</p></div></div>
               <p class="blog_txt">20代で資産形成をガチると死ぬまでイージーモード</p>
@@ -773,16 +823,16 @@ body {
             </a>
           </li>
 
-          <li class="blog_item" data-cat="FIRE" data-key="okane-tsukaanai" style="opacity:.65;pointer-events:none">
-            <a href="#" style="cursor:default">
+          <li class="blog_item" data-cat="FIRE" data-key="okane-tsukaanai">
+            <a href="okane-tsukaanai.html">
               <div class="img"><span class="thumb-emoji">💡</span></div>
               <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">FIRE</p></div></div>
               <p class="blog_txt">お金を使わない生き方が人生のハードルを超下げる理由</p>
             </a>
           </li>
 
-          <li class="blog_item" data-cat="節約" data-key="shokuhi-2man" style="opacity:.65;pointer-events:none">
-            <a href="#" style="cursor:default">
+          <li class="blog_item" data-cat="節約" data-key="shokuhi-2man">
+            <a href="shokuhi-2man.html">
               <div class="img"><span class="thumb-emoji">🍙</span></div>
               <div class="date_box"><p class="date">2026.11.02</p><div class="tag_box"><p class="tag">節約</p></div></div>
               <p class="blog_txt">節約ガチ勢がやってきた、食費を月2万にするキモすぎる方法</p>
