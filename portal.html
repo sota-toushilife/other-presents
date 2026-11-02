@@ -155,18 +155,7 @@
   .tokuten-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
   .tokuten-arrow { color: #38bdf8; font-size: 18px; font-weight: 700; flex-shrink: 0; }
 
-  .drag-handle {
-    cursor: grab;
-    color: #b0bec5;
-    font-size: 15px;
-    flex-shrink: 0;
-    padding: 4px 8px 4px 0;
-    touch-action: none;
-    user-select: none;
-    line-height: 1;
-    letter-spacing: -2px;
-  }
-  .drag-handle:active { cursor: grabbing; color: #64748b; }
+  /* drag-handle removed - replaced by date editing */
 
   .toggle-wrap { flex-shrink: 0; margin-left: 10px; }
   .toggle {
@@ -262,9 +251,24 @@
   .sns-tt   { background: #000; }
   .sns-yt   { background: #ff0000; }
   .sns-note { background: #41c9b4; }
+  .sns-blog { background: linear-gradient(135deg, #0284c7, #38bdf8); }
 
-  .sortable-ghost  { opacity: 0.35; background: #e0f2fe !important; }
-  .sortable-chosen { box-shadow: 0 8px 24px rgba(2,132,199,0.22) !important; }
+  /* 月別グルーピング */
+  .month_group_admin { margin-bottom: 20px; }
+  .month_head_admin {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0 10px; margin-bottom: 8px;
+    border-bottom: 2px solid #bae6fd;
+  }
+  .month_label_admin { font-size: 15px; font-weight: 800; color: #0284c7; }
+  .month_count_badge { font-size: 11px; background: #e0f2fe; color: #0284c7; border-radius: 20px; padding: 2px 10px; font-weight: 700; }
+  .date-input {
+    font-size: 11px; color: #475569;
+    border: 1.5px solid #e2e8f0; border-radius: 6px;
+    padding: 3px 6px; width: 128px; flex-shrink: 0;
+    cursor: pointer;
+  }
+  .date-input:focus { border-color: #38bdf8; outline: none; }
 
 /* その他プレゼント管理用 */
 .item-list { display: flex; flex-direction: column; gap: 10px; }
@@ -273,8 +277,7 @@
   box-shadow: 0 2px 10px rgba(2,132,199,0.08);
   display: flex; align-items: center; padding: 14px 16px; gap: 10px;
 }
-.item-drag { cursor: grab; color: #b0bec5; font-size:15px; touch-action:none; user-select:none; letter-spacing:-2px; flex-shrink:0; }
-.item-drag:active { cursor: grabbing; }
+.item-drag { display:none; } /* drag disabled */
 .item-title { flex:1; font-size:13px; font-weight:700; color:#1e293b; line-height:1.4; }
 .pat-explain { font-size:12px; color:#64748b; margin-bottom:6px; line-height:1.5; }
 </style>
@@ -316,7 +319,7 @@
     <div class="menu-card" onclick="showView('view-others')">
       <div class="card-body">
         <div class="card-icon">📗</div>
-        <h2 class="card-title">その他プレゼント・記事</h2>
+        <h2 class="card-title">ブログ・その他プレゼント</h2>
       </div>
       <div class="card-footer green">→</div>
     </div>
@@ -336,10 +339,10 @@
 <div id="view-others" class="view">
   <div class="container">
     <button class="back-btn" onclick="showView('view-home')">← 戻る</button>
-    <div class="section-label">📗 その他プレゼント・記事</div>
+    <div class="section-label">📗 ブログ・その他プレゼント</div>
     <div class="item-list" id="others-list"></div>
     <div style="margin-top:28px;">
-      <button class="publish-btn" id="publish-btn" onclick="askPassword()">🚀 公開する（全員に反映）</button>
+      <button class="publish-btn" id="publish-btn" onclick="askPassword()">🚀 全員に反映させる</button>
       <div class="status-msg" id="status-msg"></div>
       <div class="pat-box" style="margin-top:16px;">
         <div class="pat-label">GitHub アクセスキー</div>
@@ -358,6 +361,9 @@
   <a href="https://j5hfzu1m.autosns.app/addfriend/s/MQPebM1NZT/@115zmpjr/KTvX5K" class="sns-btn sns-line" title="LINE">
     <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
   </a>
+  <a href="https://sota-toushilife.github.io/other-presents/" class="sns-btn sns-blog" target="_blank" title="ブログHP">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  </a>
   <a href="https://www.tiktok.com/@sota_toushilife" class="sns-btn sns-tt" title="TikTok">
     <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
   </a>
@@ -369,7 +375,6 @@
   </a>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <script>
 const NISA_ITEMS = [
   {id:"t1", emoji:"📋", name:"口座開設ガイド",      sub:"楽天証券を最短で開設する手順",             url:"https://sota-toushilife.github.io/kouza-kaisestu-guide/"},
@@ -386,30 +391,29 @@ const NISA_ITEMS = [
 ];
 
 const DEFAULT_OTHERS = [
-  {id:"i1",title:"✅ オルカンで失敗しない！20項目チェックシート",url:"orukan-checklist.html",ext:false,visible:true},
-  {id:"i2",title:"✅ 積立始めたけど本当に大丈夫？S&P500の必須確認リスト17",url:"sp500-checklist.html",ext:false,visible:true},
-  {id:"i3",title:"🔍 NISAタイプ診断",url:"nisa-type-shindan.html",ext:false,visible:true},
-  {id:"i4",title:"🔒 不正アクセス対策！楽天証券の必須設定ガイド",url:"rakuten-security-guide.html",ext:false,visible:true},
-  {id:"i5",title:"🍙 節約ガチ勢そうたがやってきた、食費を月2万にするキモすぎる方法",url:"shokuhi-2man.html",ext:false,visible:true},
-  {id:"i6",title:"💀 NISAをやらない人間はもれなく人生が詰む理由",url:"nisa-jinsei-tsumu.html",ext:false,visible:true},
-  {id:"i7",title:"📊 なぜオルカンとS&P500が最強なのか",url:"orukan-sp500-saikyo.html",ext:false,visible:true},
-  {id:"i8",title:"🚀 20代で資産形成をガチると死ぬまでイージーモード",url:"20dai-shisan-keisei.html",ext:false,visible:true},
-  {id:"i9",title:"📚 投資の勉強、しないでください",url:"toushi-benkyou-shinaide.html",ext:false,visible:true},
-  {id:"i10",title:"💡 お金を使わない生き方が人生のハードルを超下げる理由",url:"okane-tsukaanai.html",ext:false,visible:true},
-  {id:"i11",title:"🔥 会社員でも夢じゃない！知られざるFIREの世界",url:"fire-kaishain.html",ext:false,visible:true},
-  {id:"i12",title:"📱 株主優待でスマホ代を０円にする裏技",url:"https://sota-toushilife.github.io/rakuten-mobile-free/",ext:true,visible:true},
-  {id:"i13",title:"📗 NISA完全攻略ガイド",url:"https://sota-toushilife.github.io/nisa-guide/",ext:true,visible:true},
-  {id:"i14",title:"💳 PayPayポイントを爆増させる方法",url:"https://sota-toushilife.github.io/paypay-point-guide/",ext:true,visible:true},
-  {id:"i15",title:"🎁 10万円から始める優待生活デビューの教科書",url:"https://sota-toushilife.github.io/yuutai-guide/",ext:true,visible:true},
-  {id:"i16",title:"💰 たった300円で毎月配当金をゲットする方法",url:"https://sota-toushilife.github.io/maitsuki-haitoukin/",ext:true,visible:true},
-  {id:"i17",title:"💡 収入源を増やす6つの方法",url:"https://sota-toushilife.github.io/shuunyugen-guide/",ext:true,visible:true},
-  {id:"i18",title:"💰 NISAを始めると同時に36,400円もらえる裏技",url:"https://sota-toushilife.github.io/point-site-guide/",ext:true,visible:true},
-  {id:"i19",title:"🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選",url:"https://sota-toushilife.github.io/okane-no-wana/",ext:true,visible:true},
-  {id:"i20",title:"📈 S&P500一括購入方法解説",url:"https://canva.link/7la58gt0yh2s7tu",ext:true,visible:true}
+  {id:"i1",title:"✅ オルカンで失敗しない！20項目チェックシート",displayTitle:"オルカンで失敗しない！20項目チェックシート",url:"orukan-checklist.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i2",title:"✅ 積立始めたけど本当に大丈夫？S&P500の必須確認リスト17",displayTitle:"積立始めたけど本当に大丈夫？S&P500の必須確認リスト17",url:"sp500-checklist.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i3",title:"🔍 NISAタイプ診断",displayTitle:"NISAタイプ診断｜あなたに合った積立スタイルがわかる",url:"nisa-type-shindan.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i4",title:"🔒 不正アクセス対策！楽天証券の必須設定ガイド",displayTitle:"不正アクセス対策！楽天証券の必須設定ガイド",url:"rakuten-security-guide.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i5",title:"🍙 節約ガチ勢がやってきた、食費を月2万にするキモすぎる方法",displayTitle:"節約ガチ勢がやってきた、食費を月2万にするキモすぎる方法",url:"shokuhi-2man.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i6",title:"💀 NISAをやらない人間はもれなく人生が詰む理由",displayTitle:"NISAをやらない人間はもれなく人生が詰む理由",url:"nisa-jinsei-tsumu.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i7",title:"📊 なぜオルカンとS&P500が最強なのか",displayTitle:"なぜオルカンとS&P500が最強なのか",url:"orukan-sp500-saikyo.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i8",title:"🚀 20代で資産形成をガチると死ぬまでイージーモード",displayTitle:"20代で資産形成をガチると死ぬまでイージーモード",url:"20dai-shisan-keisei.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i9",title:"📚 投資の勉強、しないでください",displayTitle:"投資の勉強、しないでください",url:"toushi-benkyou-shinaide.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i10",title:"💡 お金を使わない生き方が人生のハードルを超下げる理由",displayTitle:"お金を使わない生き方が人生のハードルを超下げる理由",url:"okane-tsukaanai.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i11",title:"🔥 会社員でも夢じゃない！知られざるFIREの世界",displayTitle:"会社員でも夢じゃない！知られざるFIREの世界",url:"fire-kaishain.html",ext:false,visible:true,pubDate:"2026-11-02"},
+  {id:"i12",title:"📱 株主優待でスマホ代を０円にする裏技",displayTitle:"株主優待でスマホ代を０円にする裏技",url:"https://sota-toushilife.github.io/rakuten-mobile-free/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i13",title:"📗 NISA完全攻略ガイド",displayTitle:"NISA完全攻略ガイド",url:"https://sota-toushilife.github.io/nisa-guide/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i14",title:"💳 PayPayポイントを爆増させる方法",displayTitle:"PayPayポイントを爆増させる方法",url:"https://sota-toushilife.github.io/paypay-point-guide/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i15",title:"🎁 10万円から始める優待生活デビューの教科書",displayTitle:"10万円から始める優待生活デビューの教科書",url:"https://sota-toushilife.github.io/yuutai-guide/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i16",title:"💰 たった300円で毎月配当金をゲットする方法",displayTitle:"たった300円で毎月配当金をゲットする方法",url:"https://sota-toushilife.github.io/maitsuki-haitoukin/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i17",title:"💡 収入源を増やす6つの方法",displayTitle:"収入源を増やす6つの方法",url:"https://sota-toushilife.github.io/shuunyugen-guide/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i18",title:"💰 NISAを始めると同時にポイントもらえる裏技",displayTitle:"NISAを始めると同時にポイントもらえる裏技",url:"https://sota-toushilife.github.io/point-site-guide/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i19",title:"🚨 今すぐやめろ！情弱だけが一生カモにされるお金の罠19選",displayTitle:"今すぐやめろ！情弱だけが一生カモにされるお金の罠19選",url:"https://sota-toushilife.github.io/okane-no-wana/",ext:true,visible:true,pubDate:"2026-11-02"},
+  {id:"i20",title:"📈 S&P500一括購入方法解説",displayTitle:"S&P500一括購入方法解説",url:"https://canva.link/7la58gt0yh2s7tu",ext:true,visible:true,pubDate:"2026-11-02"}
 ];
 
 let othersItems = [];
-let sortableInst = null;
 
 // --- 11特典リスト（シンプル表示） ---
 function renderNisa() {
@@ -437,22 +441,44 @@ async function loadOthers() {
 
 function renderOthers() {
   const list = document.getElementById('others-list');
-  list.innerHTML = othersItems.map(item => {
-    const off = item.visible === false;
-    return `<div class="item-row${off ? ' tokuten-item off' : ''}" data-id="${item.id}">
-      <span class="item-drag" onclick="event.stopPropagation()">⠿⠿</span>
-      <a class="item-title" href="${item.url}" target="_blank" style="${off ? 'opacity:0.5;text-decoration:none;color:#1e293b' : 'text-decoration:none;color:#1e293b'}">${item.title}</a>
-      <span class="toggle-wrap" onclick="event.stopPropagation()">
-        <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''} onchange="toggleOther('${item.id}')"><span class="slider"></span></label>
-      </span>
-    </div>`;
-  }).join('');
-  if (sortableInst) sortableInst.destroy();
-  sortableInst = new Sortable(list, {
-    handle: '.item-drag', animation: 150,
-    ghostClass: 'sortable-ghost', chosenClass: 'sortable-chosen',
-    onEnd: syncOthersFromDOM
+  // 投稿日でソート（新しい順）
+  const sorted = [...othersItems].sort((a, b) => (b.pubDate || '2026-01-01').localeCompare(a.pubDate || '2026-01-01'));
+  
+  // 月でグループ化
+  const groups = {};
+  sorted.forEach(item => {
+    const d = item.pubDate || '2026-11-02';
+    const [y, m] = d.split('-');
+    const key = `${y}-${m}`;
+    if (!groups[key]) groups[key] = { year: y, month: parseInt(m), items: [] };
+    groups[key].items.push(item);
   });
+
+  list.innerHTML = Object.values(groups).map(g => `
+    <div class="month_group_admin">
+      <div class="month_head_admin">
+        <span class="month_label_admin">${g.year}年${g.month}月</span>
+        <span class="month_count_badge">${g.items.filter(i => i.visible !== false).length}本 公開中</span>
+      </div>
+      ${g.items.map(item => {
+        const off = item.visible === false;
+        return `<div class="item-row${off ? ' off' : ''}" data-id="${item.id}" style="${off ? 'opacity:0.4' : ''}">
+          <a class="item-title" href="${item.url}" target="_blank" style="text-decoration:none;color:#1e293b;${off ? 'opacity:0.6' : ''}">${item.title}</a>
+          <input type="date" class="date-input" value="${item.pubDate || '2026-11-02'}"
+            onchange="updateDate('${item.id}', this.value)">
+          <span class="toggle-wrap" onclick="event.stopPropagation()">
+            <label class="toggle"><input type="checkbox" ${!off ? 'checked' : ''} onchange="toggleOther('${item.id}')"><span class="slider"></span></label>
+          </span>
+        </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
+function updateDate(id, newDate) {
+  const item = othersItems.find(i => i.id === id);
+  if (!item) return;
+  item.pubDate = newDate;
+  renderOthers();
 }
 
 function toggleOther(id) {
@@ -468,11 +494,7 @@ function toggleOther(id) {
   }
 }
 
-function syncOthersFromDOM() {
-  const els = document.querySelectorAll('#others-list [data-id]');
-  const ord = Array.from(els).map(e => e.getAttribute('data-id'));
-  othersItems.sort((a,b) => ord.indexOf(a.id) - ord.indexOf(b.id));
-}
+// syncOthersFromDOM removed (using pubDate ordering)
 
 // --- パスワード ---
 const ADMIN_PW = 'Toushi100man';
@@ -493,7 +515,6 @@ document.addEventListener('keydown', e => {
 
 // --- 公開 ---
 async function publish() {
-  syncOthersFromDOM();
   const pat = document.getElementById('pat-input').value.trim() || localStorage.getItem('gh_pat_portal');
   if (!pat) { setStatus('❌ GitHubアクセスキーを入力してください'); return; }
   localStorage.setItem('gh_pat_portal', pat);
@@ -512,9 +533,9 @@ async function publish() {
     if (!p.ok) { const e = await p.json(); throw new Error(e.message || p.status); }
     btn.textContent = '✅ 公開完了！';
     setStatus('約30秒後に全員へ反映されます 🎉');
-    setTimeout(() => { btn.textContent = '🚀 公開する（全員に反映）'; btn.disabled = false; setStatus(''); }, 5000);
+    setTimeout(() => { btn.textContent = '🚀 全員に反映させる'; btn.disabled = false; setStatus(''); }, 5000);
   } catch(e) {
-    btn.textContent = '🚀 公開する（全員に反映）'; btn.disabled = false;
+    btn.textContent = '🚀 全員に反映させる'; btn.disabled = false;
     setStatus('❌ エラー: ' + e.message);
   }
 }
