@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>知識ゼロ貯金ゼロだった高卒社会人がNISA投資を発信する理由 | @sota_toushilife</title>
+<meta name="description" content="バイト経験ゼロ・貯金ゼロ・仕送りなしで社会人になった僕が、なぜNISA投資の発信を始めたのか。自己紹介と理念をすべて話します。">
+<style>
+:root{
+  --g1:#0284c7;
+  --g2:#38bdf8;
+  --grad:linear-gradient(100deg,#0284c7 0%,#38bdf8 52%,#7dd3fc 100%);
+  --body-bg:#f0f9ff;
+  --card-bg:#fff;
+  --text:#1e293b;
+  --muted:#64748b;
+  --border:#e0f2fe;
+  --radius:14px;
+  --shadow:0 2px 12px rgba(2,132,199,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--body-bg);color:var(--text);line-height:1.9;font-size:16px}
+a{color:var(--g1);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+
+.site_header{background:#fff;box-shadow:0 2px 8px rgba(2,132,199,.12);position:sticky;top:0;z-index:100}
+.header_inner{display:flex;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;padding:0 16px;height:56px}
+.logo_area{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1rem;color:var(--g1);text-decoration:none}
+.logo_frog{width:42px;height:42px;border-radius:50%;border:2px solid var(--g2)}
+.site_name{line-height:1.2}
+.site_name small{display:block;font-size:.65rem;font-weight:500;color:var(--muted)}
+.header_nav{display:flex;gap:8px}
+.header_nav a{font-size:.78rem;font-weight:700;color:var(--g1);padding:5px 10px;border:1.5px solid var(--g2);border-radius:20px;transition:.2s}
+.header_nav a:hover{background:var(--g2);color:#fff;text-decoration:none}
+
+.breadcrumb{max-width:1080px;margin:0 auto;padding:10px 16px;font-size:.78rem;color:var(--muted)}
+.breadcrumb a{color:var(--g1)}
+.breadcrumb span{margin:0 6px}
+
+.page_wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px;display:grid;grid-template-columns:1fr 240px;gap:32px}
+@media(max-width:767px){.page_wrap{grid-template-columns:1fr;padding:0 12px 40px}}
+
+.article_cat{display:inline-block;background:var(--grad);color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.article_title{font-size:clamp(1.3rem,4vw,1.75rem);font-weight:900;line-height:1.4;color:var(--text);margin-bottom:10px}
+.article_meta{font-size:.78rem;color:var(--muted);display:flex;gap:16px;align-items:center;margin-bottom:28px}
+.article_meta .author{display:flex;align-items:center;gap:6px}
+.author_icon{width:28px;height:28px;border-radius:50%;border:2px solid var(--g2);object-fit:cover}
+
+.profile_card{display:flex;align-items:center;gap:16px;background:#f0f9ff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin:28px 0}
+.profile_icon{width:64px;height:64px;border-radius:50%;border:3px solid var(--g2);object-fit:cover;flex-shrink:0;background:#bae6fd}
+.profile_info h3{font-size:.95rem;font-weight:800}
+.profile_info p{font-size:.8rem;color:var(--muted);margin-top:4px;line-height:1.65}
+.profile_sns{margin-top:6px;font-size:.78rem;color:var(--g1);font-weight:700}
+
+.toc_box{background:#f8fafc;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin:28px 0}
+.toc_title{display:block;font-size:.88rem;font-weight:800;color:var(--g1);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.toc_box ol{padding-left:20px}
+.toc_box li{font-size:.85rem;margin-bottom:6px;line-height:1.5}
+.toc_box a{color:var(--text)}
+.toc_box a:hover{color:var(--g1)}
+
+.entry_content{font-size:1rem;line-height:1.95}
+.entry_content h2{font-size:1.18rem;font-weight:900;color:var(--text);margin:44px 0 18px;padding:10px 14px;background:#f0f9ff;border-left:5px solid var(--g1);border-radius:0 8px 8px 0}
+.entry_content p{margin-bottom:16px}
+.entry_content strong{color:var(--g1);font-weight:800}
+.entry_content ul{margin:0 0 18px 22px}
+.entry_content ul li{margin-bottom:8px}
+.entry_content hr{border:none;border-top:1.5px solid var(--border);margin:28px 0}
+.hl{background:linear-gradient(transparent 60%,#bae6fd 60%)}
+
+.cta_mid{background:var(--grad);border-radius:var(--radius);padding:24px 20px;margin:40px 0;text-align:center}
+.cta_mid p{font-size:.9rem;color:#fff;margin-bottom:0}
+.cta_mid strong{font-size:1rem;display:block;margin-bottom:8px;color:#fff}
+.cta_btn_line{display:inline-block;background:#06c755;color:#fff;font-size:.95rem;font-weight:800;padding:13px 32px;border-radius:50px;margin-top:12px;box-shadow:0 4px 12px rgba(6,199,85,.3);transition:.2s;text-decoration:none}
+.cta_btn_line:hover{opacity:.88}
+
+.summary_box{background:#f0f9ff;border:2px solid var(--g2);border-radius:var(--radius);padding:20px 22px;margin:36px 0}
+.sum_title{display:block;font-size:1rem;font-weight:800;color:var(--g1);margin-bottom:12px}
+.summary_box ul{padding-left:18px}
+.summary_box li{margin-bottom:8px;font-size:.92rem}
+
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.side_card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.side_card_title{display:block;font-size:.85rem;font-weight:800;color:#fff;background:var(--grad);margin:-18px -18px 14px;padding:10px 14px;border-radius:var(--radius) var(--radius) 0 0}
+.side_profile_icon{width:72px;height:72px;border-radius:50%;border:3px solid var(--g2);display:block;margin:0 auto 10px;object-fit:cover;background:#bae6fd}
+.side_profile_name{text-align:center;font-weight:800;font-size:.95rem}
+.side_profile_sub{text-align:center;font-size:.75rem;color:var(--muted);margin-top:4px;line-height:1.6}
+.side_links{list-style:none;padding:0}
+.side_links li{border-bottom:1px solid var(--border);padding:8px 0;font-size:.82rem}
+.side_links li:last-child{border-bottom:none}
+.side_links a{color:var(--text);display:block;padding-left:10px;position:relative}
+.side_links a::before{content:"▶";color:var(--g2);font-size:.6rem;position:absolute;left:0;top:4px}
+.side_links a:hover{color:var(--g1);text-decoration:none}
+.side_line_btn{display:block;background:#06c755;color:#fff;font-weight:800;font-size:.88rem;text-align:center;padding:11px;border-radius:8px;margin-top:12px;text-decoration:none}
+.side_line_btn:hover{opacity:.88}
+
+.site_footer{background:var(--grad);color:#fff;padding:32px 16px}
+.footer_inner{max-width:1080px;margin:0 auto}
+.footer_nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.footer_nav a{color:rgba(255,255,255,.85);font-size:.82rem}
+.footer_nav a:hover{color:#fff;text-decoration:underline}
+.footer_copy{text-align:center;font-size:.72rem;opacity:.7}
+
+@media(max-width:767px){
+  .profile_card{flex-direction:column;text-align:center}
+  .header_nav a{padding:4px 8px;font-size:.72rem}
+}
+</style>
+</head>
+<body>
+
+<header class="site_header">
+  <div class="header_inner">
+    <a href="index.html" class="logo_area">
+      <img class="logo_frog" src="sota-icon.png" alt="そうた" onerror="this.style.display='none'">
+      <div class="site_name">sota blog <small>NISAをもっと身近に。</small></div>
+    </a>
+    <nav class="header_nav">
+      <a href="index.html">記事一覧</a>
+      <a href="https://lin.ee/tXRnQHW" target="_blank" rel="noopener">LINE登録</a>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">ホーム</a><span>›</span>自己紹介・理念
+</div>
+
+<div class="page_wrap">
+  <main>
+    <article>
+
+      <span class="article_cat">自己紹介・理念</span>
+      <h1 class="article_title">知識ゼロ貯金ゼロだった高卒社会人がNISA投資を発信する理由</h1>
+      <div class="article_meta">
+        <span class="author">
+          <img class="author_icon" src="sota-icon.png" alt="そうた" onerror="this.style.display='none'">
+          そうた（@sota_toushilife）
+        </span>
+        <time datetime="2026-10-01">2026.10.01</time>
+      </div>
+
+      <div class="entry_content">
+
+        <p>バイト経験ゼロ・貯金ゼロ・仕送りなし。</p>
+        <p>これが社会人になった当時の自分です。</p>
+        <p>周りの友達は親に車を買ってもらったり、毎月5万の仕送りをもらってたりして、正直めちゃくちゃ羨ましかったです。</p>
+        <p>でも今は、<strong>次を決めずに会社を辞めて、住みたかった場所に引っ越して</strong>、自由に暮らしています！</p>
+        <p>お金の知識なんてゼロだった自分が、なぜそうなれたのか。</p>
+        <p>この記事に全部書きます。</p>
+
+        <hr>
+
+        <p>改めまして。</p>
+        <p>@sota_toushilife のそうた（22）です！</p>
+        <p>Instagram・ブログ・LINEでNISAやインデックス投資を発信しています。</p>
+
+        <div class="profile_card">
+          <img class="profile_icon" src="sota-icon.png" alt="そうた" onerror="this.src=''">
+          <div class="profile_info">
+            <h3>そうた（22）</h3>
+            <p>愛知県出身・元電力会社員・現フリーランス。<br>趣味はカメラ・カフェ巡り・音楽ライブ・ゲーム。<br>夢は猫2匹とインコ2匹と彼女と毎日穏やかに暮らすこと。</p>
+            <div class="profile_sns">Instagram: @sota_toushilife</div>
+          </div>
+        </div>
+
+        <div class="toc_box">
+          <span class="toc_title">もくじ</span>
+          <ol>
+            <li><a href="#sec1">知識ゼロ・貯金ゼロで社会人になった</a></li>
+            <li><a href="#sec2">同期に「置いていかれた」と感じた日</a></li>
+            <li><a href="#sec3">毎日21時残業の上司を見て、絶望した</a></li>
+            <li><a href="#sec4">あるYouTubeが、人生を180度変えた</a></li>
+            <li><a href="#sec5">お金は、人生の選択肢だと知った</a></li>
+            <li><a href="#sec6">なぜ「長期・積立・分散」一択なのか</a></li>
+            <li><a href="#sec7">あなたも、今日から始められる</a></li>
+            <li><a href="#sec8">なぜ発信を続けるのか</a></li>
+            <li><a href="#sec9">まとめ</a></li>
+          </ol>
+        </div>
+
+        <!-- ① -->
+        <h2 id="sec1">① 知識ゼロ・貯金ゼロで社会人になった</h2>
+
+        <p>高校を卒業して、そのまま電力会社に就職しました。</p>
+        <p>バイトをしたことがなかったから、貯金は当然0円。<br>親からの仕送りも、一切ありませんでした。</p>
+        <p>実家がお金に余裕のある家庭ではなかったので、全部自分でやらなければならなかったんです。</p>
+        <p>それ自体は仕方ないと思っていたし、節約と貯金だけは入社してすぐ始めました！<br>家計簿をつけて、支出を管理して、ひたすら貯める毎日。</p>
+        <p>でもそれだけで、投資や資産形成なんてことは頭にもなかったです。</p>
+        <p>「そういうのは、お金に余裕がある人がやるもの」と思っていました。</p>
+
+        <!-- ② -->
+        <h2 id="sec2">② 同期に「置いていかれた」と感じた日</h2>
+
+        <p>ある日、職場で上司と先輩がNISAや投資の話をしているのが聞こえました。</p>
+        <p>「やった方がいいのかな…」と思いながらも、なんとなく聞き流していました。</p>
+        <p>しばらくして、同期がその会話に入っていって——</p>
+        <p>なんと、<strong>すでに投資を始めていることを知りました。</strong></p>
+        <p>正直、めちゃくちゃ焦りました！</p>
+        <p>「置いていかれた」「恥ずかしい」という気持ちが、じわじわと湧いてきて。</p>
+        <p>NISAって、自分みたいな普通の社会人でも関係ある話だったんですね。<br>「やろうやろう」と思いながら、難しそうで後回しにしていた自分が、急に情けなくなりました。</p>
+        <p>これが「次こそちゃんと調べよう」と思い始めた、最初のきっかけでした。</p>
+
+        <!-- ③ -->
+        <h2 id="sec3">③ 毎日21時残業の上司を見て、絶望した</h2>
+
+        <p>それと同じ頃、もうひとつ大きな出来事がありました。</p>
+        <p>毎日21時過ぎまで残業している上司の姿を、ある日改めてじっくり見たんです。</p>
+        <p>「……これが、未来の自分なんだ。」</p>
+        <p>子どものころからずっと、祖父母のような老後に憧れていました。<br>早寝早起きして、散歩して、旬のものを食べて、大事な人と穏やかに過ごす生活。</p>
+        <p>でもその日、気づいてしまったんです。</p>
+        <p>そんな生活が手に入るのは、<span class="hl">あと45年間、会社に耐え続けたあと</span>だということに。</p>
+        <p>愛する家族がいるのに、毎日遅くまで帰れない上司たち。<br>自分もあと数十年後にはそうなる……。</p>
+        <p>「お金のために、やりたくない仕事に人生の大半を捧げたくない！」<br>「自分と、大切な人のために、時間を使いたい！」</p>
+        <p>そう心から思った日でした。</p>
+
+        <!-- ④ -->
+        <h2 id="sec4">④ あるYouTubeが、人生を180度変えた</h2>
+
+        <p>そこからお金について真剣に調べ始め、あるYouTubeの動画に出会いました。</p>
+        <p>そこで衝撃の事実を知ったんです。</p>
+        <p><strong>老後2000万円問題。</strong></p>
+        <p>退職金と年金だけでは老後の生活費が足りない。<br>つまり真面目に45年働いても、<strong>死ぬまで働き続けないといけない可能性がある</strong>、ということです。</p>
+        <p>「え、じゃあ何のために耐えるんだ！」</p>
+        <p>そこから一気に調べました。<br>セミリタイア、FIRE、インデックス投資……</p>
+        <p>「週3日だけ好きな仕事をして、残りは自由に暮らす」<br>セミリタイアという生き方があることを知って、初めて「これを目指したい！」と思えました。</p>
+        <p>しかも、凡人でも十分に実現できる方法があることもわかりました！</p>
+        <p>2024年4月、楽天証券でNISA口座を開設。<br>eMAXIS Slim全世界株式（オルカン）を毎月積み立て始めました。</p>
+        <p>投資を始めた瞬間から、少しだけ未来が明るく見えた気がしました。</p>
+
+        <!-- ⑤ -->
+        <h2 id="sec5">⑤ お金は、人生の選択肢だと知った</h2>
+
+        <p>積み立てを続けながら、節約・家計管理も続けました。</p>
+        <p>そして気づいたら、<strong>資産が300万円を超えていました！</strong></p>
+        <p>「投資で増やす」というより、「選択肢が広がる」という感覚の方が正確です。</p>
+        <p>実際にできたことを並べるとこんな感じです。</p>
+        <ul>
+          <li>200万円の車を自分で購入できた！</li>
+          <li>次を決めずに退職できた！</li>
+          <li>住みたかった場所に引っ越せた！</li>
+          <li>自己投資に100万円以上使えた！</li>
+        </ul>
+        <p>お金があると、<strong>「嫌なことを我慢し続ける」以外の選択肢が生まれます。</strong></p>
+        <p>転職も、引越しも、休職も。<br>「やりたい」と思ったときに動ける人間になれるんです。</p>
+        <p>これが、投資をしていてよかったと心から思う理由です！</p>
+
+        <!-- CTA -->
+        <div class="cta_mid">
+          <strong>NISAを最短で始めたい方へ</strong>
+          <p>LINE登録で「NISA完全攻略ガイド」など無料プレゼントを7つ受け取れます。</p>
+          <a href="https://lin.ee/tXRnQHW" class="cta_btn_line" target="_blank" rel="noopener">📩 LINE登録で無料でもらう</a>
+        </div>
+
+        <!-- ⑥ -->
+        <h2 id="sec6">⑥ なぜ「長期・積立・分散」一択なのか</h2>
+
+        <p>SNSには毎日のように投資系の投稿が流れてきます。</p>
+        <p>「○○株が今熱い！」「この銘柄を今すぐ仕込め！」「AIで月○万稼いだ！」</p>
+        <p>正直、うんざりしています。笑</p>
+        <p>冷静な事実をひとつだけお伝えしておきます。</p>
+        <p>投資のプロ（機関投資家）たちでさえ、長期では<strong>8割がインデックス投資に負けています。</strong><br>（S&amp;P DJIが毎年発表しているSPIVAレポートより）</p>
+        <p>プロが8割負けているマーケットで、素人が勝ち続けられると本気で思いますか？</p>
+        <p>個別株を否定しているわけじゃないです。<br>趣味として楽しめる人には全然合っていると思います！</p>
+        <p>でも、多くの会社員が目指すべきはもっとシンプルなものだと思っています。</p>
+        <p>「<span class="hl">設定して、放置して、数年後に増えてたラッキー</span>」</p>
+        <p>この感覚でいいんです！<br>毎日株価を眺める時間を、大事な人との時間に使ってください。</p>
+
+        <!-- ⑦ -->
+        <h2 id="sec7">⑦ あなたも、今日から始められる</h2>
+
+        <p>「投資って難しそう」「自分には無理」と思っている方へ、伝えたいことがあります。</p>
+        <p>知識ゼロ・貯金ゼロ・仕送りなしで社会人になった自分でも、できました！</p>
+        <p>特別な才能も、実家の太さも、関係ないです。</p>
+        <p>必要なのは、<strong>始めること</strong>だけです。</p>
+        <p>投資は早く始めるほど複利の力が働きます。<br>同じ月3万を積み立てても、始める年齢で最終的な資産は数百万単位で変わってきます。</p>
+        <p><span class="hl">今日が、あなたの人生で一番若い日です！</span></p>
+        <p>「やろう」と思ったその気持ちを、今すぐ行動に変えてください！</p>
+
+        <!-- ⑧ -->
+        <h2 id="sec8">⑧ なぜ発信を続けるのか</h2>
+
+        <p>ここまで読んでくれたなら、少しだけ自分の話をさせてほしい。</p>
+        <p>発信を続けている理由は、大きく6つある。</p>
+
+        <p><strong>同じ20代に選択肢を持ってほしいから。</strong><br>「最悪なんとかなる」という余裕があるだけで、働き方も、生き方も変わる。</p>
+
+        <p><strong>間違った情報から守りたいから。</strong><br>暴落を煽る人、手数料の高い商品をゴリ押しする人——そういう発信者のせいで「投資＝怪しい」と思われている。正直な情報を届けることで、一人でも多くの人を守りたい。</p>
+
+        <p><strong>「動けない20代」の背中を押したいから。</strong><br>「あの時始めておけばよかった」という後悔を、一人でも減らしたい。</p>
+
+        <p><strong>学校が教えてくれなかった話をするために。</strong><br>税金も、保険も、給与明細の見方も、誰も教えてくれなかった。知っていれば防げることで、大事なお金と時間を失ってほしくない。</p>
+
+        <p><strong>再現性を証明したいから。</strong><br>フォロワー何万人・資産何千万の人が「誰でもできます」と言っても、正直ピンとこない。だから自分は、0からのリアルな過程をそのまま見せる。</p>
+
+        <p><strong>一緒に歩む仲間を見つけたいから。</strong><br>自分の夢は、猫2匹・インコ2匹・彼女と毎日穏やかに暮らすこと。いつかセミリタイアして、お金の心配なく大事な人と時間を過ごしたい。そのために今、リアルタイムで挑戦している。同じ夢を持つ仲間に会いたい。</p>
+
+        <!-- ⑨ まとめ -->
+        <h2 id="sec9">⑨ まとめ</h2>
+
+        <div class="summary_box">
+          <span class="sum_title">📝 この記事のまとめ</span>
+          <ul>
+            <li>バイト経験ゼロ・貯金ゼロ・仕送りなしで社会人スタート</li>
+            <li>同期に置いていかれた焦り＋上司の残業姿への絶望がきっかけ</li>
+            <li>あるYouTubeで老後2000万円問題を知りセミリタイアを目標に</li>
+            <li>NISAとオルカンで資産300万円以上を達成</li>
+            <li>お金があったから退職も引越しも自分の判断でできた</li>
+          </ul>
+        </div>
+
+        <p>「投資って難しそう」「自分には無理かも」と思っていた過去の自分に、一番伝えたいのはこれです。</p>
+        <p>知識は、あとからついてきます。<br>大切なのは、<strong>今日、一歩踏み出すこと！</strong></p>
+        <p>このブログが、あなたの一歩目になれば嬉しいです。</p>
+
+        <div class="cta_mid">
+          <strong>まずはLINE登録から始めよう</strong>
+          <p>登録無料。NISAの始め方・証券口座の作り方など合計7つのプレゼントをお届けします。</p>
+          <a href="https://lin.ee/tXRnQHW" class="cta_btn_line" target="_blank" rel="noopener">📩 LINEで無料プレゼントを受け取る</a>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <aside class="sidebar">
+    <div class="side_card">
+      <span class="side_card_title">👤 運営者について</span>
+      <img class="side_profile_icon" src="sota-icon.png" alt="そうた" onerror="this.src=''">
+      <div class="side_profile_name">そうた（22）</div>
+      <div class="side_profile_sub">@sota_toushilife<br>NISA・投資・資産形成を発信中</div>
+      <a href="https://lin.ee/tXRnQHW" class="side_line_btn" target="_blank" rel="noopener">📩 LINE登録はこちら</a>
+    </div>
+    <div class="side_card">
+      <span class="side_card_title">📚 人気記事</span>
+      <ul class="side_links">
+        <li><a href="orukan-checklist.html">オルカンで失敗しない！20項目チェックシート</a></li>
+        <li><a href="sp500-checklist.html">S&amp;P500の必須確認リスト17</a></li>
+        <li><a href="nisa-type-shindan.html">NISAタイプ診断</a></li>
+        <li><a href="rakuten-security-guide.html">楽天証券の必須設定ガイド</a></li>
+        <li><a href="fire-kaishain.html">会社員でも夢じゃない！FIREの世界</a></li>
+      </ul>
+    </div>
+    <div class="side_card">
+      <span class="side_card_title">🎁 無料プレゼント</span>
+      <ul class="side_links">
+        <li><a href="https://sota-toushilife.github.io/other-presents/" target="_blank" rel="noopener">全プレゼントを見る →</a></li>
+      </ul>
+      <a href="https://lin.ee/tXRnQHW" class="side_line_btn" target="_blank" rel="noopener">LINEで受け取る</a>
+    </div>
+  </aside>
+</div>
+
+<footer class="site_footer">
+  <div class="footer_inner">
+    <nav class="footer_nav">
+      <a href="index.html">記事一覧</a>
+      <a href="self-intro.html">運営者について</a>
+      <a href="https://www.instagram.com/sota_toushilife/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://lin.ee/tXRnQHW" target="_blank" rel="noopener">LINE登録</a>
+    </nav>
+    <p class="footer_copy">© 2026 sota_toushilife. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
