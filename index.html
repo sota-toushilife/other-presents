@@ -399,6 +399,66 @@ body {
 .page-btn.active { background: var(--grad); color: var(--white); border-color: transparent; }
 .page-btn:disabled { opacity: .4; cursor: default; }
 
+
+/* ===== 検索・カテゴリフィルター ===== */
+.search_filter_wrap {
+  margin-top: 40px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+.search_filter_inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.filter_section_ttl {
+  font-size: 13px; font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+/* 検索ボックス */
+.search_box_wrap { position: relative; }
+.search_box_wrap input {
+  width: 100%;
+  padding: 13px 46px 13px 18px;
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: var(--white);
+  color: var(--text);
+  transition: border-color .2s, box-shadow .2s;
+  box-shadow: var(--shadow);
+}
+.search_box_wrap input:focus { border-color: var(--g2); box-shadow: 0 0 0 3px rgba(56,189,248,.15); }
+.search_box_wrap input::placeholder { color: #b0bec5; }
+.search_icon {
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+}
+/* カテゴリタグ */
+.cat_pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.cat_pill {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 13px; font-weight: 700;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--text);
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: var(--shadow);
+}
+.cat_pill:hover { background: #e0f2fe; border-color: var(--g2); color: var(--g1); }
+.cat_pill.active { background: var(--grad); border-color: transparent; color: var(--white); box-shadow: rgba(2,132,199,.3) 0 3px 10px; }
+
 /* ===== 全記事一覧リンク ===== */
 .all_articles_link {
   text-align: center;
@@ -762,6 +822,36 @@ body {
       <div class="pagination" id="pagination"></div>
     </div>
 
+
+    <!-- 検索・カテゴリフィルター -->
+    <div class="search_filter_wrap">
+      <div class="search_filter_inner">
+        <!-- 検索 -->
+        <div>
+          <p class="filter_section_ttl">🔍 どんな記事をお探しですか？</p>
+          <div class="search_box_wrap">
+            <input type="text" id="searchInput" placeholder="キーワードを入力..." oninput="doSearch(this.value)">
+            <span class="search_icon">🔍</span>
+          </div>
+        </div>
+        <!-- カテゴリ -->
+        <div>
+          <p class="filter_section_ttl">📂 カテゴリー</p>
+          <div class="cat_pills">
+            <span class="cat_pill active" onclick="filterCat('all',this)">すべて</span>
+            <span class="cat_pill" onclick="filterCat('NISA',this)">NISA</span>
+            <span class="cat_pill" onclick="filterCat('投資基礎',this)">投資基礎</span>
+            <span class="cat_pill" onclick="filterCat('FIRE',this)">FIRE</span>
+            <span class="cat_pill" onclick="filterCat('節約',this)">節約</span>
+            <span class="cat_pill" onclick="filterCat('株主優待',this)">株主優待</span>
+            <span class="cat_pill" onclick="filterCat('ポイ活',this)">ポイ活</span>
+            <span class="cat_pill" onclick="filterCat('セキュリティ',this)">セキュリティ</span>
+            <span class="cat_pill" onclick="filterCat('資産形成',this)">資産形成</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 全記事一覧リンク -->
     <div class="all_articles_link">
       <a href="all-posts.html">
@@ -850,25 +940,36 @@ hamburger.addEventListener('click', () => drawer.classList.contains('open') ? cl
 overlay.addEventListener('click', closeDrawer);
 document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', closeDrawer));
 
-// ページネーション
+// ページネーション＋フィルター
 const PER_PAGE = 10;
 let currentPage = 1;
+let activeCat = 'all';
+let searchKw = '';
 
 function getAllItems() {
   return Array.from(document.querySelectorAll('#articleList .blog_item'));
 }
 
+function getFilteredItems() {
+  return getAllItems().filter(item => {
+    const catMatch = activeCat === 'all' || item.dataset.cat === activeCat;
+    const txt = (item.querySelector('.blog_txt')?.textContent || '').toLowerCase();
+    const cat = (item.dataset.cat || '').toLowerCase();
+    const kwMatch = !searchKw || txt.includes(searchKw) || cat.includes(searchKw);
+    return catMatch && kwMatch;
+  });
+}
+
 function renderPage(page) {
   currentPage = page;
-  const items = getAllItems();
-  const total = items.length;
+  const filtered = getFilteredItems();
+  const total = filtered.length;
   const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
   if (currentPage > totalPages) currentPage = 1;
   const start = (currentPage - 1) * PER_PAGE;
   const end = start + PER_PAGE;
-  items.forEach((item, i) => {
-    item.classList.toggle('hidden', i < start || i >= end);
-  });
+  getAllItems().forEach(item => item.classList.add('hidden'));
+  filtered.slice(start, end).forEach(item => item.classList.remove('hidden'));
   document.getElementById('noResult').classList.toggle('show', total === 0);
   renderPagination(currentPage, totalPages);
   if (page > 1) document.querySelector('.blog_list_wrap')?.scrollIntoView({behavior:'smooth', block:'start'});
@@ -883,6 +984,26 @@ function renderPagination(cur, total) {
   }
   html += `<button class="page-btn" onclick="renderPage(${cur+1})" ${cur===total?'disabled':''}>→</button>`;
   container.innerHTML = html;
+}
+
+function filterCat(cat, el) {
+  event.preventDefault();
+  activeCat = cat;
+  searchKw = '';
+  const input = document.getElementById('searchInput');
+  if (input) input.value = '';
+  document.querySelectorAll('.cat_pill').forEach(p => p.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderPage(1);
+}
+
+function doSearch(q) {
+  searchKw = q.trim().toLowerCase();
+  activeCat = 'all';
+  document.querySelectorAll('.cat_pill').forEach(p => p.classList.remove('active'));
+  const allPill = document.querySelector('.cat_pill');
+  if (allPill) allPill.classList.add('active');
+  renderPage(1);
 }
 
 renderPage(1);
