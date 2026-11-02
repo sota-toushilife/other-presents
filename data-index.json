@@ -5,7 +5,7 @@
       "title": "🔍 NISAタイプ診断",
       "url": "nisa-type-shindan.html",
       "ext": false,
-      "visible": false
+      "visible": true
     },
     {
       "id": "i1",
