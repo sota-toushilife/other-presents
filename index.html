@@ -1016,6 +1016,8 @@ renderPage(1);
     const itemMap = {};
     items.forEach(item => { itemMap[item.id] = item; });
 
+    const listEl = document.getElementById('articleList');
+
     document.querySelectorAll('#articleList .blog_item[data-id]').forEach(li => {
       const id = li.dataset.id;
       const item = itemMap[id];
@@ -1034,8 +1036,16 @@ renderPage(1);
           const [y, m, d] = item.pubDate.split('-');
           dateEl.textContent = y + '.' + m + '.' + d;
         }
+        li.dataset.pubdate = item.pubDate;
       }
     });
+
+    // 日付順（新しい順）に並び替え
+    if (listEl) {
+      Array.from(listEl.querySelectorAll('.blog_item[data-pubdate]'))
+        .sort((a, b) => (b.dataset.pubdate || '').localeCompare(a.dataset.pubdate || ''))
+        .forEach(li => listEl.appendChild(li));
+    }
   } catch(e) { /* サイレントに失敗 */ }
 })();
 </script>
