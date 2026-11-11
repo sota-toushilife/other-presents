@@ -1046,6 +1046,8 @@ renderPage(1);
         .sort((a, b) => (b.dataset.pubdate || '2000-01-01').localeCompare(a.dataset.pubdate || '2000-01-01'))
         .forEach(li => listEl.appendChild(li));
     }
+    // ソート後にページ表示を再レンダリング（hidden/visible状態をリセット）
+    renderPage(currentPage);
   } catch(e) { /* サイレントに失敗 */ }
 })();
 </script>
